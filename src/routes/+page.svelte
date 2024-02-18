@@ -86,7 +86,7 @@
 		</div>
 	</div>
 	<div>
-		<ProjectCard href="https://cardinal.oreotm.xyz/invite">
+		<ProjectCard href="https://github.com/TheOreoTM/cardinal-bot">
 			<svelte:fragment slot="header">Cardinal Bot</svelte:fragment>
 			<svelte:fragment slot="description"
 				>A feature rich general purpose Discord Bot</svelte:fragment
