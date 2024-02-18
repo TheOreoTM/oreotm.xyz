@@ -75,9 +75,11 @@
 
 		<div class="sm:max-w-full lg:max-w-2xl xl:max-w-4xl flex flex-grow">
 			<Card>
-				<svelte:fragment slot="header"><i class="fa-solid fa-globe text-8xl" /></svelte:fragment>
+				<svelte:fragment slot="header"
+					><i class="fa-solid fa-globe text-7xl md:text-8xl" /></svelte:fragment
+				>
 				<svelte:fragment slot="body">
-					<p class="font-semibold text-7xl leading-tight">
+					<p class="font-semibold text-4xl md:text-7xl leading-tight">
 						Based in Maldives
 						<span class="opacity-40 whitespace-normal">GMT+5</span>
 					</p>

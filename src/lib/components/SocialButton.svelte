@@ -8,10 +8,16 @@
 
 <a
 	target="_blank"
-	class={`text-center flex-grow block btn variant-filled-surface p-4 text-xl font-bold ${className}`}
+	class={`text-center flex-grow block btn variant-filled-surface p-4 text-lg font-bold ${className}`}
 	{href}
-	><span class="text-2xl"><i class={`${icon} text-2xl`} /></span>
-	<span class="hidden md:inline">
-		<slot />
-	</span></a
+	><div class="flex flex-row justify-center space-x-0 md:space-x-4">
+		<div class="flex flex-col items-center">
+			<span class="text-xl"><i class={`${icon} text-xl`} /></span>
+		</div>
+		<div>
+			<span class="hidden md:inline">
+				<slot />
+			</span>
+		</div>
+	</div></a
 >

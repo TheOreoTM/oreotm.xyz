@@ -20,7 +20,7 @@
 <div class="grid grid-cols-6 gap-4 lg:gap-y-10 lg:grid-cols-4">
 	{#each icons as { name, icon } (name)}
 		<div class="flex-grow text-center">
-			<Tooltip event="click" content={name}><i class={`${icon} lg:text-4xl text-3xl`}></i></Tooltip>
+			<Tooltip event="click" content={name}><i class={`${icon} md:text-4xl text-2xl`}></i></Tooltip>
 		</div>
 	{/each}
 </div>
