@@ -85,23 +85,34 @@
 			</Card>
 		</div>
 	</div>
-	<div>
-		<ProjectCard href="https://github.com/TheOreoTM/cardinal-bot">
-			<svelte:fragment slot="header">Cardinal Bot</svelte:fragment>
-			<svelte:fragment slot="description"
-				>A feature rich general purpose Discord Bot</svelte:fragment
-			>
-			<svelte:fragment slot="preview">
-				<img src="/cardinal.webp" width="w-32" alt="cardinal-bot-preview" />
-			</svelte:fragment>
-			<svelte:fragment slot="body">
-				Cardinal is my third attempt at creating a bot that works well for servers of various sizes.
-				My first two attempts failed due to inadequate planning and practices. However, after about
-				five months of continuous development, I have finally reached a point where I am satisfied
-				with Cardinal. It has been verified, marking a significant achievement in my portfolio.</svelte:fragment
-			>
-		</ProjectCard>
-	</div>
+	<ProjectCard href="https://github.com/TheOreoTM/cardinal-bot">
+		<svelte:fragment slot="header">Cardinal Bot</svelte:fragment>
+		<svelte:fragment slot="description">A feature rich general purpose Discord Bot</svelte:fragment>
+		<svelte:fragment slot="preview">
+			<img src="/cardinal.webp" width="w-32" alt="cardinal-bot-preview" />
+		</svelte:fragment>
+		<svelte:fragment slot="body">
+			Cardinal is my third attempt at creating a bot that works well for servers of various sizes.
+			My first two attempts failed due to inadequate planning and practices. However, after about
+			five months of continuous development, I have finally reached a point where I am satisfied
+			with Cardinal. It has been verified, marking a significant achievement in my portfolio.</svelte:fragment
+		>
+	</ProjectCard>
+	<ProjectCard href="https://github.com/TheOreoTM/gir-bot">
+		<svelte:fragment slot="header">Gir Bot</svelte:fragment>
+		<svelte:fragment slot="description"
+			>A featureful moderation bot. (Failed project #2)</svelte:fragment
+		>
+		<svelte:fragment slot="preview">
+			<img src="/gir.webp" width="w-32" alt="cardinal-bot-preview" />
+		</svelte:fragment>
+		<svelte:fragment slot="body">
+			Gir is a self funded discord project that me and one of my friends worked on for quite a
+			while. Our purpose was to create a bot which contained most of the most requested commands and
+			systems that every discord user has been asking for. This bot first started out as a way for
+			me to test certain commands and events and it soon evolved into a full fletched bot
+		</svelte:fragment>
+	</ProjectCard>
 </div>
 
 <style>
