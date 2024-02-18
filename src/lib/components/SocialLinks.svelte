@@ -12,18 +12,16 @@
 		href="https://www.youtube.com/channel/UCOHPqs9jE_0SsLcZU9UI0iA"
 		icon="fa-brands fa-youtube">Youtube.</SocialButton
 	>
-	<SocialButton
-		className="hidden lg:inline"
-		href="https://open.spotify.com/user/oreo_tm"
-		icon="fa-brands fa-spotify">Spotify.</SocialButton
+	<SocialButton href="https://open.spotify.com/user/oreo_tm" icon="fa-brands fa-spotify"
+		>Spotify.</SocialButton
 	>
 	<SocialButton
-		className="hidden lg:inline"
+		className="hidden xl:inline"
 		href="https://www.twitch.tv/theoreotm"
 		icon="fa-brands fa-twitch">Twitch.</SocialButton
 	>
 	<SocialButton
-		className="hidden md:inline"
+		className="hidden lg:inline"
 		href="https://twitter.com/theoreotm"
 		icon="fa-brands fa-twitter">Twitter.</SocialButton
 	>
