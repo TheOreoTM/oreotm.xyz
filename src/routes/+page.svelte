@@ -61,6 +61,17 @@
 	</div>
 	<SocialLinks />
 	<div class="flex flex-col space-y-3 lg:space-x-3 lg:space-y-0 lg:flex-row">
+		<div class="sm:max-w-full flex-grow">
+			<Card>
+				<svelte:fragment slot="header">
+					<h1 class="h1 font-semibold">Skills</h1>
+				</svelte:fragment>
+				<svelte:fragment slot="body">
+					<Skills />
+				</svelte:fragment>
+			</Card>
+		</div>
+
 		<div class="sm:max-w-full lg:max-w-2xl xl:max-w-4xl flex flex-grow">
 			<Card>
 				<svelte:fragment slot="header"><i class="fa-solid fa-globe text-8xl" /></svelte:fragment>
@@ -71,19 +82,6 @@
 					</p>
 				</svelte:fragment>
 			</Card>
-		</div>
-
-		<div class="sm:flex-col flex-1 space-y-4">
-			<div class="sm:max-w-full flex-grow">
-				<Card>
-					<svelte:fragment slot="header">
-						<h1 class="h1 font-semibold">Skills</h1>
-					</svelte:fragment>
-					<svelte:fragment slot="body">
-						<Skills />
-					</svelte:fragment>
-				</Card>
-			</div>
 		</div>
 	</div>
 </div>
