@@ -46,7 +46,7 @@
 <!-- App Shell -->
 <AppShell
 	slotPageHeader="mx-auto container p-4 bg-transparent"
-	slotPageContent="container mx-auto px-4"
+	slotPageContent="container mx-auto px-4 pb-10"
 >
 	<svelte:fragment slot="pageHeader">
 		<!-- App Bar -->

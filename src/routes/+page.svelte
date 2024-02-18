@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
+	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import Skills from '$lib/components/Skills.svelte';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
 	import Tooltip from '$lib/components/Tooltip.svelte';
@@ -83,6 +84,23 @@
 				</svelte:fragment>
 			</Card>
 		</div>
+	</div>
+	<div>
+		<ProjectCard href="https://cardinal.oreotm.xyz/invite">
+			<svelte:fragment slot="header">Cardinal Bot</svelte:fragment>
+			<svelte:fragment slot="description"
+				>A feature rich general purpose Discord Bot</svelte:fragment
+			>
+			<svelte:fragment slot="preview">
+				<img src="/cardinal.webp" width="w-32" alt="cardinal-bot-preview" />
+			</svelte:fragment>
+			<svelte:fragment slot="body">
+				Cardinal is my third attempt at creating a bot that works well for servers of various sizes.
+				My first two attempts failed due to inadequate planning and practices. However, after about
+				five months of continuous development, I have finally reached a point where I am satisfied
+				with Cardinal. It has been verified, marking a significant achievement in my portfolio.</svelte:fragment
+			>
+		</ProjectCard>
 	</div>
 </div>
 
