@@ -15,17 +15,24 @@
 	<a target="_blank" {href}>
 		<div class={`card !ring-0 !bg-surface-500 ${region} ${cardHover} ${padding} ${background} `}>
 			<header class="card-header p-4">
-				<div class="flex justify-between">
-					<h2 class="h2 font-semibold"><slot name="header" /></h2>
-					<i class="fa-solid fa-arrow-up-long text-3xl transform rotate-45" />
-				</div>
-				<div>
-					<p class="opacity-60"><slot name="description" /></p>
+				<div class="flex flex-row items-center justify-between space-x-4">
+					<div class="flex flex-col space-y-4 self-end">
+						<div class="md:hidden max-w-20">
+							<slot name="preview" />
+						</div>
+						<div class="flex flex-col max-w-full md:max-w-full justify-between">
+							<h2 class="h2 font-semibold"><slot name="header" /></h2>
+							<p class="opacity-60"><slot name="description" /></p>
+						</div>
+					</div>
+					<div class="self-start">
+						<i class="fa-solid fa-arrow-up-long text-3xl transform rotate-45" />
+					</div>
 				</div>
 			</header>
 			<section class="p-4">
-				<div class="flex flex-row items-center space-x-4">
-					<div class="max-w-32"><slot name="preview" /></div>
+				<div class="flex flex-row items-center space-x-0 md:space-x-4">
+					<div class="max-w-32 hidden md:block"><slot name="preview" /></div>
 					<div class="text-base font-[Inter]"><slot name="body" /></div>
 				</div>
 			</section>
