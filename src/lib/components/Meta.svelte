@@ -33,7 +33,7 @@
 		title,
 		description,
 		images: [{ url: logo, alt: 'icon' }],
-		siteName: '$ ./theoreotm.sh'
+		siteName: 'theoreotm'
 	}}
 	twitter={{
 		cardType: 'summary',
