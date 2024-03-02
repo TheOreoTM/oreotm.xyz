@@ -5,6 +5,10 @@
 	$: classesSlotLead = `flex-none flex justify-between items-center `;
 	$: classesSlotDefault = `flex-auto `;
 	$: classesSlotTrail = `flex-none flex items-center space-x-4`;
+
+	const hamburgerMenu = () => {
+		console.log('hamburgerMenu');
+	};
 </script>
 
 <div class="app-bar w-full {classesBase}" data-testid="app-bar" role="toolbar">
@@ -18,7 +22,12 @@
 		<div class="app-bar-slot-default {classesSlotDefault}"><slot /></div>
 		<!-- Slot: trail -->
 		{#if $$slots.trail}
-			<div class="app-bar-slot-trail {classesSlotTrail}"><slot name="trail" /></div>
+			<!-- Big -->
+			<div class="app-bar-slot-trail hidden md:flex {classesSlotTrail}"><slot name="trail" /></div>
+			<!-- Mobile -->
+			<div class="app-bar-slot-trail md:hidden {classesSlotTrail}">
+				<button on:click={hamburgerMenu}><i class="fa-solid fa-burger text-xl"></i></button>
+			</div>
 		{/if}
 	</div>
 	<!-- Row: Headline -->

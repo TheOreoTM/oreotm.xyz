@@ -19,5 +19,5 @@
 				<slot />
 			</span>
 		</div>
-	</div></a
->
+	</div>
+</a>
