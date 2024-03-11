@@ -17,13 +17,17 @@
 
 	import PageTransition from '$lib/components/PageTransition.svelte';
 
-	function isActivePath(path: string) {
+	$: isActivePath = (path: string) => {
+		if (path === '/blog' && $page.url.pathname.startsWith('/blog')) {
+			return true;
+		}
+
 		return $page.url.pathname === path;
-	}
+	};
 
 	const navLinks = [
+		{ path: '/blog', label: 'Blog.', isNew: true },
 		{ path: '/', label: 'Home.' },
-		{ path: '/blog', label: 'Blog.' },
 		{ path: '/projects', label: 'Projects.' },
 		{ path: '/donate', label: 'Donate.' },
 		{ path: '/contact', label: 'Contact.' }
@@ -46,10 +50,13 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<nav class="flex space-x-8 font-semibold">
-					{#each navLinks as { label, path } (path)}
-						<a class={$page.url.pathname === path ? 'text-base' : 'opacity-60'} href={path}
-							>{label}</a
-						>
+					{#each navLinks as { label, path, isNew } (path)}
+						<a class={`${isActivePath(path) ? 'text-base' : 'opacity-60'}`} href={path}
+							>{label}
+							{#if isNew}
+								<span class="badge variant-soft-warning">New</span>
+							{/if}
+						</a>
 					{/each}
 				</nav>
 			</svelte:fragment>
