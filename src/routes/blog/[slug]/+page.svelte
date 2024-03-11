@@ -1,10 +1,13 @@
 <script lang="ts">
+	import Meta from '$lib/components/Meta.svelte';
 	import { formatDate } from '$lib/utils';
 
 	export let data;
 </script>
 
 <!-- SEO -->
+<Meta title={data.meta.title} description={data.meta.description} />
+
 <svelte:head>
 	<title>{data.meta.title}</title>
 	<meta property="og:type" content="article" />
