@@ -8,12 +8,6 @@
 <!-- SEO -->
 <Meta title={data.meta.title} description={data.meta.description} />
 
-<svelte:head>
-	<title>{data.meta.title}</title>
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={data.meta.title} />
-</svelte:head>
-
 <ol class="breadcrumb mt-6">
 	<li class="crumb"><a class="anchor" href="/">Home</a></li>
 	<li class="crumb-separator" aria-hidden>/</li>
