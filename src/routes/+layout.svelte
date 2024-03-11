@@ -12,7 +12,6 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import NavBar from '$lib/components/NavBar.svelte';
 	import { page } from '$app/stores';
-	import Meta from '$lib/components/Meta.svelte';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	import PageTransition from '$lib/components/PageTransition.svelte';
@@ -36,7 +35,6 @@
 	export let data;
 </script>
 
-<Meta title="$ ./theoreotm.sh" />
 <!-- App Shell -->
 <AppShell
 	slotPageHeader="mx-auto container p-4 bg-transparent"

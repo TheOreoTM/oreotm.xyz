@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
+	import Meta from '$lib/components/Meta.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import Skills from '$lib/components/Skills.svelte';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
@@ -7,6 +8,7 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 </script>
 
+<Meta title="$ ./theoreotm.sh" />
 <div class="space-y-3">
 	<div class="flex flex-col space-y-3 md:space-x-3 md:space-y-0 md:flex-row">
 		<div class="sm:max-w-full lg:max-w-2xl xl:max-w-4xl flex flex-grow">
