@@ -2,9 +2,9 @@
 	import { MetaTags, type AdditionalRobotsProps } from 'svelte-meta-tags';
 
 	export let title: string;
-	export let guildName = '';
+	export let pageName = '';
 	export let disableTemplate = true;
-	export let description = 'An aspiring developer';
+	export let description = 'A wannabe developer';
 	export let logo = 'https://oreotm.xyz/images/discord-pfp.png';
 	export let url = 'https://oreotm.xyz/';
 	export let blockRobots = false;
@@ -23,7 +23,7 @@
 </script>
 
 <MetaTags
-	title={guildName ? `${title} | ${guildName}` : title}
+	title={pageName ? `${title} | ${pageName}` : title}
 	titleTemplate={disableTemplate ? undefined : '%s | OreoTM'}
 	{description}
 	canonical={url}

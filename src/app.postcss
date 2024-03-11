@@ -15,3 +15,29 @@ body {
 	background-size: 30px 30px;
 	background-image: radial-gradient(circle, #1a1a1a 1.5px, rgba(0, 0, 0, 0) 1px);
 }
+
+.prose :is(h2, h3, h4, h5, h6) {
+	margin-top: 3rem;
+	margin-bottom: 1rem;
+}
+
+.prose p:not(:is(h2, h3, h4, h5, h6) + p) {
+	margin-top: 2rem;
+}
+
+.prose :is(ul, ol) {
+	list-style-type: '🔥';
+	padding-left: 1.5rem;
+}
+
+.prose :is(ul, ol) li {
+	margin-block: 0.5rem;
+	padding-inline-start: 0.5rem;
+}
+
+.prose pre {
+	max-inline-size: 100%;
+	padding: 1rem;
+	border-radius: 8px;
+	tab-size: 2;
+}

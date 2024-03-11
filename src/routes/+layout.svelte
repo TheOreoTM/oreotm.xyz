@@ -30,16 +30,21 @@
 	import Meta from '$lib/components/Meta.svelte';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
+	import PageTransition from '$lib/components/PageTransition.svelte';
+
 	function isActivePath(path: string) {
 		return $page.url.pathname === path;
 	}
 
 	const navLinks = [
 		{ path: '/', label: 'Home.' },
+		{ path: '/blog', label: 'Blog.' },
 		{ path: '/projects', label: 'Projects.' },
 		{ path: '/donate', label: 'Donate.' },
 		{ path: '/contact', label: 'Contact.' }
 	];
+
+	export let data;
 </script>
 
 <Meta title="$ ./theoreotm.sh" />
@@ -66,17 +71,7 @@
 		</NavBar>
 	</svelte:fragment>
 	<!-- Page Route Content -->
-	<slot />
+	<PageTransition url={data.url}>
+		<slot />
+	</PageTransition>
 </AppShell>
-<!-- 
-<style>
-	.glow {
-		background: radial-gradient(
-			ellipse at 50% -50%,
-			/* Adjust the vertical position (-20%) to push it up */ rgba(255, 255, 255, 0.168) 10%,
-			/* Adjust the color and strength (0.8) and position (10%) */ rgba(255, 255, 255, 0) 70%
-				/* Adjust the color and dispersion (0) and position (70%) */
-		);
-		/* You can add more color stops to control the strength and dispersion further */
-	}
-</style> -->
