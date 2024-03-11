@@ -29,8 +29,8 @@
 	<!-- Tags -->
 	<div class="flex mt-2 mb-10 gap-3">
 		{#each data.meta.categories as category}
-			<a href={`/blog?categories=${category}`}>
-				<span class="badge variant-filled">&num;{category}</span>
+			<a class="badge variant-filled" href={`/blog?categories=${category}`}>
+				&num;{category}
 			</a>
 		{/each}
 	</div>

@@ -10,6 +10,14 @@ export const load = (async ({ fetch, url }) => {
 	const posts = allPosts.filter((post) => {
 		return categories.every((category) => post.categories.includes(category));
 	});
+	const allAvailableCategories = allPosts.flatMap((post) => post.categories);
 
-	return { posts };
+	return {
+		posts,
+		filter: {
+			filters: categories ?? [],
+			available: allAvailableCategories,
+			raw: searchParams.get('categories')
+		}
+	};
 }) satisfies PageServerLoad;
