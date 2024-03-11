@@ -17,9 +17,6 @@ dependencies:
   '@fortawesome/fontawesome-free':
     specifier: ^6.5.1
     version: 6.5.1
-  highlight.js:
-    specifier: 11.9.0
-    version: 11.9.0
   lucide-svelte:
     specifier: ^0.344.0
     version: 0.344.0(svelte@4.2.12)
@@ -1284,11 +1281,6 @@ packages:
     resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==}
     dependencies:
       '@types/hast': 3.0.4
-    dev: false
-
-  /highlight.js@11.9.0:
-    resolution: {integrity: sha512-fJ7cW7fQGCYAkgv4CPfwFHrfd/cLS4Hau96JuJ+ZTOWhjnhoeN1ub1tFmALm/+lW5z4WCAuAV9bm05AP0mS6Gw==}
-    engines: {node: '>=12.0.0'}
     dev: false
 
   /https-proxy-agent@5.0.1:

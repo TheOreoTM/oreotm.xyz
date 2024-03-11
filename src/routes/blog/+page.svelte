@@ -14,7 +14,7 @@
 		<a href={`blog/${post.slug}`}>
 			<Card hover region="block w-full h-full" padding="p-2">
 				<svelte:fragment slot="header">
-					<h2 class="h2 font-semibold capitalize">{post.title}</h2>
+					<h2 class="h3 font-semibold capitalize">{post.title}</h2>
 				</svelte:fragment>
 				<svelte:fragment slot="body">
 					<p class="mt-2">{post.description}</p>
