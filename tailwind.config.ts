@@ -1,16 +1,16 @@
-import { join } from 'path';
 import type { Config } from 'tailwindcss';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import { skeleton } from '@skeletonlabs/tw-plugin';
-import { theme } from './src/theme';
-import defaultTheme from 'tailwindcss/defaultTheme';
+// Explicit extension: Node 22.18+ loads this file natively and needs it.
+import { theme } from './src/theme.ts';
 
 export default {
 	darkMode: 'class',
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
-		join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
+		// A plain path rather than require.resolve(), which is undefined when Node loads this file as ESM.
+		'./node_modules/@skeletonlabs/skeleton/**/*.{html,js,svelte,ts}'
 	],
 	theme: {
 		extend: {
