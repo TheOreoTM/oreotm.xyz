@@ -6,7 +6,7 @@
 	export let data: PageData;
 </script>
 
-<Meta title="$ ./theoreotm.sh" pageName="Minigames" />
+<Meta title="Minigames" noindex />
 
 <Card padding="p-2">
 	<svelte:fragment slot="header"><h1 class="h1 font-bold">Guess Lamar</h1></svelte:fragment>

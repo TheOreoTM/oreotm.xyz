@@ -6,7 +6,14 @@
 </script>
 
 <!-- SEO -->
-<Meta title={data.meta.title} description={data.meta.description} />
+<Meta
+	title={data.meta.title}
+	description={data.meta.description}
+	article={{
+		publishedTime: new Date(data.meta.date.replaceAll('-', '/')).toISOString(),
+		tags: data.meta.categories
+	}}
+/>
 
 <ol class="breadcrumb mt-6">
 	<li class="crumb"><a class="anchor" href="/">Home</a></li>

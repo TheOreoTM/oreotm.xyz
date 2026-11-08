@@ -1,51 +1,45 @@
 <script lang="ts">
-	import { MetaTags, type AdditionalRobotsProps } from 'svelte-meta-tags';
+	import { page } from '$app/stores';
+	import { MetaTags } from 'svelte-meta-tags';
+	import { defaultImage, siteDescription, siteName, url } from '$lib/config';
 
-	export let title: string;
-	export let pageName = '';
-	export let disableTemplate = true;
-	export let description = 'A wannabe developer';
-	export let logo = 'https://oreotm.xyz/images/discord-pfp.png';
-	export let url = 'https://oreotm.xyz/';
-	export let blockRobots = false;
+	/** Page name, e.g. "Projects". Leave unset on the home page. */
+	export let title: string | undefined = undefined;
+	export let description = siteDescription;
+	export let image = defaultImage;
+	export let imageAlt = `${siteName}'s avatar`;
+	/** Set for blog posts so link previews are marked as articles. */
+	export let article: { publishedTime?: string; tags?: string[] } | undefined = undefined;
+	export let noindex = false;
 
-	const robotsProps: AdditionalRobotsProps = blockRobots
-		? {}
-		: {
-				noarchive: true,
-				nosnippet: true,
-				notranslate: true,
-				noimageindex: true,
-				maxSnippet: -1,
-				maxImagePreview: 'none',
-				maxVideoPreview: -1
-			};
+	$: fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Full-stack developer`;
+	$: canonical = new URL($page.url.pathname, url).href;
 </script>
 
 <MetaTags
-	title={pageName ? `${title} | ${pageName}` : title}
-	titleTemplate={disableTemplate ? undefined : '%s | OreoTM'}
+	title={fullTitle}
 	{description}
-	canonical={url}
+	{canonical}
+	robots={noindex ? 'noindex,nofollow' : 'index,follow'}
 	openGraph={{
-		type: 'website',
-		url,
-		title,
+		type: article ? 'article' : 'website',
+		url: canonical,
+		title: fullTitle,
 		description,
-		images: [{ url: logo, alt: 'icon' }],
-		siteName: 'theoreotm'
+		images: [{ url: image, alt: imageAlt }],
+		siteName,
+		article
 	}}
 	twitter={{
 		cardType: 'summary',
-		title,
+		site: '@theoreotm',
+		title: fullTitle,
 		description,
-		image: logo,
-		imageAlt: 'icon'
+		image,
+		imageAlt
 	}}
-	robots={blockRobots ? 'noindex,nofollow' : undefined}
-	additionalRobotsProps={blockRobots ? undefined : robotsProps}
 />
 
 <svelte:head>
-	<meta name="theme-color" data-react-helmet="true" content="#0c0c0c" />
+	<meta name="theme-color" content="#0c0c0c" />
 </svelte:head>

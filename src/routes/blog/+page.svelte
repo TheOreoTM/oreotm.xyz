@@ -58,7 +58,10 @@
 	}
 </script>
 
-<Meta title="$ ./theoreotm.sh" pageName="Blog" />
+<Meta
+	title="Blog"
+	description="Notes from OreoTM on building Discord bots, SvelteKit sites, and other side projects."
+/>
 
 <div class="pb-3">
 	{#if data.filter.raw !== null}

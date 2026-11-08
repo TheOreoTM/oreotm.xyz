@@ -1,37 +1,82 @@
 <script lang="ts">
-	$: classesBase = `flex flex-col bg-surface-500 rounded-full space-y-4 p-3 px-6 ${$$props.class ?? ''}`;
-	$: classesRowMain = `grid items-center grid-cols-[auto_1fr_auto] gap-4 `;
-	$: classesRowHeadline = ``;
-	$: classesSlotLead = `flex-none flex justify-between items-center `;
-	$: classesSlotDefault = `flex-auto `;
-	$: classesSlotTrail = `flex-none flex items-center space-x-4`;
+	import { page } from '$app/stores';
+	import { afterNavigate } from '$app/navigation';
+	import { slide } from 'svelte/transition';
 
-	const hamburgerMenu = () => {
-		console.log('hamburgerMenu');
-	};
+	const links = [
+		{ path: '/', label: 'Home.' },
+		{ path: '/projects', label: 'Projects.' },
+		{ path: '/blog', label: 'Blog.', isNew: true },
+		{ path: '/contact', label: 'Contact.' }
+	];
+
+	let open = false;
+
+	// Close the mobile menu once a link has been followed.
+	afterNavigate(() => (open = false));
+
+	$: isActive = (path: string) =>
+		path === '/' ? $page.url.pathname === '/' : $page.url.pathname.startsWith(path);
+
+	function onKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') open = false;
+	}
 </script>
 
-<div class="app-bar w-full {classesBase}" data-testid="app-bar" role="toolbar">
-	<!-- Row: Main -->
-	<div class="app-bar-row-main bg-transparent {classesRowMain}">
-		<!-- Slot: lead -->
-		{#if $$slots.lead}
-			<div class="app-bar-slot-lead {classesSlotLead}"><slot name="lead" /></div>
-		{/if}
-		<!-- Slot: default -->
-		<div class="app-bar-slot-default {classesSlotDefault}"><slot /></div>
-		<!-- Slot: trail -->
-		{#if $$slots.trail}
-			<!-- Big -->
-			<div class="app-bar-slot-trail hidden md:flex {classesSlotTrail}"><slot name="trail" /></div>
-			<!-- Mobile -->
-			<div class="app-bar-slot-trail md:hidden {classesSlotTrail}">
-				<button on:click={hamburgerMenu}><i class="fa-solid fa-burger text-xl"></i></button>
-			</div>
-		{/if}
+<svelte:window on:keydown={onKeydown} />
+
+<header>
+	<div class="flex items-center justify-between bg-surface-500 rounded-full p-3 px-6">
+		<a href="/" class="text-lg font-bold">OreoTM.</a>
+
+		<nav aria-label="Main" class="hidden md:flex space-x-8 font-semibold">
+			{#each links as { label, path, isNew } (path)}
+				<a
+					href={path}
+					class={isActive(path) ? '' : 'opacity-60 hover:opacity-100 transition-opacity'}
+					aria-current={isActive(path) ? 'page' : undefined}
+				>
+					{label}
+					{#if isNew}<span class="badge variant-soft-warning">New</span>{/if}
+				</a>
+			{/each}
+		</nav>
+
+		<button
+			type="button"
+			class="md:hidden w-10 h-10 -mr-2 flex items-center justify-center"
+			aria-expanded={open}
+			aria-controls="mobile-nav"
+			aria-label={open ? 'Close menu' : 'Open menu'}
+			on:click={() => (open = !open)}
+		>
+			<i class="fa-solid {open ? 'fa-xmark' : 'fa-burger'} text-xl" aria-hidden="true" />
+		</button>
 	</div>
-	<!-- Row: Headline -->
-	{#if $$slots.headline}
-		<div class="app-bar-row-headline {classesRowHeadline}"><slot name="headline" /></div>
+
+	{#if open}
+		<nav
+			id="mobile-nav"
+			aria-label="Main"
+			class="md:hidden mt-2 bg-surface-500 rounded-container-token p-2"
+			transition:slide={{ duration: 150 }}
+		>
+			<ul class="flex flex-col font-semibold text-lg">
+				{#each links as { label, path, isNew } (path)}
+					<li>
+						<a
+							href={path}
+							class="flex items-center justify-between rounded-full px-4 py-3 {isActive(path)
+								? 'bg-surface-400/40'
+								: 'opacity-60'}"
+							aria-current={isActive(path) ? 'page' : undefined}
+						>
+							{label}
+							{#if isNew}<span class="badge variant-soft-warning">New</span>{/if}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		</nav>
 	{/if}
-</div>
+</header>

@@ -10,7 +10,7 @@ export const load = (async ({ fetch, url }) => {
 	const posts = allPosts.filter((post) => {
 		return categories.every((category) => post.categories.includes(category));
 	});
-	const allAvailableCategories = allPosts.flatMap((post) => post.categories);
+	const allAvailableCategories = [...new Set(allPosts.flatMap((post) => post.categories))];
 
 	return {
 		posts,
