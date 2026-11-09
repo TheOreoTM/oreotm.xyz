@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Card from '$lib/components/Card.svelte';
 	import Meta from '$lib/components/Meta.svelte';
-	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import ProjectRow from '$lib/components/ProjectRow.svelte';
 
-	export let data;
+	let { data } = $props();
 </script>
 
 <Meta
@@ -11,17 +10,14 @@
 	description="Case studies of Discord bots, websites, and AI experiments built by OreoTM, including Cardinal Bot and the Frieren TCG Wiki."
 />
 
-<div class="space-y-3">
-	<Card padding="p-2">
-		<svelte:fragment slot="body">
-			<h1 class="font-semibold text-3xl leading-tight">
-				Projects.
-				<span class="opacity-40">Things I've built, shipped, and occasionally abandoned.</span>
-			</h1>
-		</svelte:fragment>
-	</Card>
+<header class="max-w-2xl">
+	<p class="font-mono text-sm text-muted"><span class="text-accent">❯</span> ls ~/projects</p>
+	<h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Projects</h1>
+	<p class="mt-4 text-lg text-muted">Things I've built, shipped, and occasionally abandoned.</p>
+</header>
 
+<ul class="-mx-2 mt-12 divide-y sm:-mx-4">
 	{#each data.projects as project (project.slug)}
-		<ProjectCard {project} />
+		<li><ProjectRow {project} detailed /></li>
 	{/each}
-</div>
+</ul>

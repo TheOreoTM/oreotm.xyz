@@ -1,31 +1,39 @@
 <script lang="ts">
-	import '../app.postcss';
-	import { AppShell } from '@skeletonlabs/skeleton';
+	import '../app.css';
+	import { onNavigate } from '$app/navigation';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import CommandPalette from '$lib/components/CommandPalette.svelte';
 
-	// Font Awesome
-	import '@fortawesome/fontawesome-free/css/fontawesome.css';
-	import '@fortawesome/fontawesome-free/css/brands.css';
-	import '@fortawesome/fontawesome-free/css/solid.css';
+	let { data, children } = $props();
 
-	// Floating UI for Popups
-	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	// Cross-fade between pages where the browser supports view transitions.
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return;
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-	import NavBar from '$lib/components/NavBar.svelte';
-	import PageTransition from '$lib/components/PageTransition.svelte';
-
-	export let data;
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 </script>
 
-<AppShell
-	slotPageHeader="mx-auto container p-4 bg-transparent"
-	slotPageContent="container mx-auto px-4 pb-10"
+<a
+	href="#main"
+	class="sr-only z-50 rounded-md bg-accent px-3 py-2 font-mono text-sm text-accent-fg focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
 >
-	<svelte:fragment slot="pageHeader">
-		<NavBar />
-	</svelte:fragment>
-	<PageTransition url={data.url}>
-		<slot />
-	</PageTransition>
-</AppShell>
+	Skip to content
+</a>
+
+<Header />
+
+<main id="main" class="mx-auto max-w-5xl px-4 pt-10 sm:pt-16">
+	{@render children()}
+</main>
+
+<Footer />
+
+<CommandPalette projects={data.projectSummaries} />

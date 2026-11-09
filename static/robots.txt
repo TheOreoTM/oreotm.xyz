@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /minigames
+
+Sitemap: https://oreotm.xyz/sitemap.xml

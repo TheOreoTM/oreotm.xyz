@@ -1,7 +1,7 @@
-import type { ComponentType } from 'svelte';
+import type { Component } from 'svelte';
 
 // Lazy: each case study becomes its own chunk, loaded only on its page.
-const content = import.meta.glob<{ default: ComponentType }>('/src/content/projects/*.md');
+const content = import.meta.glob<{ default: Component }>('/src/content/projects/*.md');
 
 export function slugFromPath(path: string) {
 	return path.split('/').at(-1)!.replace(/\.md$/, '');

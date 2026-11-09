@@ -1,47 +1,12 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import Card from '$lib/components/Card.svelte';
 	import Meta from '$lib/components/Meta.svelte';
+	import LocalTime from '$lib/components/LocalTime.svelte';
+	import SocialIcon from '$lib/components/SocialIcon.svelte';
+	import { site, socials } from '$lib/site';
+	import IconArrowUpRight from '~icons/lucide/arrow-up-right';
 
-	const channels = [
-		{
-			name: 'Discord',
-			handle: '@theoreotm',
-			note: 'Send me a message.',
-			href: 'https://discord.com/users/600707283097485322',
-			icon: 'fa-brands fa-discord'
-		},
-		{
-			name: 'GitHub',
-			handle: 'theoreotm',
-			note: "See what I'm working on.",
-			href: 'https://github.com/theoreotm',
-			icon: 'fa-brands fa-github'
-		},
-		{
-			name: 'Twitter',
-			handle: '@theoreotm',
-			note: 'Follow along.',
-			href: 'https://twitter.com/theoreotm',
-			icon: 'fa-brands fa-twitter'
-		}
-	];
-
-	const timeFormatter = new Intl.DateTimeFormat('en', {
-		timeZone: 'Indian/Maldives',
-		hour: 'numeric',
-		minute: '2-digit'
-	});
-
-	// Rendered on the client only, so the server never shows a stale time.
-	let localTime = '';
-
-	onMount(() => {
-		const tick = () => (localTime = timeFormatter.format(new Date()));
-		tick();
-		const interval = setInterval(tick, 15_000);
-		return () => clearInterval(interval);
-	});
+	const channels = socials.filter((s) => s.contact);
+	const elsewhere = socials.filter((s) => !s.contact);
 </script>
 
 <Meta
@@ -49,56 +14,62 @@
 	description="Got a Discord bot or web project in mind? Here's how to reach OreoTM."
 />
 
-<div class="space-y-3">
-	<div class="flex flex-col space-y-3 md:space-x-3 md:space-y-0 md:flex-row">
-		<div class="flex-grow">
-			<Card padding="p-2" region="h-full">
-				<svelte:fragment slot="body">
-					<h1 class="font-semibold text-3xl leading-tight">
-						Let's talk.
-						<span class="opacity-40"
-							>Got a bot, website, or backend project in mind? Send me a message and tell me what
-							you're building.</span
-						>
-					</h1>
-				</svelte:fragment>
-			</Card>
-		</div>
-		<div class="md:w-80 shrink-0">
-			<Card padding="p-2" region="h-full">
-				<svelte:fragment slot="body">
-					<p class="opacity-60">My local time</p>
-					<p
-						class="font-semibold text-3xl leading-tight mt-2 min-h-[1.25em] whitespace-nowrap tabular-nums"
-					>
-						{localTime}
-					</p>
-					<p class="opacity-40 mt-1">Maldives, GMT+5</p>
-				</svelte:fragment>
-			</Card>
-		</div>
-	</div>
+<div class="grid gap-12 lg:grid-cols-[1fr_18rem]">
+	<header class="max-w-2xl">
+		<p class="font-mono text-sm text-muted"><span class="text-accent">❯</span> contact</p>
+		<h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Let's talk.</h1>
+		<p class="mt-4 text-lg text-muted">
+			Got a bot, website, or backend project in mind? Send me a message and tell me what you're
+			building.
+		</p>
+	</header>
 
-	<ul class="grid gap-3 md:grid-cols-3">
-		{#each channels as channel (channel.name)}
+	<div class="self-end rounded-xl border bg-surface p-6">
+		<p class="font-mono text-xs text-muted">my local time</p>
+		<p class="mt-2 text-3xl font-semibold tracking-tight"><LocalTime /></p>
+		<p class="mt-1 text-sm text-muted">{site.location}, {site.utcOffset}</p>
+	</div>
+</div>
+
+<ul class="mt-12 grid gap-3 md:grid-cols-3">
+	{#each channels as channel (channel.id)}
+		<li>
+			<a
+				href={channel.href}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group flex h-full flex-col rounded-xl border bg-surface p-6 transition-colors hover:border-accent"
+			>
+				<span class="flex items-start justify-between">
+					<SocialIcon id={channel.id} class="size-7" />
+					<IconArrowUpRight
+						class="size-5 text-muted transition-colors group-hover:text-accent"
+						aria-hidden="true"
+					/>
+				</span>
+				<span class="mt-8 text-xl font-semibold tracking-tight">{channel.label}</span>
+				<span class="font-mono text-sm text-muted">{channel.handle}</span>
+				<span class="mt-3">{channel.contact?.note}</span>
+			</a>
+		</li>
+	{/each}
+</ul>
+
+<section class="mt-16" aria-labelledby="elsewhere">
+	<h2 id="elsewhere" class="font-mono text-sm text-muted">elsewhere</h2>
+	<ul class="mt-4 flex flex-wrap gap-2">
+		{#each elsewhere as social (social.id)}
 			<li>
-				<a href={channel.href} target="_blank" rel="noopener noreferrer" class="group block h-full">
-					<Card region="h-full">
-						<svelte:fragment slot="body">
-							<div class="flex items-start justify-between">
-								<i class="{channel.icon} text-4xl" aria-hidden="true" />
-								<i
-									class="fa-solid fa-arrow-up-long text-xl rotate-45 opacity-60 group-hover:opacity-100 transition-opacity"
-									aria-hidden="true"
-								/>
-							</div>
-							<h2 class="font-semibold text-2xl mt-6">{channel.name}</h2>
-							<p class="opacity-60">{channel.handle}</p>
-							<p class="mt-2">{channel.note}</p>
-						</svelte:fragment>
-					</Card>
+				<a
+					href={social.href}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex items-center gap-2 rounded-lg border bg-surface px-3 py-2 text-sm transition-colors hover:border-accent"
+				>
+					<SocialIcon id={social.id} />
+					{social.label}
 				</a>
 			</li>
 		{/each}
 	</ul>
-</div>
+</section>

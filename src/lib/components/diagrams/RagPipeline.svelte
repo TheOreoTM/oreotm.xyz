@@ -30,26 +30,24 @@
 <figure class="not-prose my-8">
 	<div class="grid gap-3 sm:grid-cols-2 items-start">
 		{#each lanes as lane}
-			<div class="rounded-container-token bg-surface-900/60 p-4">
-				<span class="block text-sm font-semibold uppercase tracking-wide">
+			<div class="rounded-xl border bg-bg p-4">
+				<span class="block font-mono text-xs font-semibold tracking-wide uppercase">
 					{lane.title}
-					<span class="opacity-50 normal-case tracking-normal font-normal">· {lane.when}</span>
+					<span class="font-normal tracking-normal text-muted normal-case">· {lane.when}</span>
 				</span>
 				<ol class="mt-3 flex flex-col items-stretch">
 					{#each lane.steps as step, i}
 						<li>
 							<div
 								class="rounded-xl px-3 py-2 {step.store
-									? 'bg-tertiary-500/25 ring-1 ring-tertiary-400/60'
-									: 'bg-surface-500'}"
+									? 'border border-accent bg-accent/10'
+									: 'border bg-surface'}"
 							>
 								<span class="block font-semibold">{step.label}</span>
-								<span class="block text-sm opacity-60">{step.detail}</span>
+								<span class="block text-sm text-muted">{step.detail}</span>
 							</div>
 							{#if i < lane.steps.length - 1}
-								<span class="block text-center py-1 opacity-40" aria-hidden="true">
-									<i class="fa-solid fa-arrow-down text-sm" />
-								</span>
+								<span class="block py-1 text-center text-faint" aria-hidden="true"> ↓ </span>
 							{/if}
 						</li>
 					{/each}
@@ -57,7 +55,7 @@
 			</div>
 		{/each}
 	</div>
-	<figcaption class="mt-3 text-sm opacity-60">
+	<figcaption class="mt-3 text-sm text-muted">
 		The highlighted steps share one vector store: ingest fills it once, and every question reads
 		from it.
 	</figcaption>

@@ -1,46 +1,36 @@
 <script lang="ts">
 	import Meta from '$lib/components/Meta.svelte';
-	import { formatDate } from '$lib/utils';
+	import { formatDate, parsePostDate } from '$lib/utils';
+	import IconArrowLeft from '~icons/lucide/arrow-left';
 
-	export let data;
+	let { data } = $props();
+
+	const meta = $derived(data.meta);
+	const Content = $derived(data.content);
 </script>
 
-<!-- SEO -->
 <Meta
-	title={data.meta.title}
-	description={data.meta.description}
-	article={{
-		publishedTime: new Date(data.meta.date.replaceAll('-', '/')).toISOString(),
-		tags: data.meta.categories
-	}}
+	title={meta.title}
+	description={meta.description}
+	article={{ publishedTime: parsePostDate(meta.date).toISOString(), tags: meta.categories }}
 />
 
-<ol class="breadcrumb mt-6">
-	<li class="crumb"><a class="anchor" href="/">Home</a></li>
-	<li class="crumb-separator" aria-hidden>/</li>
-	<li class="crumb"><a class="anchor" href="/blog">Blog</a></li>
-	<li class="crumb-separator" aria-hidden>/</li>
-	<li>{data.meta.title}</li>
-</ol>
+<div class="mx-auto max-w-[68ch]">
+	<a href="/blog" class="inline-flex items-center gap-2 font-mono text-sm text-muted hover:text-fg">
+		<IconArrowLeft class="size-4" aria-hidden="true" /> all posts
+	</a>
 
-<article class="mt-4 max-w-content-3 mx-auto">
-	<!-- Title -->
-	<hgroup>
-		<h1 class="text-2xl font-bold">{data.meta.title}</h1>
-		<p class="mt-2 opacity-40">Published at {formatDate(data.meta.date)}</p>
-	</hgroup>
+	<header class="mt-8">
+		<h1 class="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{meta.title}</h1>
+		<p class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-sm text-muted">
+			<time datetime={meta.date}>{formatDate(meta.date, 'long')}</time>
+			{#each meta.categories as category (category)}
+				<a href="/blog?categories={category}" class="hover:text-fg">#{category}</a>
+			{/each}
+		</p>
+	</header>
 
-	<!-- Tags -->
-	<div class="flex mt-2 mb-10 gap-3">
-		{#each data.meta.categories as category}
-			<a class="badge variant-filled" href={`/blog?categories=${category}`}>
-				&num;{category}
-			</a>
-		{/each}
-	</div>
-
-	<!-- Post -->
-	<div class="prose prose-invert">
-		<svelte:component this={data.content} />
-	</div>
-</article>
+	<article class="prose mt-10 max-w-none">
+		<Content />
+	</article>
+</div>

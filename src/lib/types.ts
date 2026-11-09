@@ -36,3 +36,6 @@ export type Project = ProjectMeta & {
 	/** The file name without .md, used in /projects/[slug]. */
 	slug: string;
 };
+
+/** The few project fields the command menu and terminal need on every page. */
+export type ProjectSummary = Pick<Project, 'slug' | 'name' | 'tagline'>;

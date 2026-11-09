@@ -1,5 +1,8 @@
 import * as config from '$lib/config';
-import type { Post } from '$lib/types';
+import { posts } from '$lib/server/posts';
+import { parsePostDate } from '$lib/utils';
+
+export const prerender = true;
 
 function escapeXml(value: string) {
 	return value
@@ -10,24 +13,17 @@ function escapeXml(value: string) {
 		.replaceAll("'", '&apos;');
 }
 
-export async function GET({ fetch }) {
-	const response = await fetch('/api/posts');
-	const posts: Post[] = await response.json();
-
-	const headers = { 'Content-Type': 'application/xml' };
-
+export function GET() {
 	const items = posts
 		.map((post) => {
 			const link = `${config.url}/blog/${post.slug}`;
-			// Same Safari-safe parsing as formatDate: dates are written like 2025-5-02.
-			const pubDate = new Date(post.date.replaceAll('-', '/')).toUTCString();
 			return `
 		<item>
 			<title>${escapeXml(post.title)}</title>
 			<description>${escapeXml(post.description)}</description>
 			<link>${link}</link>
 			<guid isPermaLink="true">${link}</guid>
-			<pubDate>${pubDate}</pubDate>
+			<pubDate>${parsePostDate(post.date).toUTCString()}</pubDate>
 		</item>`;
 		})
 		.join('');
@@ -42,5 +38,5 @@ export async function GET({ fetch }) {
 	</channel>
 </rss>`;
 
-	return new Response(xml, { headers });
+	return new Response(xml, { headers: { 'Content-Type': 'application/xml' } });
 }

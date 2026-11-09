@@ -1,60 +1,15 @@
 <script lang="ts">
-	import Card from '$lib/components/Card.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 	import { formatDate } from '$lib/utils';
-	import { goto, pushState } from '$app/navigation';
-	import { fly } from 'svelte/transition';
 
-	let allFilters: Record<string, boolean> = {};
-	export let data;
+	let { data } = $props();
 
-	$: filters = data.filter.filters;
-	$: {
-		data.filter.available.forEach((item) => {
-			const hasFilter = filters.includes(item);
-			allFilters[item] = hasFilter;
-		});
-	}
-	$: showFilters = false;
-
-	function toggleFilters() {
-		if (showFilters === true) {
-			setFilter();
-			return;
-		}
-
-		showFilters = !showFilters;
-	}
-
-	function removeFilter(category: string) {
-		const set = new Set(filters);
-		set.delete(category);
-		filters = Array.from(set);
-	}
-
-	function toggleFilter(category: string) {
-		allFilters[category] = !allFilters[category];
-
-		if (allFilters[category]) {
-			addFilter(category);
-		} else {
-			removeFilter(category);
-		}
-	}
-
-	function setFilter() {
-		if (filters.length === 0) {
-			goto('/blog');
-			return;
-		}
-		const filter = filters.join(',');
-		goto(`/blog?categories=${filter}`);
-	}
-
-	function addFilter(category: string) {
-		const set = new Set(filters);
-		set.add(category);
-		filters = Array.from(set);
+	/** The blog URL with `category` toggled in or out of the filter. */
+	function toggleHref(category: string) {
+		const next = data.selected.includes(category)
+			? data.selected.filter((c) => c !== category)
+			: [...data.selected, category];
+		return next.length ? `/blog?categories=${next.join(',')}` : '/blog';
 	}
 </script>
 
@@ -63,97 +18,58 @@
 	description="Notes from OreoTM on building Discord bots, SvelteKit sites, and other side projects."
 />
 
-<div class="pb-3">
-	{#if data.filter.raw !== null}
-		<Card padding="p-0">
-			<svelte:fragment slot="body">
-				<p>
-					<span class="opacity-60 mr-2"> Posts tagged with: </span>
-					<span class="mt-2">
-						<span class="space-x-2">
-							{#each filters as category}
-								<button
-									class="chip variant-filled"
-									on:click={() => {
-										removeFilter(category);
-										setFilter();
-									}}
-								>
-									<span> &num;{category} </span>
-								</button>
-							{/each}
-						</span>
-					</span>
-				</p>
-				<p><span class="text-xs opacity-30">(click to remove)</span></p>
-			</svelte:fragment>
-		</Card>
-	{/if}
-</div>
+<header class="max-w-2xl">
+	<p class="font-mono text-sm text-muted"><span class="text-accent">❯</span> ls ~/blog</p>
+	<h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Blog</h1>
+	<p class="mt-4 text-lg text-muted">Notes on things I've built and broken.</p>
+</header>
 
-<!-- Posts -->
-<div class="grid gap-3 grid-flow-row grid-cols-1 md:grid-cols-2 2xl:grid-cols-3">
-	{#each data.posts as post}
-		<a href={`blog/${post.slug}`}>
-			<Card hover region="block w-full h-full" padding="p-2">
-				<svelte:fragment slot="header">
-					<h2 class="h3 font-semibold capitalize">{post.title}</h2>
-				</svelte:fragment>
-				<svelte:fragment slot="body">
-					<p class="mt-2">{post.description}</p>
-				</svelte:fragment>
-				<svelte:fragment slot="footer">
-					<p class="opacity-40">
-						{formatDate(post.date)}
-					</p>
-					<p class="mt-2 space-x-2">
-						{#each post.categories as category}
-							<span class="badge variant-filled">
-								&num;{category}
-							</span>
-						{/each}
-					</p>
-				</svelte:fragment>
-			</Card>
+<nav
+	aria-label="Filter posts by tag"
+	class="mt-10 flex flex-wrap items-center gap-2 font-mono text-sm"
+>
+	<span class="mr-1 text-muted">tags:</span>
+	{#each data.categories as category (category)}
+		{@const active = data.selected.includes(category)}
+		<a
+			href={toggleHref(category)}
+			data-sveltekit-noscroll
+			class="rounded-md border px-2.5 py-1 transition-colors {active
+				? 'border-accent bg-accent text-accent-fg'
+				: 'bg-surface text-muted hover:border-accent hover:text-fg'}"
+		>
+			#{category}{#if active}<span class="sr-only"> (selected, click to remove)</span>{/if}
 		</a>
 	{/each}
-</div>
-{#if data.filter.raw === null}
-	<div class="pt-3 flex flex-col sm:flex-row">
-		<button
-			type="button"
-			class="btn btn-md variant-filled-surface hover:variant-filled transition duration-300 mr-2 z-10"
-			on:click={toggleFilters}
+	{#if data.selected.length}
+		<a href="/blog" data-sveltekit-noscroll class="ml-1 text-muted underline hover:text-fg">clear</a
 		>
-			{#if showFilters}
-				<span><i class="fa-solid fa-check"></i></span>
-				<span>Save Filter</span>
-			{:else}
-				<span><i class="fa-solid fa-plus" /></span>
-				<span>Create Filter</span>
-			{/if}
-		</button>
-		{#if showFilters}
-			<div
-				class="mt-4 sm:mt-0 sm:ml-2 space-x-2 flex items-center"
-				transition:fly={{
-					delay: 0,
-					duration: 500,
-					x: -200,
-					opacity: 0
-				}}
-			>
-				{#each data.filter.available as category}
-					<button
-						class="chip {allFilters[category] ? 'variant-filled' : 'variant-filled-surface'}"
-						on:click={() => {
-							toggleFilter(category);
-						}}
-					>
-						<span class="capitalize">{category}</span>
-					</button>
-				{/each}
-			</div>
-		{/if}
-	</div>
+	{/if}
+</nav>
+
+{#if data.posts.length}
+	<ul class="-mx-2 mt-8 divide-y sm:-mx-4">
+		{#each data.posts as post (post.slug)}
+			<li>
+				<article
+					class="group relative grid gap-1 rounded-lg px-2 py-5 transition-colors hover:bg-surface sm:grid-cols-[8rem_1fr] sm:gap-6 sm:px-4"
+				>
+					<time datetime={post.date} class="pt-1 font-mono text-sm text-muted">
+						{formatDate(post.date)}
+					</time>
+					<div>
+						<h2 class="text-lg font-semibold tracking-tight">
+							<a href="/blog/{post.slug}" class="after:absolute after:inset-0">{post.title}</a>
+						</h2>
+						<p class="text-muted">{post.description}</p>
+						<p class="mt-2 font-mono text-xs text-muted">
+							{post.categories.map((c) => `#${c}`).join(' ')}
+						</p>
+					</div>
+				</article>
+			</li>
+		{/each}
+	</ul>
+{:else}
+	<p class="mt-8 font-mono text-sm text-muted">No posts match those tags.</p>
 {/if}

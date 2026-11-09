@@ -1,145 +1,128 @@
 <script lang="ts">
-	import Card from '$lib/components/Card.svelte';
 	import Meta from '$lib/components/Meta.svelte';
-	import ProjectCard from '$lib/components/ProjectCard.svelte';
-	import Skills from '$lib/components/Skills.svelte';
-	import SocialLinks from '$lib/components/SocialLinks.svelte';
-	import Tooltip from '$lib/components/Tooltip.svelte';
-	import { Avatar } from '@skeletonlabs/skeleton';
+	import Terminal from '$lib/components/Terminal.svelte';
+	import ProjectRow from '$lib/components/ProjectRow.svelte';
+	import SectionHeading from '$lib/components/SectionHeading.svelte';
+	import LocalTime from '$lib/components/LocalTime.svelte';
+	import SocialIcon from '$lib/components/SocialIcon.svelte';
+	import { site, socials, toolbox } from '$lib/site';
+	import IconArrowRight from '~icons/lucide/arrow-right';
 
-	export let data;
+	let { data } = $props();
 </script>
 
 <Meta />
-<div class="space-y-3">
-	<div class="flex flex-col space-y-3 md:space-x-3 md:space-y-0 md:flex-row">
-		<div class="sm:max-w-full lg:max-w-2xl xl:max-w-4xl flex flex-grow">
-			<Card padding="p-2">
-				<svelte:fragment slot="header"
-					><Avatar width="w-28" src="/discord-pfp.png" alt="OreoTM's avatar" /></svelte:fragment
-				>
-				<svelte:fragment slot="body">
-					<p class="font-semibold text-3xl leading-tight">
-						I'm <span class="inline"
-							><Tooltip content="or @theoreotm if you want to be fancy">OreoTM,</Tooltip></span
-						>
-						a full-stack developer
-						<span class="opacity-40 whitespace-normal"
-							>building Discord bots, websites, and other <span class="hidden md:inline"
-								>backend-related</span
-							>
-							projects.</span
-						>
-					</p>
-				</svelte:fragment>
-			</Card>
-		</div>
 
-		<div class="sm:flex-col flex-1 space-y-4">
-			<div class="sm:max-w-full">
-				<Card padding="p-9">
-					<svelte:fragment slot="header"
-						><div class="text-center">
-							<i class="fa-regular fa-lightbulb text-4xl" />
-						</div></svelte:fragment
-					>
-					<svelte:fragment slot="body">
-						<p class="text-center font-bold text-2xl leading-tight">
-							Got a brilliant <s class="hidden lg:inline">discord bot</s> idea in mind?
-						</p>
-					</svelte:fragment>
-				</Card>
-			</div>
-			<div>
-				<a href="/contact" class="group">
-					<Card padding="px-4" background="bg-gradient-to-r from-cyan-500 to-lime-400">
-						<svelte:fragment slot="body">
-							<div class="flex flex-row justify-between text-xl font-semibold">
-								<p>Contact Me</p>
-								<span aria-hidden="true"
-									><i class="fa-solid fa-arrow-right-long arrow-animation" /></span
-								>
-							</div>
-						</svelte:fragment>
-					</Card>
-				</a>
-			</div>
+<!-- Hero -->
+<section class="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+	<div>
+		<p class="flex items-center gap-2 font-mono text-sm text-muted">
+			<span class="relative flex size-2" aria-hidden="true">
+				<span class="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60"
+				></span>
+				<span class="relative inline-flex size-2 rounded-full bg-accent"></span>
+			</span>
+			{site.location} · <LocalTime /> local time
+		</p>
+		<h1 class="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+			I'm OreoTM, a full‑stack developer
+			<span class="text-muted">building Discord bots, websites, and the backends behind them.</span>
+		</h1>
+		<div class="mt-8 flex flex-wrap gap-3">
+			<a
+				href="/projects"
+				class="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2.5 font-medium text-accent-fg transition-opacity hover:opacity-90"
+			>
+				See my projects <IconArrowRight class="size-4" aria-hidden="true" />
+			</a>
+			<a
+				href="/contact"
+				class="inline-flex items-center gap-2 rounded-lg border bg-surface px-4 py-2.5 font-medium transition-colors hover:border-accent"
+			>
+				Get in touch
+			</a>
 		</div>
 	</div>
-	<SocialLinks />
-	<div class="flex flex-col space-y-3 lg:space-x-3 lg:space-y-0 lg:flex-row">
-		<div class="sm:max-w-full flex-grow">
-			<Card>
-				<svelte:fragment slot="header">
-					<h1 class="h1 font-semibold">Skills</h1>
-				</svelte:fragment>
-				<svelte:fragment slot="body">
-					<Skills />
-				</svelte:fragment>
-			</Card>
+
+	<Terminal projects={data.projectSummaries} />
+</section>
+
+<!-- Selected work -->
+<section class="mt-24" aria-labelledby="work">
+	<SectionHeading id="work" index="01" title="selected work">
+		{#snippet action()}
+			<a href="/projects" class="font-mono text-sm text-muted hover:text-fg">all projects →</a>
+		{/snippet}
+	</SectionHeading>
+	<ul class="-mx-2 sm:-mx-4">
+		{#each data.featured as project (project.slug)}
+			<li><ProjectRow {project} /></li>
+		{/each}
+	</ul>
+</section>
+
+<!-- About -->
+<section class="mt-24" aria-labelledby="about">
+	<SectionHeading id="about" index="02" title="about" />
+	<div class="grid gap-10 md:grid-cols-2">
+		<div class="flex gap-5">
+			<img
+				src="/discord-pfp.png"
+				alt="OreoTM's avatar"
+				class="size-16 shrink-0 rounded-full border"
+				width="64"
+				height="64"
+			/>
+			<div class="space-y-4 text-lg">
+				<p>
+					I'm OreoTM, or <span class="font-mono text-base text-accent">@theoreotm</span> if you want
+					to be fancy. I'm a full-stack developer based in the {site.location} ({site.utcOffset}).
+				</p>
+				<p class="text-muted">
+					Most of what I build is backend-heavy: Discord bots that look after servers, the APIs and
+					databases behind them, and the websites that sit on top.
+				</p>
+			</div>
 		</div>
 
-		<div class="sm:max-w-full lg:max-w-2xl xl:max-w-4xl flex flex-grow">
-			<Card>
-				<svelte:fragment slot="header"
-					><i class="fa-solid fa-globe text-7xl md:text-8xl" /></svelte:fragment
-				>
-				<svelte:fragment slot="body">
-					<p class="font-semibold text-4xl md:text-7xl leading-tight">
-						Based in Maldives
-						<span class="opacity-40 whitespace-normal">GMT+5</span>
-					</p>
-				</svelte:fragment>
-			</Card>
-		</div>
-	</div>
-	{#each data.featured as project (project.slug)}
-		<ProjectCard {project} />
-	{/each}
-	<a href="/projects" class="group block">
-		<Card padding="px-4">
-			<svelte:fragment slot="body">
-				<div class="flex flex-row justify-between text-xl font-semibold">
-					<p>All projects</p>
-					<span aria-hidden="true"
-						><i
-							class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"
-						/></span
-					>
+		<dl class="space-y-4">
+			{#each toolbox as group (group.group)}
+				<div class="grid grid-cols-[8.5rem_1fr] gap-4 border-b pb-4 last:border-0">
+					<dt class="font-mono text-sm text-muted">{group.group}</dt>
+					<dd>{group.items.join(', ')}</dd>
 				</div>
-			</svelte:fragment>
-		</Card>
-	</a>
-</div>
+			{/each}
+		</dl>
+	</div>
+</section>
 
-<style>
-	@keyframes bounce {
-		0%,
-		20%,
-		50%,
-		80%,
-		100% {
-			transform: translateX(0);
-		}
-		40% {
-			transform: translateX(-10px);
-		}
-		60% {
-			transform: translateX(-5px);
-		}
-	}
-
-	.arrow-animation {
-		animation: bounce 1s infinite;
-	}
-
-	.arrow-animation:hover {
-		animation-play-state: paused; /* Set to paused on hover */
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.arrow-animation {
-			animation: none;
-		}
-	}
-</style>
+<!-- Contact -->
+<section class="mt-24 rounded-2xl border bg-surface p-8 sm:p-10" aria-labelledby="cta">
+	<h2 id="cta" class="text-3xl font-semibold tracking-tight text-balance">
+		Got a brilliant <span class="text-muted line-through decoration-accent">Discord bot</span> idea in
+		mind?
+	</h2>
+	<p class="mt-3 max-w-prose text-lg text-muted">
+		Send me a message and tell me what you're building.
+	</p>
+	<div class="mt-8 flex flex-wrap items-center gap-3">
+		<a
+			href="/contact"
+			class="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2.5 font-medium text-accent-fg transition-opacity hover:opacity-90"
+		>
+			Let's talk <IconArrowRight class="size-4" aria-hidden="true" />
+		</a>
+		{#each socials.filter((s) => s.contact) as social (social.id)}
+			<a
+				href={social.href}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="grid size-11 place-items-center rounded-lg border bg-bg transition-colors hover:border-accent"
+				aria-label={social.label}
+				title={social.label}
+			>
+				<SocialIcon id={social.id} />
+			</a>
+		{/each}
+	</div>
+</section>

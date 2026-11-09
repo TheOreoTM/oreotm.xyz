@@ -1,23 +1,13 @@
+import { categories, posts } from '$lib/server/posts';
 import type { PageServerLoad } from './$types';
-import type { Post } from '$lib/types';
 
-export const load = (async ({ fetch, url }) => {
-	const searchParams = new URLSearchParams(url.search);
-	const categories = searchParams.get('categories')?.split(',') ?? [];
-
-	const response = await fetch('api/posts');
-	const allPosts: Post[] = await response.json();
-	const posts = allPosts.filter((post) => {
-		return categories.every((category) => post.categories.includes(category));
-	});
-	const allAvailableCategories = [...new Set(allPosts.flatMap((post) => post.categories))];
+export const load: PageServerLoad = ({ url }) => {
+	// ?categories=a,b keeps working for links shared before the redesign.
+	const selected = url.searchParams.get('categories')?.split(',').filter(Boolean) ?? [];
 
 	return {
-		posts,
-		filter: {
-			filters: categories ?? [],
-			available: allAvailableCategories,
-			raw: searchParams.get('categories')
-		}
+		posts: posts.filter((post) => selected.every((c) => post.categories.includes(c))),
+		categories,
+		selected
 	};
-}) satisfies PageServerLoad;
+};

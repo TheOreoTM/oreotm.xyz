@@ -1,38 +1,73 @@
-# create-svelte
+# oreotm.xyz
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Source for [oreotm.xyz](https://oreotm.xyz), my portfolio and blog. It's a SvelteKit site with a
+working terminal on the home page, project case studies, and a Ctrl/⌘ K command menu.
 
-## Creating a project
+## Stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [SvelteKit](https://svelte.dev/docs/kit) 2 with Svelte 5, deployed on Vercel
+- Tailwind CSS 4 with light and dark themes driven by CSS variables (`src/app.css`)
+- [mdsvex](https://github.com/pngwn/MDsveX) for Markdown content, with [Shiki](https://shiki.style) syntax highlighting
+- [Bits UI](https://bits-ui.com) for the command menu, and [unplugin-icons](https://github.com/unplugin/unplugin-icons) for Lucide and Simple Icons
+- Playwright for end-to-end tests
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Getting started
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+You need Node 26 (see `engines` in `package.json`) and pnpm.
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm install
+pnpm dev          # http://localhost:5173
 ```
 
-## Building
+| Command         | What it does                              |
+| --------------- | ----------------------------------------- |
+| `pnpm dev`      | Start the dev server                      |
+| `pnpm build`    | Build for production (Vercel adapter)     |
+| `pnpm preview`  | Serve the production build locally        |
+| `pnpm check`    | Type-check with svelte-check              |
+| `pnpm lint`     | Check formatting with Prettier            |
+| `pnpm test:e2e` | Build, serve and run the Playwright tests |
 
-To create a production version of your app:
+## Writing content
 
-```bash
-npm run build
+**Projects** live in `src/content/projects/*.md`. The frontmatter holds the card data and the body
+is the case study:
+
+```yaml
+---
+name: Cardinal Bot
+tagline: A feature-rich general purpose Discord bot.
+summary: One or two sentences for cards and link previews.
+year: '2023–2024'
+order: 2 # lower comes first
+featured: true # also shown on the home page
+image: /cardinal.webp
+imageAlt: Cardinal Bot avatar
+stack: [TypeScript, discord.js]
+links:
+  - label: Source on GitHub
+    href: https://github.com/TheOreoTM/cardinal-bot
+---
 ```
 
-You can preview the production build with `npm run preview`.
+Quote any value that contains `: ` or ` #`, or YAML will cut it short. Case studies can import
+Svelte components, like the pipeline diagram in `frieren-rag.md`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+**Blog posts** live in `src/posts/*.md` with `title`, `description`, `date`, `categories` and
+`published` in the frontmatter. Only published posts are listed, and they also appear in
+`/rss.xml` and `/sitemap.xml`.
+
+## Where things are
+
+```
+src/
+  app.css              colour tokens, prose and code styles
+  lib/site.ts          name, links, socials and toolbox shared across the site
+  lib/components/      Header, Terminal, CommandPalette, ProjectRow, …
+  lib/server/          project and post metadata (server only)
+  content/projects/    case studies
+  posts/               blog posts
+  routes/              pages, plus rss.xml and sitemap.xml
+tests/                 Playwright tests
+```

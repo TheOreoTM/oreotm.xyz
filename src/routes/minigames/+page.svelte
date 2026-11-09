@@ -1,26 +1,32 @@
 <script lang="ts">
-	import Card from '$lib/components/Card.svelte';
 	import Meta from '$lib/components/Meta.svelte';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
 </script>
 
+<!-- Work in progress: not linked from the site, and hidden from search engines. -->
 <Meta title="Minigames" noindex />
 
-<Card padding="p-2">
-	<svelte:fragment slot="header"><h1 class="h1 font-bold">Guess Lamar</h1></svelte:fragment>
-	<svelte:fragment slot="body">
-		<p class="mt-2 text-lg">
-			The song's original name will be replaced with a synonym. Try to figure out which song it is!
-		</p>
+<div class="max-w-2xl">
+	<p class="font-mono text-sm text-muted"><span class="text-accent">❯</span> ./guess-lamar</p>
+	<h1 class="mt-4 text-4xl font-semibold tracking-tight">Guess Lamar</h1>
+	<p class="mt-4 text-lg text-muted">
+		The song's original name will be replaced with a synonym. Try to figure out which song it is!
+	</p>
 
-		<div class="mt-4">
-			<p class="font-medium text-xl">
-				<em>"Monarch Kunta"</em> - What Kendrick Lamar song is this?
-			</p>
-			<input type="text" class="input border p-2 mt-2 w-full" placeholder="Your guess here" />
-			<button class="btn variant-filled">Submit</button>
+	<form class="mt-8 rounded-xl border bg-surface p-6" onsubmit={(e) => e.preventDefault()}>
+		<label for="guess" class="block text-lg font-medium">
+			<em>"Monarch Kunta"</em> – What Kendrick Lamar song is this?
+		</label>
+		<div class="mt-4 flex gap-2">
+			<input
+				id="guess"
+				type="text"
+				placeholder="Your guess here"
+				autocomplete="off"
+				class="w-full min-w-0 rounded-lg border bg-bg px-3 py-2"
+			/>
+			<button type="submit" class="rounded-lg bg-accent px-4 py-2 font-medium text-accent-fg">
+				Submit
+			</button>
 		</div>
-	</svelte:fragment>
-</Card>
+	</form>
+</div>
