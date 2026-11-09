@@ -1,0 +1,61 @@
+---
+name: Cardinal Bot
+tagline: A feature-rich general purpose Discord bot.
+summary: A verified, general purpose Discord bot with moderation, an escalating automod, giveaways and games, backed by PostgreSQL, Redis job queues and a REST API.
+year: '2023–2024'
+order: 2
+featured: true
+image: /cardinal.webp
+imageAlt: Cardinal Bot avatar
+stack:
+  - TypeScript
+  - discord.js
+  - Sapphire
+  - PostgreSQL
+  - Prisma
+  - Redis
+  - BullMQ
+  - Prometheus
+  - Sentry
+links:
+  - label: Source on GitHub
+    href: https://github.com/TheOreoTM/cardinal-bot
+---
+
+## Overview
+
+Cardinal is my third attempt at creating a bot that works well for servers of various sizes. My first two attempts failed due to inadequate planning and practices. However, after about five months of continuous development, I have finally reached a point where I am satisfied with Cardinal. It has been verified, marking a significant achievement in my portfolio.
+
+## What it does
+
+- **Moderation**: warn, mute, kick and ban with numbered cases, editable reasons, moderator notes, mod logs and per-moderator stats. Mutes and bans can be temporary.
+- **Automod**: per-server settings for nine rule types: banned words, excessive capitals, invite links, links, link cooldowns, stickers, mass mentions, newline spam and message spam. Banned words, capitals and invite links are enforced in the public code.
+- **Server management**: timed channel locks, per-command restrictions, a custom prefix, AFK status, suggestions and giveaways.
+- **Games**: Connect Four, tic-tac-toe, trivia and a Hunger Games simulator.
+
+## How it works
+
+### Built on Sapphire
+
+Cardinal uses the [Sapphire](https://sapphirejs.dev) framework on top of discord.js. Commands, event listeners, permission checks ("preconditions"), argument parsers, API routes and scheduled tasks are each their own file, which Sapphire loads automatically. Adding a command means adding a file, not editing a central registry.
+
+### Automod "heat"
+
+Each automod rule's handler extends one shared `ModerationMessageListener`, so every rule behaves the same way:
+
+1. A message breaks a rule, so it is deleted and an alert is posted in the channel.
+2. The member gains one point of "heat" for that rule. A scheduled task removes the point again after a few minutes, or after the rule's own cooldown for link cooldowns.
+3. When heat reaches the server's `automuteAfter` threshold, it resets and the server's configured actions run: a warning, mute, kick or ban.
+
+One-off mistakes fade away, while someone who keeps spamming escalates to a real punishment.
+
+### Timers that survive restarts
+
+Temporary mutes and bans, channel unlocks, giveaway endings and heat decay are all jobs in a Redis-backed BullMQ queue, through Sapphire's scheduled-tasks plugin. Because the jobs live in Redis rather than in memory, a restart doesn't leave anyone muted forever.
+
+### Data, API and monitoring
+
+- **Database**: PostgreSQL through Prisma. The schema has around 25 models, covering cases, notes, giveaways, AFK statuses, suggestions, command restrictions and one table per automod rule.
+- **REST API**: built with Sapphire's API plugin. It serves ban appeals, guild settings, the command list and bot stats, for use by a separate web dashboard.
+- **Monitoring**: Prometheus gauges track guild count, command usage and gateway ping at `/metrics`. Errors are reported to Sentry.
+- **Workflow**: continuous integration on GitHub Actions, conventional commits, and a changelog generated from them with git-cliff.

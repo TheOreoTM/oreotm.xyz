@@ -1,18 +1,31 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="alternate" type="application/atom+xml" href="/rss.xml" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
-		/>
-		<meta name="viewport" content="width=device-width" />
+		<link rel="alternate" type="application/rss+xml" title="OreoTM's blog" href="/rss.xml" />
+		<script>
+			// Apply the saved or system theme before first paint to avoid a flash.
+			(function () {
+				var root = document.documentElement;
+				var query = window.matchMedia('(prefers-color-scheme: dark)');
+				function saved() {
+					try {
+						return localStorage.getItem('theme');
+					} catch (e) {
+						return null;
+					}
+				}
+				root.dataset.theme = saved() || (query.matches ? 'dark' : 'light');
+				query.addEventListener('change', function (e) {
+					if (!saved()) root.dataset.theme = e.matches ? 'dark' : 'light';
+				});
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover" data-theme="theme">
-		<div style="display: contents" class="h-full overflow-hidden">%sveltekit.body%</div>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
