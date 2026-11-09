@@ -31,7 +31,7 @@
 	</div>
 </div>
 
-<ul class="mt-12 grid gap-3 md:grid-cols-3">
+<ul class="mt-12 grid gap-3 md:grid-cols-2">
 	{#each channels as channel (channel.id)}
 		<li>
 			<a

@@ -19,7 +19,7 @@ export const pages: PageLink[] = [
 	{ path: '/contact', label: 'contact', description: 'How to reach me' }
 ];
 
-export type SocialId = 'discord' | 'github' | 'x' | 'youtube' | 'spotify' | 'twitch';
+export type SocialId = 'discord' | 'github' | 'youtube' | 'spotify' | 'twitch';
 
 export type Social = {
 	id: SocialId;
@@ -44,13 +44,6 @@ export const socials: Social[] = [
 		handle: 'theoreotm',
 		href: 'https://github.com/theoreotm',
 		contact: { note: "See what I'm working on." }
-	},
-	{
-		id: 'x',
-		label: 'X (Twitter)',
-		handle: '@theoreotm',
-		href: 'https://twitter.com/theoreotm',
-		contact: { note: 'Follow along.' }
 	},
 	{
 		id: 'youtube',
