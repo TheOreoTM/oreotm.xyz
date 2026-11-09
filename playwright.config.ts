@@ -9,7 +9,7 @@ export default defineConfig({
 		trace: 'off'
 	},
 	webServer: {
-		command: 'pnpm build && pnpm preview --port 4173',
+		command: 'pnpm build && pnpm start --port 4173',
 		port: 4173,
 		reuseExistingServer: !process.env.CI,
 		timeout: 180_000

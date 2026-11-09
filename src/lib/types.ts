@@ -1,25 +1,11 @@
-export type Categories = 'sveltekit' | 'svelte' | string;
+export type ProjectLink = { label: string; href: string };
 
-export type Post = {
-	title: string;
-	description: string;
-	slug: string;
-	date: string;
-	categories: Categories[];
-	published: boolean;
-};
-
-export type ProjectLink = {
-	label: string;
-	href: string;
-};
-
-/** Frontmatter of a file in src/content/projects. */
+/** Frontmatter of a file in content/projects. */
 export type ProjectMeta = {
 	name: string;
 	/** One line shown under the title. */
 	tagline: string;
-	/** A short paragraph for project cards and link previews. */
+	/** A short paragraph for project lists and link previews. */
 	summary: string;
 	year: string;
 	/** Lower numbers are listed first. */
@@ -33,9 +19,20 @@ export type ProjectMeta = {
 };
 
 export type Project = ProjectMeta & {
-	/** The file name without .md, used in /projects/[slug]. */
+	/** The file name without .mdx, used in /projects/[slug]. */
 	slug: string;
 };
 
 /** The few project fields the command menu and terminal need on every page. */
 export type ProjectSummary = Pick<Project, 'slug' | 'name' | 'tagline'>;
+
+/** Frontmatter of a file in content/posts. */
+export type Post = {
+	slug: string;
+	title: string;
+	description: string;
+	/** Written like 2025-5-02. */
+	date: string;
+	categories: string[];
+	published: boolean;
+};
