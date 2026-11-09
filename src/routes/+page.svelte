@@ -5,10 +5,9 @@
 	import Skills from '$lib/components/Skills.svelte';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
 	import Tooltip from '$lib/components/Tooltip.svelte';
-	import { projects } from '$lib/projects';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
-	const featured = projects.filter((project) => project.featured);
+	export let data;
 </script>
 
 <Meta />
@@ -94,7 +93,7 @@
 			</Card>
 		</div>
 	</div>
-	{#each featured as project (project.slug)}
+	{#each data.featured as project (project.slug)}
 		<ProjectCard {project} />
 	{/each}
 	<a href="/projects" class="group block">

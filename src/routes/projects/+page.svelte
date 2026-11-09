@@ -2,7 +2,8 @@
 	import Card from '$lib/components/Card.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
-	import { projects } from '$lib/projects';
+
+	export let data;
 </script>
 
 <Meta
@@ -20,7 +21,7 @@
 		</svelte:fragment>
 	</Card>
 
-	{#each projects as project (project.slug)}
+	{#each data.projects as project (project.slug)}
 		<ProjectCard {project} />
 	{/each}
 </div>

@@ -1,24 +1,10 @@
 import type { ComponentType } from 'svelte';
-import type { Project, ProjectMeta } from '$lib/types';
 
-// Only the frontmatter is imported here, so list pages don't bundle every case study.
-const metadata = import.meta.glob<ProjectMeta>('/src/content/projects/*.md', {
-	eager: true,
-	import: 'metadata'
-});
-
+// Lazy: each case study becomes its own chunk, loaded only on its page.
 const content = import.meta.glob<{ default: ComponentType }>('/src/content/projects/*.md');
 
-function slugFromPath(path: string) {
+export function slugFromPath(path: string) {
 	return path.split('/').at(-1)!.replace(/\.md$/, '');
-}
-
-export const projects: Project[] = Object.entries(metadata)
-	.map(([path, meta]) => ({ ...meta, slug: slugFromPath(path) }))
-	.sort((a, b) => a.order - b.order);
-
-export function getProject(slug: string) {
-	return projects.find((project) => project.slug === slug);
 }
 
 /** Loads the case study body for a project. Returns undefined for unknown slugs. */
