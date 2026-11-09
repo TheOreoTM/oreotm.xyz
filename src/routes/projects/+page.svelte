@@ -2,12 +2,12 @@
 	import Card from '$lib/components/Card.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
-	import { projects } from '$lib/data/projects';
+	import { projects } from '$lib/projects';
 </script>
 
 <Meta
 	title="Projects"
-	description="Discord bots, websites, and AI experiments built by OreoTM, including Cardinal Bot and the Frieren TCG Wiki."
+	description="Case studies of Discord bots, websites, and AI experiments built by OreoTM, including Cardinal Bot and the Frieren TCG Wiki."
 />
 
 <div class="space-y-3">
@@ -20,7 +20,7 @@
 		</svelte:fragment>
 	</Card>
 
-	{#each projects as project (project.name)}
+	{#each projects as project (project.slug)}
 		<ProjectCard {project} />
 	{/each}
 </div>

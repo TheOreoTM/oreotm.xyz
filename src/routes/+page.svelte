@@ -5,7 +5,7 @@
 	import Skills from '$lib/components/Skills.svelte';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
 	import Tooltip from '$lib/components/Tooltip.svelte';
-	import { projects } from '$lib/data/projects';
+	import { projects } from '$lib/projects';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	const featured = projects.filter((project) => project.featured);
@@ -94,7 +94,7 @@
 			</Card>
 		</div>
 	</div>
-	{#each featured as project (project.name)}
+	{#each featured as project (project.slug)}
 		<ProjectCard {project} />
 	{/each}
 	<a href="/projects" class="group block">
