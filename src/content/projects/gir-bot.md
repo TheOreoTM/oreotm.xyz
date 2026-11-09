@@ -1,6 +1,6 @@
 ---
 name: Gir Bot
-tagline: "A featureful moderation bot. (Failed project #2)"
+tagline: 'A featureful moderation bot. (Failed project #2)'
 summary: A self-funded Discord bot built with a friend, bundling moderation, economy, levelling, tickets and more into one bot.
 year: '2021'
 order: 4
