@@ -38,7 +38,7 @@
 				? 'border-accent bg-accent text-accent-fg'
 				: 'bg-surface text-muted hover:border-accent hover:text-fg'}"
 		>
-			#{category}{#if active}<span class="sr-only"> (selected, click to remove)</span>{/if}
+			#{category}{#if active}<span class="sr-only">{' (selected, click to remove)'}</span>{/if}
 		</a>
 	{/each}
 	{#if data.selected.length}
