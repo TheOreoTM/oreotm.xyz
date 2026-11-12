@@ -1,0 +1,41 @@
+---
+title: Two failed bots before Cardinal
+description: A year of Discord Bot Maker, a bot built on copied code, and what I changed the third time.
+date: '2026-11-12'
+categories:
+  - discord
+  - bots
+published: true
+---
+
+[Cardinal](/projects/cardinal-bot) is the bot I'm happy with. It is also my third attempt. This is what happened to the first two.
+
+## Attempt one: no code at all
+
+I started with Discord Bot Maker, a tool for making bots without writing code, and used it for around a year.
+
+## Attempt two: Gir
+
+After that I slowly learned to code bots by watching Worn Off Keys on YouTube. The result was [Gir](/projects/gir-bot), which a friend and I worked on. It used MongoDB, and for a while everything was fine.
+
+Then people started using it.
+
+- **The database ran out of room.** Gir outgrew MongoDB's free tier.
+- **Bugs and crashes crept in.** As more people used the bot, it slowly started breaking.
+- **I couldn't maintain it.** It wasn't well written, and most of the time I had blindly copied code, so I had no idea how parts of it worked.
+
+Eventually I lost the motivation to keep fixing it. I didn't shut it down in any formal way; I just stopped. By then I had realised I could write a better bot if I started again.
+
+## Attempt three: what I changed
+
+Three things were different from day one of Cardinal:
+
+1. **A maintained command handler.** I used [Sapphire](https://sapphirejs.dev) instead of code copied from tutorials.
+2. **PostgreSQL** instead of MongoDB.
+3. **A plan.** I worked out what I was going to build, then took it one piece at a time.
+
+I didn't carry anything over from Gir. Cardinal took about five months of continuous development, and it is now a verified bot.
+
+## What I took from it
+
+Copying code got a bot running, but it left me with something I couldn't fix once people depended on it. Starting again, with code I understood, got me the bot I wanted.
