@@ -20,9 +20,9 @@ export default async function HomePage() {
 			{/* The statement and the terminal. */}
 			<section className="grid items-end gap-10 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] xl:gap-12">
 				<div>
-					{/* Not balanced like other headings: balancing breaks it into three short lines. */}
+					{/* Wraps naturally, with "a" tied to "full-stack" so it never ends a line alone. */}
 					<h1 className="text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.035em] text-wrap sm:text-6xl">
-						I&apos;m OreoTM, a full&#8209;stack developer.
+						I&apos;m OreoTM, a&nbsp;full&#8209;stack developer.
 					</h1>
 					<p className="mt-5 max-w-[34ch] text-xl leading-snug text-muted-foreground sm:text-2xl">
 						I build Discord bots, websites, and the backends behind them.

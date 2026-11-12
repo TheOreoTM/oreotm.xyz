@@ -62,11 +62,12 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
 						</a>
 						<Marble />
 						<Header />
-						{/* From lg up the rail takes the first 15rem; everything else sits beside it. */}
-						<div className="lg:pl-60">
+						{/* From lg up the rail takes the first 15rem; everything else sits beside it, in a
+						    column at least a screen tall so the footer rests at the bottom of short pages. */}
+						<div className="lg:flex lg:min-h-dvh lg:flex-col lg:pl-60">
 							<main
 								id="main"
-								className="mx-auto max-w-[68rem] px-5 pt-10 sm:px-8 lg:px-12 lg:pt-14"
+								className="mx-auto w-full max-w-[68rem] px-5 pt-10 sm:px-8 lg:flex-1 lg:px-12 lg:pt-14"
 							>
 								{children}
 							</main>

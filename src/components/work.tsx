@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 /**
  * The work, as a list you operate. Each row is a link to its case study. Pointing at a row or
  * moving to it with the keyboard selects it, and the pane beside the list previews the
- * selected project: its image, what it is, what it is built with and where to go.
+ * selected project: its image, the way in, what it is and what it is built with.
  *
  * Up/Down or J/K move between rows, Home/End jump to the ends, Enter opens the case study
  * (it is a link, so that needs no code). Below `lg` there is no pane: the rows carry the
@@ -56,7 +56,7 @@ export function Work({ projects }: { projects: Project[] }) {
 									onPointerEnter={() => setSelected(index)}
 									onFocus={() => setSelected(index)}
 									className={cn(
-										'group grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 px-1 py-4 transition-colors duration-150 sm:px-3 lg:grid-cols-[1rem_minmax(0,1fr)_auto]',
+										'group grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 px-0 py-4 transition-colors duration-150 sm:px-3 lg:grid-cols-[1rem_minmax(0,1fr)_auto]',
 										active ? 'lg:bg-foreground/[0.045]' : 'hover:bg-foreground/[0.03]'
 									)}
 								>
@@ -100,21 +100,20 @@ export function Work({ projects }: { projects: Project[] }) {
 				className="hidden self-start overflow-hidden rounded-[10px] border bg-card lg:block"
 			>
 				<div key={project.slug} className="animate-in duration-200 ease-out fade-in">
+					{/* A screenshot fills the pane from its top edge; a logo sits whole inside it. */}
 					<Image
 						src={project.image}
 						alt={project.imageAlt}
-						width={672}
-						height={378}
-						className="aspect-[5/2] w-full border-b bg-muted object-contain p-3"
+						width={736}
+						height={368}
+						className={cn(
+							'aspect-[2/1] w-full border-b bg-muted',
+							project.imageKind === 'logo' ? 'object-contain p-5' : 'object-cover object-top'
+						)}
 					/>
 					<div className="p-5">
-						<p className="text-[0.9375rem] leading-relaxed">{project.summary}</p>
-						{project.stack.length > 0 && (
-							<p className="mt-4 font-mono text-xs leading-relaxed text-muted-foreground">
-								{project.stack.join(', ')}
-							</p>
-						)}
-						<div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+						{/* The actions come first, so the way in is on screen as soon as the pane is. */}
+						<div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
 							<Link
 								href={`/projects/${project.slug}`}
 								className="inline-flex h-9 items-center gap-2 rounded-md bg-primary px-3 text-primary-foreground transition-colors hover:bg-primary/85"
@@ -134,6 +133,12 @@ export function Work({ projects }: { projects: Project[] }) {
 								</a>
 							))}
 						</div>
+						<p className="mt-5 text-[0.9375rem] leading-relaxed">{project.summary}</p>
+						{project.stack.length > 0 && (
+							<p className="mt-4 font-mono text-xs leading-relaxed text-muted-foreground">
+								{project.stack.join(', ')}
+							</p>
+						)}
 					</div>
 				</div>
 			</aside>

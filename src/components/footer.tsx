@@ -11,7 +11,7 @@ export async function Footer() {
 	const year = await currentYear();
 
 	return (
-		<footer className="mx-auto mt-28 max-w-[68rem] px-5 sm:px-8 lg:px-12">
+		<footer className="mx-auto mt-28 w-full max-w-[68rem] px-5 sm:px-8 lg:px-12">
 			<div className="flex flex-col gap-4 border-t py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
 				<p>
 					© {year} {site.name}
