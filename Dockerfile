@@ -3,7 +3,8 @@
 # ---- build ----
 FROM node:26-slim AS build
 WORKDIR /app
-RUN corepack enable
+# Node 25+ no longer ships Corepack, so install the pnpm version package.json pins.
+RUN npm install -g pnpm@9.15.1
 COPY package.json pnpm-lock.yaml .npmrc ./
 RUN pnpm install --frozen-lockfile
 COPY . .
