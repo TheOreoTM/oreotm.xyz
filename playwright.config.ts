@@ -9,7 +9,10 @@ export default defineConfig({
 		trace: 'off'
 	},
 	webServer: {
-		command: 'pnpm build && pnpm preview --port 4173',
+		// Serve the standalone output the way the Dockerfile does, so the tests cover what ships.
+		command:
+			'pnpm build && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/ && node .next/standalone/server.js',
+		env: { PORT: '4173', HOSTNAME: 'localhost' },
 		port: 4173,
 		reuseExistingServer: !process.env.CI,
 		timeout: 180_000

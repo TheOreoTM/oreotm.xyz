@@ -1,13 +1,23 @@
 /** Facts about the site and its owner, shared by pages, the terminal and the command menu. */
 
+export const siteUrl =
+	process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://oreotm.xyz';
+
 export const site = {
 	name: 'OreoTM',
 	handle: 'theoreotm',
 	role: 'Full-stack developer',
+	description:
+		'OreoTM is a full-stack developer based in the Maldives, building Discord bots, websites, and backend projects.',
 	location: 'Maldives',
 	timeZone: 'Indian/Maldives',
 	utcOffset: 'GMT+5',
-	repo: 'https://github.com/TheOreoTM/oreotm.xyz'
+	avatar: '/discord-pfp.png',
+	repo: 'https://github.com/TheOreoTM/oreotm.xyz',
+	blog: {
+		title: 'OreoTM.',
+		description: 'My own personal blog. Because everyone and their grandmother has one nowadays'
+	}
 };
 
 export type PageLink = { path: string; label: string; description: string };
@@ -57,7 +67,7 @@ export const socials: Social[] = [
 export const toolbox: { group: string; items: string[] }[] = [
 	{ group: 'Languages', items: ['TypeScript', 'JavaScript', 'Go', 'Python'] },
 	{ group: 'Backend & data', items: ['Node.js', 'PostgreSQL', 'Redis', 'MongoDB', 'Prisma'] },
-	{ group: 'Frontend', items: ['SvelteKit', 'Next.js', 'React', 'Tailwind CSS'] },
+	{ group: 'Frontend', items: ['Next.js', 'React', 'SvelteKit', 'Tailwind CSS'] },
 	{ group: 'Bots', items: ['discord.js', 'Sapphire'] },
 	{ group: 'Tooling', items: ['Docker', 'Git', 'GitHub Actions', 'Vercel'] }
 ];
@@ -68,7 +78,7 @@ const timeFormatter = new Intl.DateTimeFormat('en', {
 	minute: '2-digit'
 });
 
-/** The current time where I live, e.g. "3:42 PM". */
+/** The current time where I live, e.g. "3:42 PM". Call it on the client only. */
 export function localTime(date = new Date()) {
 	return timeFormatter.format(date);
 }

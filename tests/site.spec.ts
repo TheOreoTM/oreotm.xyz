@@ -6,7 +6,7 @@ const pages = [
 	'/projects/cardinal-bot',
 	'/projects/frieren-rag',
 	'/blog',
-	'/blog/first-post',
+	'/blog/two-failed-bots-before-cardinal',
 	'/contact'
 ];
 
@@ -31,7 +31,8 @@ for (const path of pages) {
 		const errors = trackErrors(page);
 		const response = await page.goto(path);
 		expect(response?.status()).toBe(200);
-		await expect(page.locator('h1')).toBeVisible();
+		// getByRole skips the hidden copy of the previous page that Next keeps mounted.
+		await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 		await expect(page).toHaveTitle(/OreoTM/);
 		const overflow = await page.evaluate(
 			() => document.documentElement.scrollWidth - document.documentElement.clientWidth
@@ -70,7 +71,7 @@ test.describe('terminal', () => {
 		await expect(input).toHaveValue('open cardinal-bot');
 		await input.press('Enter');
 		await expect(page).toHaveURL('/projects/cardinal-bot');
-		await expect(page.locator('h1')).toHaveText('Cardinal Bot');
+		await expect(page.getByRole('heading', { level: 1 })).toHaveText('Cardinal Bot');
 	});
 });
 
@@ -80,6 +81,11 @@ test('command menu opens with the shortcut and navigates', async ({ page }) => {
 	const dialog = page.getByRole('dialog', { name: 'Command menu' });
 	await expect(dialog).toBeVisible();
 	await page.keyboard.type('rag');
+	// cmdk re-ranks on the next render; wait for the match before pressing Enter.
+	await expect(page.getByRole('option', { name: /Frieren RAG System/ })).toHaveAttribute(
+		'aria-selected',
+		'true'
+	);
 	await page.keyboard.press('Enter');
 	await expect(page).toHaveURL('/projects/frieren-rag');
 	await expect(dialog).toBeHidden();
@@ -95,26 +101,27 @@ test('command menu opens from the header button', async ({ page }) => {
 
 test('theme toggle switches and remembers the theme', async ({ page }) => {
 	await open(page, '/');
+	// next-themes marks the dark theme with a `dark` class on <html>.
 	const root = page.locator('html');
-	const before = await root.getAttribute('data-theme');
+	const wasDark = ((await root.getAttribute('class')) ?? '').includes('dark');
 	await page.getByRole('button', { name: 'Toggle light and dark theme' }).click();
-	const after = before === 'dark' ? 'light' : 'dark';
-	await expect(root).toHaveAttribute('data-theme', after);
+	const expected = wasDark ? /^(?!.*\bdark\b)/ : /\bdark\b/;
+	await expect(root).toHaveClass(expected);
 	await page.reload();
-	await expect(root).toHaveAttribute('data-theme', after);
+	await expect(root).toHaveClass(expected);
 });
 
 test('blog tag filter narrows the list', async ({ page }) => {
 	await page.goto('/blog?categories=discord');
-	const posts = page.locator('main article');
+	const posts = page.locator('main article:visible');
 	await expect(posts).toHaveCount(1);
-	await expect(posts).toContainText('How to not make a discord bot');
+	await expect(posts).toContainText('Two failed bots before Cardinal');
 });
 
 test('unknown pages return a 404 with a way back', async ({ page }) => {
 	const response = await page.goto('/definitely-not-here');
 	expect(response?.status()).toBe(404);
-	await expect(page.locator('h1')).toHaveText("This page doesn't exist.");
+	await expect(page.getByRole('heading', { level: 1 })).toHaveText("This page doesn't exist.");
 	await expect(page.getByRole('link', { name: 'cd projects' })).toBeVisible();
 });
 

@@ -1,9 +1,10 @@
 .git
+.github
 node_modules
-build
-.svelte-kit
+.next
 .vercel
 tests
 test-results
+playwright-report
 .env*
 Dockerfile
