@@ -8,7 +8,7 @@ colors:
   primary: '#4d7c0f'
   primary-foreground: '#ffffff'
   muted: '#eeece6'
-  muted-foreground: '#57564f'
+  muted-foreground: '#4a4943'
   border: 'rgb(24 24 27 / 0.14)'
   faint: '#8a877f'
   destructive: '#b91c1c'
@@ -18,7 +18,7 @@ colors:
   primary-dark: '#a3e635'
   primary-foreground-dark: '#0c0c0d'
   muted-dark: '#1c1c1f'
-  muted-foreground-dark: '#a3a3a8'
+  muted-foreground-dark: '#b4b4ba'
   border-dark: 'rgb(236 236 236 / 0.14)'
   faint-dark: '#6b6b71'
   destructive-dark: '#f87171'
@@ -257,7 +257,7 @@ Two neutral ramps, one warm and one cool, each with a single lime accent. Every 
 
 ### The marbling's tones
 
-The shader takes its colours from the theme at run time, so the ground always matches. Tone one is Muted; tones two and three are Muted stepped 12% and 28% of the way towards Faint (which computes to `#e2e0da` and `#d2d0c9` on light, `#252529` and `#323236` on dark). The steps are small on purpose: Quiet Ink still clears 4.5:1 on the brightest tone (about 4.8:1 light, 5.1:1 dark), and none of the tones equals the Hairline colour. Where the noise is below the first threshold the canvas is transparent and the plain Ground shows through. The contour lines near the pointer are Lime.
+The shader takes its colours from the theme at run time, so the ground always matches. Tone one is Muted; tones two and three are Muted stepped 18% and 42% of the way towards Faint (which computes to `#e2e0da` and `#d2d0c9` on light, `#252529` and `#323236` on dark). The steps are small on purpose: Quiet Ink still clears 4.5:1 on the brightest tone (about 4.8:1 light, 5.1:1 dark), and none of the tones equals the Hairline colour. Where the noise is below the first threshold the canvas is transparent and the plain Ground shows through. The contour lines near the pointer are Lime.
 
 ### Named Rules
 
@@ -324,9 +324,10 @@ The command menu is the only overlay. It is the stock shadcn dialog: a popover-c
 ### The marbling
 
 - **What it is:** a full-viewport canvas, `position: fixed`, behind everything, ignoring the pointer and hidden from assistive technology. A fragment shader folds four-octave noise through itself twice and cuts the result into three flat tones with a fine diagonal hatch and grain at the cuts, so it reads as print and not as a gradient.
-- **Strength:** full at the top of the home page, easing to 0.8 over the first 80% of a screen of scrolling; 0.8 on every other page, so text always sits on the quieter version.
+- **Legibility:** text set straight on the marbling (the content column, the rail, the footer) carries a soft halo of the Ground colour (`.on-marble` in `globals.css`); frames and lime fills take none. Cuts between tones and the contour lines are drawn about one device pixel wide using screen-space derivatives.
+- **Strength:** full at the top of the home page, easing to 0.86 over the first 80% of a screen of scrolling; 0.86 on every other page, so text always sits on the quieter version.
 - **The lamp:** the pointer is a lamp. It follows the mouse (easing after it with a 160ms time constant), or is placed where a finger or pen lands; it does not move on its own. It stirs the marbling slightly and draws contour lines in Lime around itself: at full strength (0.85) where the level is near 1, and at about a third of that (0.3) where there is text to read. It brightens the marbling only where the level is near 1. Its reach is a share of the shorter side of the screen, so it is no wider on a phone. It comes up over about 400ms, goes out over about 900ms, and starts to go out 2.6 seconds after the pointer rests.
-- **Cost:** drawn to a budget of 700,000 pixels at no more than 1.5 device pixels per CSS pixel and scaled up in CSS. 30 frames a second while the lamp is lit, five a second once it is out and only the drift is left, none in a hidden tab. The canvas fades in over one second once the first frame is drawn.
+- **Cost:** drawn to a budget of 1.6 million pixels at no more than 1.5 device pixels per CSS pixel and scaled up in CSS. 30 frames a second while the lamp is lit, five a second once it is out and only the drift is left, none in a hidden tab. The canvas fades in over one second once the first frame is drawn.
 - **Fallbacks:** with reduced motion it draws one still frame and redraws only on scroll, resize, theme or page change. Without JavaScript or WebGL, or if the context is lost, the plain Ground remains.
 
 **The Flat Rule.** No shadows, no glows, no blurred panels. A thing is separated from the ground by a hairline or by space.
@@ -415,7 +416,7 @@ A hairline, then a line of Small text in Quiet Ink: the copyright on one side, `
 - **Do** set anything a machine would print in JetBrains Mono (paths, keys, times, dates, stack names, tags, handles) and everything else in Inter.
 - **Do** make every list operable from the keyboard and keep the 2px lime focus ring visible.
 - **Do** keep state changes short: 150ms for colour, 200ms for the preview pane's fade.
-- **Do** leave the marbling at its quiet strength (0.8) under anything that is mostly reading, and keep its tones close enough that Quiet Ink clears 4.5:1 on the brightest.
+- **Do** leave the marbling at its quiet strength (0.86) under anything that is mostly reading, and keep its tones close enough that Quiet Ink clears 4.5:1 on the brightest.
 - **Do** repeat below 64rem, in the page or footer, whatever the rail carries above it.
 - **Do** respect reduced motion: one still frame of marbling and near-instant transitions.
 

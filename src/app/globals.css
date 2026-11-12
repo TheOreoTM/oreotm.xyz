@@ -54,7 +54,7 @@
 	--secondary: #eeece6;
 	--secondary-foreground: #18181b;
 	--muted: #eeece6;
-	--muted-foreground: #57564f;
+	--muted-foreground: #4a4943;
 	--accent: #eeece6;
 	--accent-foreground: #18181b;
 	--destructive: #b91c1c;
@@ -78,7 +78,7 @@
 	--secondary: #1c1c1f;
 	--secondary-foreground: #ececec;
 	--muted: #1c1c1f;
-	--muted-foreground: #a3a3a8;
+	--muted-foreground: #b4b4ba;
 	--accent: #1c1c1f;
 	--accent-foreground: #ececec;
 	--destructive: #f87171;
@@ -110,6 +110,20 @@
 	* {
 		scrollbar-width: thin;
 		scrollbar-color: var(--faint) transparent;
+	}
+
+	/* Text set straight on the marbling carries a soft halo of the ground colour, the way a
+	   map label does, so it stays readable whatever tone or contour passes behind it. Filled
+	   surfaces (frames, lime buttons) have their own ground and take none. */
+	.on-marble {
+		text-shadow:
+			0 0 2px var(--background),
+			0 0 0.6em var(--background),
+			0 0 1.2em var(--background);
+	}
+
+	.on-marble :is(.bg-card, .bg-primary, .bg-popover, pre, code) {
+		text-shadow: none;
 	}
 
 	h1,

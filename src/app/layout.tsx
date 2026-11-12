@@ -67,7 +67,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
 						<div className="lg:flex lg:min-h-dvh lg:flex-col lg:pl-60">
 							<main
 								id="main"
-								className="mx-auto w-full max-w-[68rem] px-5 pt-10 sm:px-8 lg:flex-1 lg:px-12 lg:pt-14"
+								className="on-marble mx-auto w-full max-w-[68rem] px-5 pt-10 sm:px-8 lg:flex-1 lg:px-12 lg:pt-14"
 							>
 								{children}
 							</main>

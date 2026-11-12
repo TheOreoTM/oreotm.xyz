@@ -67,7 +67,7 @@ export function Header() {
 	return (
 		<>
 			{/* The rail. */}
-			<header className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r px-5 py-6 lg:flex">
+			<header className="on-marble fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r px-5 py-6 lg:flex">
 				<Wordmark />
 				{/* Where you are, as a path. The home page has none to show. */}
 				<p
