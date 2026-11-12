@@ -5,7 +5,8 @@ working terminal on the home page, project case studies, and a Ctrl/⌘ K comman
 
 ## Stack
 
-- [Next.js](https://nextjs.org) 16 (App Router, Cache Components), React 19, TypeScript, deployed on Vercel
+- [Next.js](https://nextjs.org) 16 (App Router, Cache Components), React 19, TypeScript,
+  self-hosted on a VPS with Docker (`Dockerfile`, standalone output)
 - [Tailwind CSS](https://tailwindcss.com) 4 and [shadcn/ui](https://ui.shadcn.com) (Radix), themed with
   CSS variables in `src/app/globals.css`; light and dark mode via [next-themes](https://github.com/pacocoursey/next-themes)
 - MDX content rendered with [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote) and
