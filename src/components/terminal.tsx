@@ -282,7 +282,7 @@ export function Terminal({ projects }: { projects: ProjectSummary[] }) {
 	return (
 		<section
 			aria-label="Interactive terminal"
-			className="overflow-hidden rounded-xl border bg-card font-mono text-sm shadow-sm transition-colors focus-within:border-primary"
+			className="overflow-hidden rounded-[10px] border bg-card font-mono text-sm transition-colors focus-within:border-primary"
 		>
 			<div className="flex items-center gap-2 border-b px-4 py-2.5">
 				<span className="flex gap-1.5" aria-hidden="true">

@@ -25,9 +25,8 @@
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
-	/* Site-specific: decorative text and the dotted background. */
+	/* Site-specific: decorative text. */
 	--color-faint: var(--faint);
-	--color-dot: var(--dot);
 
 	--font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 	--font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -63,7 +62,6 @@
 	--input: #e0ddd5;
 	--ring: #4d7c0f;
 	--faint: #8a877f;
-	--dot: #dcd9cf;
 }
 
 .dark {
@@ -86,7 +84,6 @@
 	--input: #27272b;
 	--ring: #a3e635;
 	--faint: #6b6b71;
-	--dot: #1e1e21;
 }
 
 @layer base {
@@ -94,18 +91,29 @@
 		@apply border-border outline-ring/50;
 	}
 
-	/* The page's ground is on <html>, and <body> has none of its own, so something placed
-	   behind the content (the home page's marbling, at a negative z-index) is still in front
-	   of the ground. */
+	/* The page's ground is on <html>, and <body> has none of its own, so the marbling (fixed
+	   behind the content at a negative z-index) is still in front of the ground. */
 	html {
 		@apply bg-background font-sans antialiased;
-		background-image: radial-gradient(var(--dot) 1px, transparent 1px);
-		background-size: 24px 24px;
+		scroll-padding-top: 5rem;
 	}
 
 	body {
 		@apply text-foreground;
 		min-height: 100dvh;
+		font-feature-settings: 'cv11', 'ss03', 'calt';
+	}
+
+	/* The parts the browser draws carry the palette too. */
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: var(--border) transparent;
+	}
+
+	h1,
+	h2,
+	h3 {
+		text-wrap: balance;
 	}
 
 	::selection {

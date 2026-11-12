@@ -62,13 +62,13 @@ function PostList({ posts, selected }: { posts: Post[]; selected: string[] }) {
 			</nav>
 
 			{shown.length > 0 ? (
-				<ul className="-mx-2 mt-8 divide-y sm:-mx-4">
+				<ul className="mt-8 border-t">
 					{shown.map((post) => (
-						<li key={post.slug}>
-							<article className="group relative grid gap-1 rounded-lg px-2 py-5 transition-colors hover:bg-card sm:grid-cols-[8rem_1fr] sm:gap-6 sm:px-4">
+						<li key={post.slug} className="border-b">
+							<article className="group relative grid gap-1 px-1 py-5 transition-colors hover:bg-foreground/[0.03] sm:grid-cols-[8rem_1fr] sm:gap-6 sm:px-3">
 								<time
 									dateTime={isoDate(post.date)}
-									className="pt-1 font-mono text-sm text-muted-foreground"
+									className="pt-1 font-mono text-sm text-muted-foreground tabular-nums"
 								>
 									{formatDate(post.date)}
 								</time>
@@ -113,11 +113,10 @@ export default async function BlogPage({ searchParams }: PageProps<'/blog'>) {
 	return (
 		<>
 			<header className="max-w-2xl">
-				<p className="font-mono text-sm text-muted-foreground">
-					<span className="text-primary">❯</span> ls ~/blog
-				</p>
-				<h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Blog</h1>
-				<p className="mt-4 text-lg text-muted-foreground">
+				<h1 className="text-5xl leading-[1.02] font-semibold tracking-[-0.035em] sm:text-6xl">
+					Blog
+				</h1>
+				<p className="mt-4 text-xl text-muted-foreground">
 					Notes on things I&apos;ve built and broken.
 				</p>
 			</header>

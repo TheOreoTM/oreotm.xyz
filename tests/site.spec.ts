@@ -75,6 +75,27 @@ test.describe('terminal', () => {
 	});
 });
 
+test('work list moves with the keyboard and previews the selected project', async ({
+	page
+}, testInfo) => {
+	// The preview pane only exists beside the list, from the lg breakpoint up.
+	test.skip(testInfo.project.name === 'mobile', 'no preview pane on narrow screens');
+	await open(page, '/projects');
+	const rows = page.locator('main a[data-row]');
+	await rows.first().focus();
+	await expect(page.getByRole('complementary', { name: /^Preview of / })).toHaveAccessibleName(
+		'Preview of Frieren TCG Wiki'
+	);
+	await page.keyboard.press('ArrowDown');
+	await expect(rows.nth(1)).toBeFocused();
+	await expect(page.getByRole('complementary', { name: /^Preview of / })).toHaveAccessibleName(
+		'Preview of Cardinal Bot'
+	);
+	await page.keyboard.press('j');
+	await page.keyboard.press('Enter');
+	await expect(page).toHaveURL('/projects/frieren-rag');
+});
+
 test('command menu opens with the shortcut and navigates', async ({ page }) => {
 	await open(page, '/');
 	await page.keyboard.press('Control+K');

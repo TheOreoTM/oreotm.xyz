@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { MdxContent } from '@/components/mdx-content';
-import { Badge } from '@/components/ui/badge';
 import { getProject, getProjects } from '@/lib/content';
 import { cn } from '@/lib/utils';
 
@@ -50,12 +49,13 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 					alt={meta.imageAlt}
 					width={96}
 					height={96}
-					className="size-20 rounded-xl border bg-card object-cover sm:size-24"
+					className="size-20 rounded-[10px] border bg-card object-cover sm:size-24"
 				/>
 				<div>
-					<p className="font-mono text-sm text-muted-foreground">{meta.year}</p>
-					<h1 className="mt-1 text-4xl font-semibold tracking-tight sm:text-5xl">{meta.name}</h1>
-					<p className="mt-2 text-lg text-muted-foreground">{meta.tagline}</p>
+					<h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.03em] sm:text-5xl">
+						{meta.name}
+					</h1>
+					<p className="mt-2 text-xl text-muted-foreground">{meta.tagline}</p>
 				</div>
 			</header>
 
@@ -65,26 +65,16 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 				</article>
 
 				<aside className="self-start lg:sticky lg:top-24">
-					<h2 className="font-mono text-sm text-muted-foreground">at a glance</h2>
-					<dl className="mt-4 space-y-5 border-t pt-4">
-						<div>
+					<h2 className="text-lg font-semibold tracking-tight">At a glance</h2>
+					<dl className="mt-3 border-t">
+						<div className="border-b py-3">
 							<dt className="font-mono text-xs text-muted-foreground">year</dt>
-							<dd className="mt-1">{meta.year}</dd>
+							<dd className="mt-1 tabular-nums">{meta.year}</dd>
 						</div>
 						{meta.stack.length > 0 && (
-							<div>
+							<div className="border-b py-3">
 								<dt className="font-mono text-xs text-muted-foreground">built with</dt>
-								<dd className="mt-2">
-									<ul className="flex flex-wrap gap-1.5">
-										{meta.stack.map((tech) => (
-											<li key={tech}>
-												<Badge variant="outline" className="bg-card font-mono">
-													{tech}
-												</Badge>
-											</li>
-										))}
-									</ul>
-								</dd>
+								<dd className="mt-1 font-mono text-sm leading-relaxed">{meta.stack.join(', ')}</dd>
 							</div>
 						)}
 					</dl>
@@ -97,7 +87,7 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 										target="_blank"
 										rel="noopener noreferrer"
 										className={cn(
-											'flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+											'flex items-center justify-between gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
 											i === 0
 												? 'bg-primary text-primary-foreground hover:bg-primary/85'
 												: 'border bg-card hover:border-primary'
@@ -116,14 +106,14 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 			{next.slug !== slug && (
 				<Link
 					href={`/projects/${next.slug}`}
-					className="group mt-20 flex items-center justify-between gap-4 rounded-xl border bg-card p-6 transition-colors hover:border-primary"
+					className="group mt-20 flex items-baseline justify-between gap-4 border-y px-1 py-6 transition-colors hover:bg-foreground/[0.03] sm:px-3"
 				>
 					<span>
-						<span className="block font-mono text-xs text-muted-foreground">next project</span>
-						<span className="mt-1 block text-xl font-semibold tracking-tight">{next.name}</span>
+						<span className="block text-sm text-muted-foreground">Next project</span>
+						<span className="mt-1 block text-2xl font-semibold tracking-tight">{next.name}</span>
 					</span>
 					<ArrowRight
-						className="size-5 transition-transform group-hover:translate-x-1 group-hover:text-primary"
+						className="size-5 self-center transition-transform group-hover:translate-x-1 group-hover:text-primary"
 						aria-hidden="true"
 					/>
 				</Link>

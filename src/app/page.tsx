@@ -2,12 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { LocalTime } from '@/components/local-time';
-import { Marble } from '@/components/marble';
-import { ProjectRow } from '@/components/project-row';
 import { SectionHeading } from '@/components/section-heading';
 import { SocialIcon } from '@/components/social-icon';
 import { Terminal } from '@/components/terminal';
 import { Button } from '@/components/ui/button';
+import { Work } from '@/components/work';
 import { getProjects } from '@/lib/content';
 import { site, socials, toolbox } from '@/lib/site';
 
@@ -18,25 +17,16 @@ export default async function HomePage() {
 
 	return (
 		<>
-			<Marble />
-
-			{/* Hero */}
-			<section className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+			{/* The statement and the terminal. */}
+			<section className="grid items-end gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-12">
 				<div>
-					<p className="flex items-center gap-2 font-mono text-sm text-muted-foreground">
-						<span className="relative flex size-2" aria-hidden="true">
-							<span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-60" />
-							<span className="relative inline-flex size-2 rounded-full bg-primary" />
-						</span>
-						{site.location} · <LocalTime /> local time
-					</p>
-					<h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-						I&apos;m OreoTM, a full&#8209;stack developer{' '}
-						<span className="text-muted-foreground">
-							building Discord bots, websites, and the backends behind them.
-						</span>
+					<h1 className="text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.035em] sm:text-6xl">
+						I&apos;m OreoTM, a full&#8209;stack developer.
 					</h1>
-					<div className="mt-8 flex flex-wrap gap-3">
+					<p className="mt-5 max-w-[34ch] text-xl leading-snug text-muted-foreground sm:text-2xl">
+						I build Discord bots, websites, and the backends behind them.
+					</p>
+					<div className="mt-8 flex flex-wrap items-center gap-3">
 						<Button asChild className="h-11 px-4 text-base">
 							<Link href="/projects">
 								See my projects <ArrowRight aria-hidden="true" />
@@ -46,39 +36,36 @@ export default async function HomePage() {
 							<Link href="/contact">Get in touch</Link>
 						</Button>
 					</div>
+					{/* The rail shows this from lg up. */}
+					<p className="mt-6 font-mono text-sm text-muted-foreground lg:hidden">
+						{site.location}, <LocalTime /> local time
+					</p>
 				</div>
 
 				<Terminal projects={summaries} />
 			</section>
 
 			{/* Selected work */}
-			<section className="mt-24" aria-labelledby="work">
+			<section className="mt-24 lg:mt-28" aria-labelledby="work">
 				<SectionHeading
 					id="work"
-					index="01"
-					title="selected work"
+					title="Selected work"
 					action={
 						<Link
 							href="/projects"
-							className="font-mono text-sm text-muted-foreground hover:text-foreground"
+							className="font-mono text-sm text-muted-foreground underline decoration-border underline-offset-4 hover:text-foreground hover:decoration-primary"
 						>
-							all projects →
+							all projects
 						</Link>
 					}
 				/>
-				<ul className="-mx-2 sm:-mx-4">
-					{featured.map((project) => (
-						<li key={project.slug}>
-							<ProjectRow project={project} />
-						</li>
-					))}
-				</ul>
+				<Work projects={featured} />
 			</section>
 
 			{/* About */}
-			<section className="mt-24" aria-labelledby="about">
-				<SectionHeading id="about" index="02" title="about" />
-				<div className="grid gap-10 md:grid-cols-2">
+			<section className="mt-24 lg:mt-28" aria-labelledby="about">
+				<SectionHeading id="about" title="About" />
+				<div className="grid gap-10 md:grid-cols-2 md:gap-12">
 					<div className="flex gap-5">
 						<Image
 							src={site.avatar}
@@ -101,12 +88,9 @@ export default async function HomePage() {
 						</div>
 					</div>
 
-					<dl className="space-y-4">
+					<dl className="border-t">
 						{toolbox.map((group) => (
-							<div
-								key={group.group}
-								className="grid grid-cols-[8.5rem_1fr] gap-4 border-b pb-4 last:border-0"
-							>
+							<div key={group.group} className="grid grid-cols-[8.5rem_1fr] gap-4 border-b py-3.5">
 								<dt className="font-mono text-sm text-muted-foreground">{group.group}</dt>
 								<dd>{group.items.join(', ')}</dd>
 							</div>
@@ -116,13 +100,16 @@ export default async function HomePage() {
 			</section>
 
 			{/* Contact */}
-			<section className="mt-24 rounded-2xl border bg-card p-8 sm:p-10" aria-labelledby="cta">
-				<h2 id="cta" className="text-3xl font-semibold tracking-tight text-balance">
+			<section className="mt-24 border-t pt-12 lg:mt-28" aria-labelledby="cta">
+				<h2
+					id="cta"
+					className="max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] sm:text-5xl"
+				>
 					Got a brilliant{' '}
 					<span className="text-muted-foreground line-through decoration-primary">Discord bot</span>{' '}
 					idea in mind?
 				</h2>
-				<p className="mt-3 max-w-prose text-lg text-muted-foreground">
+				<p className="mt-4 max-w-prose text-lg text-muted-foreground">
 					Send me a message and tell me what you&apos;re building.
 				</p>
 				<div className="mt-8 flex flex-wrap items-center gap-3">
@@ -139,7 +126,7 @@ export default async function HomePage() {
 								href={social.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="grid size-11 place-items-center rounded-lg border bg-background transition-colors hover:border-primary"
+								className="grid size-11 place-items-center rounded-lg border bg-card transition-colors hover:border-primary"
 								aria-label={social.label}
 								title={social.label}
 							>
