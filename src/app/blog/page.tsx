@@ -88,7 +88,7 @@ function PostList({ posts, selected }: { posts: Post[]; selected: string[] }) {
 					))}
 				</ul>
 			) : (
-				<p className="mt-8 font-mono text-sm text-muted-foreground">No posts match those tags.</p>
+				<p className="mt-8 text-muted-foreground">No posts match those tags.</p>
 			)}
 		</>
 	);

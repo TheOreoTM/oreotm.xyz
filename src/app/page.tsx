@@ -39,8 +39,8 @@ export default async function HomePage() {
 						</Button>
 					</div>
 					{/* The rail shows this from lg up. */}
-					<p className="mt-6 font-mono text-sm text-muted-foreground lg:hidden">
-						{site.location}, <LocalTime /> local time
+					<p className="mt-6 text-sm text-muted-foreground lg:hidden">
+						{site.location}, <LocalTime className="font-mono" /> local time
 					</p>
 				</div>
 

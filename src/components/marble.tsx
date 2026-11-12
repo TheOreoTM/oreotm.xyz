@@ -181,7 +181,7 @@ export function Marble() {
 			gl.viewport(0, 0, width, height);
 		};
 
-		// The lamp eases after the pointer; with no mouse it wanders on its own.
+		// The lamp eases after the pointer, or a tap, and goes out once it rests.
 		let targetX = 0.7;
 		let targetY = 0.35;
 		let x = targetX;
