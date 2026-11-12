@@ -1,0 +1,9 @@
+.git
+node_modules
+build
+.svelte-kit
+.vercel
+tests
+test-results
+.env*
+Dockerfile
