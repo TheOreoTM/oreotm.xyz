@@ -47,6 +47,13 @@ float fbm(vec2 q){
   return v;
 }
 
+// Three octaves: enough for the two folds, which only steer the last one.
+float fbm3(vec2 q){
+  float v = 0., a = .5;
+  for (int i = 0; i < 3; i++) { v += a * noise(q); q = q * 2.03 + 17.; a *= .5; }
+  return v;
+}
+
 void main(){
   vec2 uv = vec2(gl_FragCoord.x / res.x, 1. - gl_FragCoord.y / res.y);
   float a = res.x / res.y;
@@ -61,27 +68,36 @@ void main(){
 
   // Noise folded through itself twice: the marbling.
   float t = time * .035;
-  vec2 q = vec2(fbm(p * 1.5 + vec2(0., t)), fbm(p * 1.5 + vec2(5.2, -t)));
-  vec2 r = vec2(fbm(p * 1.5 + 3. * q + vec2(1.7, 9.2) + t), fbm(p * 1.5 + 3. * q + vec2(8.3, 2.8) - t));
+  vec2 q = vec2(fbm3(p * 1.5 + vec2(0., t)), fbm3(p * 1.5 + vec2(5.2, -t)));
+  vec2 r = vec2(fbm3(p * 1.5 + 3. * q + vec2(1.7, 9.2) + t), fbm3(p * 1.5 + 3. * q + vec2(8.3, 2.8) - t));
   float f = fbm(p * 1.5 + 3.2 * r);
 
   // The lamp only brightens the marbling where the page is not mostly text (level near 1);
   // elsewhere it still draws its contours.
-  float l = f * (.72 + glow * .7 * beam * smoothstep(.82, 1., level)) * level;
+  float l = f * (.78 + glow * .7 * beam * smoothstep(.86, 1., level)) * level;
 
   vec2 fc = gl_FragCoord.xy / px;
-  float n = l + sin((fc.x + fc.y) * 1.9) * .018 + (hash(floor(gl_FragCoord.xy)) - .5) * .02;
+  // A trace of hatch and grain, so the cuts read as print, not vector.
+  float n = l + sin((fc.x + fc.y) * 1.9) * .006 + (hash(floor(gl_FragCoord.xy)) - .5) * .008;
 
-  float k1 = smoothstep(.335, .345, n);
-  float k2 = smoothstep(.435, .445, n);
-  float k3 = smoothstep(.545, .555, n);
+  // Each cut is about one device pixel wide whatever the slope of the field under it:
+  // AA() is the field's change per pixel where the browser can report it.
+  float w = AA(l) * .75 + .0005;
+  float k1 = smoothstep(.335 - w, .335 + w, n);
+  float k2 = smoothstep(.44 - w, .44 + w, n);
+  float k3 = smoothstep(.55 - w, .55 + w, n);
   vec3 col = mix(mix(c1, c2, k2), c3, k3);
   float alpha = k1;
 
   // Contours in the accent colour, only where the lamp is.
-  float line = 1. - smoothstep(.004, .011, abs(fract(l * 9. + .5) - .5));
+  // Contours as even hairlines, a little over a pixel wide, for the same reason.
+  // They follow the marbling itself, not the lamp's brightening of it, so they stay put
+  // and the lamp only reveals them.
+  float v9 = f * 13.;
+  float lw = AA(v9);
+  float line = 1. - smoothstep(lw * .3, lw * .85, abs(fract(v9 + .5) - .5));
   // Full strength at the top of the home page, a third of it where there is text to read.
-  float lit = line * beam * glow * mix(.3, .85, smoothstep(.82, 1., level));
+  float lit = line * beam * glow * mix(.3, .6, smoothstep(.86, 1., level));
   col = mix(col, ink, lit);
   alpha = max(alpha, lit);
 
@@ -91,8 +107,12 @@ void main(){
 /** Milliseconds after the pointer rests before the lamp starts to go out. */
 const REST = 2600;
 
+/** The most pixels the canvas draws; above this it is drawn smaller and scaled up. Enough for
+ *  a 1600x1000 window at one canvas pixel per CSS pixel. */
+const BUDGET = 1.6e6;
+
 /** Strength where there is text to read over it. */
-const QUIET = 0.8;
+const QUIET = 0.86;
 
 export function Marble() {
 	const pathname = usePathname();
@@ -120,9 +140,14 @@ export function Marble() {
 			gl.compileShader(shader);
 			return shader;
 		};
+		// With screen-space derivatives the cuts and contours can be exactly a pixel wide. Without
+		// them (rare), a fixed width that suits a typical window.
+		const fragment = gl.getExtension('OES_standard_derivatives')
+			? `#extension GL_OES_standard_derivatives : enable\n#define AA(x) fwidth(x)\n${FRAG}`
+			: `#define AA(x) 0.006\n${FRAG}`;
 		const program = gl.createProgram()!;
 		gl.attachShader(program, compile(gl.VERTEX_SHADER, VERT));
-		gl.attachShader(program, compile(gl.FRAGMENT_SHADER, FRAG));
+		gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fragment));
 		gl.linkProgram(program);
 		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
 		gl.useProgram(program);
@@ -155,24 +180,24 @@ export function Marble() {
 		};
 		// Three tones stepped from the muted surface towards the faint text colour. The steps are
 		// small on purpose: muted text at body size still clears 4.5:1 on the brightest one
-		// (about 5:1 dark, 4.8:1 light), and none of them equals the hairline colour.
+		// (about 5.2:1 dark, 5:1 light), and none of them equals the hairline colour.
 		const tones = () => {
 			const muted = rgb('--muted');
 			const faint = rgb('--faint');
 			const step = (t: number) => muted.map((v, k) => v * (1 - t) + faint[k] * t) as typeof muted;
 			gl.uniform3f(u.c1, ...muted);
-			gl.uniform3f(u.c2, ...step(0.12));
-			gl.uniform3f(u.c3, ...step(0.28));
+			gl.uniform3f(u.c2, ...step(0.18));
+			gl.uniform3f(u.c3, ...step(0.42));
 			gl.uniform3f(u.ink, ...rgb('--primary'));
 		};
 
-		// Drawn to a budget (700 thousand pixels), not to the screen; CSS scales it up.
+		// Drawn to a budget (1.6 million pixels), not to the screen; CSS scales it up.
 		const size = () => {
 			const box = host.getBoundingClientRect();
 			scale = Math.min(
 				devicePixelRatio || 1,
 				1.5,
-				Math.sqrt(7e5 / Math.max(1, box.width * box.height))
+				Math.sqrt(BUDGET / Math.max(1, box.width * box.height))
 			);
 			width = Math.max(2, Math.round(box.width * scale));
 			height = Math.max(2, Math.round(box.height * scale));
