@@ -77,8 +77,13 @@
 		border-color: var(--border);
 	}
 
+	/* The page's ground is on <html>, and <body> has none of its own, so something placed
+	   behind the content (the home page's marbling, at a negative z-index) is still in front
+	   of the ground. */
 	html {
 		background-color: var(--bg);
+		background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+		background-size: 24px 24px;
 		color: var(--fg);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -87,9 +92,6 @@
 	body {
 		min-height: 100dvh;
 		font-family: var(--font-sans);
-		background-color: var(--bg);
-		background-image: radial-gradient(var(--dot) 1px, transparent 1px);
-		background-size: 24px 24px;
 	}
 
 	::selection {

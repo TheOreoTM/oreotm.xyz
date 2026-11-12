@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Marble from '$lib/components/Marble.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 	import Terminal from '$lib/components/Terminal.svelte';
 	import ProjectRow from '$lib/components/ProjectRow.svelte';
@@ -12,6 +13,8 @@
 </script>
 
 <Meta />
+
+<Marble />
 
 <!-- Hero -->
 <section class="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
