@@ -34,16 +34,16 @@ export default async function PostPage({ params }: PageProps<'/blog/[slug]'>) {
 	const { meta, body } = post;
 
 	return (
-		<div className="mx-auto max-w-[68ch]">
+		<div className="max-w-[68ch]">
 			<Link
 				href="/blog"
-				className="inline-flex items-center gap-2 font-mono text-sm text-muted-foreground hover:text-foreground"
+				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
 			>
-				<ArrowLeft className="size-4" aria-hidden="true" /> all posts
+				<ArrowLeft className="size-4" aria-hidden="true" /> All posts
 			</Link>
 
 			<header className="mt-8">
-				<h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+				<h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.03em] sm:text-5xl">
 					{meta.title}
 				</h1>
 				<p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-sm text-muted-foreground">

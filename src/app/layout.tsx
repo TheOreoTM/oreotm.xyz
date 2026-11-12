@@ -6,6 +6,7 @@ import { CommandMenu } from '@/components/command-menu';
 import { CommandMenuProvider } from '@/components/command-menu-context';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
+import { Marble } from '@/components/marble';
 import { ThemeProvider } from '@/components/theme-provider';
 import { getProjects } from '@/lib/content';
 import { site, siteUrl } from '@/lib/site';
@@ -59,11 +60,19 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
 						>
 							Skip to content
 						</a>
+						<Marble />
 						<Header />
-						<main id="main" className="mx-auto max-w-5xl px-4 pt-10 sm:pt-16">
-							{children}
-						</main>
-						<Footer />
+						{/* From lg up the rail takes the first 15rem; everything else sits beside it, in a
+						    column at least a screen tall so the footer rests at the bottom of short pages. */}
+						<div className="lg:flex lg:min-h-dvh lg:flex-col lg:pl-60">
+							<main
+								id="main"
+								className="mx-auto w-full max-w-[68rem] px-5 pt-10 sm:px-8 lg:flex-1 lg:px-12 lg:pt-14"
+							>
+								{children}
+							</main>
+							<Footer />
+						</div>
 						<CommandMenu projects={summaries} />
 					</CommandMenuProvider>
 				</ThemeProvider>

@@ -1,20 +1,24 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * The ground behind the home page's hero: a slow marbling, like cream turned through
- * something darker, printed in the theme's own colours.
+ * The site's ground: a slow marbling, like cream turned through something darker, printed
+ * in the theme's own colours and fixed behind every page.
  *
  * Nothing is downloaded. A WebGL fragment shader folds noise through itself (domain
  * warping), then cuts the result into three flat tones taken from the page's CSS variables,
  * with a fine hatch and grain at the cuts so it reads as print rather than gradient. The
  * pointer is a lamp: near it the marbling comes up brighter, is stirred a little, and its
- * contours are drawn in the accent colour.
+ * contours are drawn in the primary colour.
  *
- * It draws to a pixel budget and at most 30 times a second, stops while off screen or in a
- * hidden tab, and follows the theme toggle. With reduced motion it draws one still frame.
- * Without JavaScript or WebGL the page keeps its plain background.
+ * It is at full strength at the top of the home page and quieter everywhere there is
+ * something to read: further down the home page, and on every other page.
+ *
+ * It draws to a pixel budget, 30 times a second while the lamp is lit and five while the
+ * pointer rests, stops in a hidden tab, and follows the theme toggle. With reduced motion it draws one still frame. Without
+ * JavaScript or WebGL the page keeps its plain background.
  */
 
 const VERT = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
@@ -25,7 +29,7 @@ uniform vec2 lamp;   // pointer, 0..1 from the top left
 uniform float glow;  // lamp strength
 uniform float time;
 uniform float px;    // canvas pixels per CSS pixel
-uniform float tall;  // 1 on portrait screens
+uniform float level; // overall strength: 1 at the top of the home page, less where there is text
 uniform vec3 c1;     // quietest tone
 uniform vec3 c2;
 uniform vec3 c3;
@@ -50,7 +54,9 @@ void main(){
 
   // The lamp, and the stir around it.
   vec2 d = p - vec2(lamp.x * a, lamp.y);
-  float beam = exp(-dot(d, d) / .09);
+  // The lamp's reach is a share of the shorter side, so it is no wider on a phone.
+  float reach = .09 * min(1., a * a);
+  float beam = exp(-dot(d, d) / reach);
   p += vec2(-d.y, d.x) * beam * .22 * glow;
 
   // Noise folded through itself twice: the marbling.
@@ -59,11 +65,9 @@ void main(){
   vec2 r = vec2(fbm(p * 1.5 + 3. * q + vec2(1.7, 9.2) + t), fbm(p * 1.5 + 3. * q + vec2(8.3, 2.8) - t));
   float f = fbm(p * 1.5 + 3.2 * r);
 
-  float l = f * (.72 + glow * .7 * beam);
-  // Quiet behind the headline (the left on wide screens, everything on narrow ones)…
-  l *= mix(mix(.62, 1., smoothstep(.12, .55, uv.x)), .7, tall);
-  // …and it runs out before the page's next section.
-  float fade = 1. - smoothstep(.55, 1., uv.y);
+  // The lamp only brightens the marbling where the page is not mostly text (level near 1);
+  // elsewhere it still draws its contours.
+  float l = f * (.72 + glow * .7 * beam * smoothstep(.82, 1., level)) * level;
 
   vec2 fc = gl_FragCoord.xy / px;
   float n = l + sin((fc.x + fc.y) * 1.9) * .018 + (hash(floor(gl_FragCoord.xy)) - .5) * .02;
@@ -76,18 +80,27 @@ void main(){
 
   // Contours in the accent colour, only where the lamp is.
   float line = 1. - smoothstep(.004, .011, abs(fract(l * 9. + .5) - .5));
-  float lit = line * beam * glow * .85;
+  // Full strength at the top of the home page, a third of it where there is text to read.
+  float lit = line * beam * glow * mix(.3, .85, smoothstep(.82, 1., level));
   col = mix(col, ink, lit);
   alpha = max(alpha, lit);
 
-  alpha *= fade;
   gl_FragColor = vec4(col * alpha, alpha);
 }`;
 
+/** Milliseconds after the pointer rests before the lamp starts to go out. */
+const REST = 2600;
+
+/** Strength where there is text to read over it. */
+const QUIET = 0.8;
+
 export function Marble() {
+	const pathname = usePathname();
+	const pathRef = useRef(pathname);
 	const hostRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [shown, setShown] = useState(false);
+	const redrawRef = useRef(() => {});
 
 	useEffect(() => {
 		const host = hostRef.current;
@@ -119,7 +132,7 @@ export function Marble() {
 		gl.enableVertexAttribArray(at);
 		gl.vertexAttribPointer(at, 2, gl.FLOAT, false, 0, 0);
 		const u = Object.fromEntries(
-			['res', 'lamp', 'glow', 'time', 'px', 'tall', 'c1', 'c2', 'c3', 'ink'].map((name) => [
+			['res', 'lamp', 'glow', 'time', 'px', 'level', 'c1', 'c2', 'c3', 'ink'].map((name) => [
 				name,
 				gl.getUniformLocation(program, name)
 			])
@@ -140,13 +153,16 @@ export function Marble() {
 			const parts = getComputedStyle(probe).color.match(/[\d.]+/g) ?? ['0', '0', '0'];
 			return parts.slice(0, 3).map((part) => Number(part) / 255) as [number, number, number];
 		};
+		// Three tones stepped from the muted surface towards the faint text colour. The steps are
+		// small on purpose: muted text at body size still clears 4.5:1 on the brightest one
+		// (about 5:1 dark, 4.8:1 light), and none of them equals the hairline colour.
 		const tones = () => {
-			const border = rgb('--border');
+			const muted = rgb('--muted');
 			const faint = rgb('--faint');
-			gl.uniform3f(u.c1, ...rgb('--muted'));
-			gl.uniform3f(u.c2, ...border);
-			// The brightest tone: a step from the border colour towards the faint text colour.
-			gl.uniform3f(u.c3, ...(border.map((v, k) => v * 0.62 + faint[k] * 0.38) as typeof border));
+			const step = (t: number) => muted.map((v, k) => v * (1 - t) + faint[k] * t) as typeof muted;
+			gl.uniform3f(u.c1, ...muted);
+			gl.uniform3f(u.c2, ...step(0.12));
+			gl.uniform3f(u.c3, ...step(0.28));
 			gl.uniform3f(u.ink, ...rgb('--primary'));
 		};
 
@@ -165,7 +181,7 @@ export function Marble() {
 			gl.viewport(0, 0, width, height);
 		};
 
-		// The lamp eases after the pointer; with no mouse it wanders on its own.
+		// The lamp eases after the pointer, or a tap, and goes out once it rests.
 		let targetX = 0.7;
 		let targetY = 0.35;
 		let x = targetX;
@@ -173,38 +189,48 @@ export function Marble() {
 		let glow = still ? 0.6 : 0;
 		let moved = -1e9;
 		const onMove = (event: PointerEvent) => {
-			if (event.pointerType !== 'mouse') return;
+			// A mouse leads the lamp as it moves; a finger or pen places it where it lands.
+			if (event.type === 'pointermove' && event.pointerType !== 'mouse') return;
 			const box = host.getBoundingClientRect();
 			targetX = (event.clientX - box.left) / box.width;
 			targetY = (event.clientY - box.top) / box.height;
 			moved = event.timeStamp;
 		};
 
+		// Full strength at the top of the home page, easing down over the first screen of
+		// scrolling; quiet on every page that is mostly reading.
+		const level = () => {
+			if (pathRef.current !== '/') return QUIET;
+			const t = Math.min(1, Math.max(0, scrollY / (innerHeight * 0.8)));
+			return 1 + (QUIET - 1) * t * t * (3 - 2 * t);
+		};
+
 		const draw = (time: number, step: number) => {
-			const idle = time - moved > 2600;
-			const tx = idle ? 0.68 + Math.sin(time / 3100) * 0.18 : targetX;
-			const ty = idle ? 0.36 + Math.sin(time / 4300 + 1) * 0.14 : targetY;
-			const ease = still ? 1 : 1 - Math.exp(-step / (idle ? 800 : 160));
-			x += (tx - x) * ease;
-			y += (ty - y) * ease;
-			if (!still) glow += ((idle ? 0.6 : 1) - glow) * (1 - Math.exp(-step / 600));
+			// The lamp follows the pointer and goes out a few seconds after it rests.
+			const idle = time - moved > REST;
+			const ease = still ? 1 : 1 - Math.exp(-step / 160);
+			x += (targetX - x) * ease;
+			y += (targetY - y) * ease;
+			if (!still) glow += ((idle ? 0 : 1) - glow) * (1 - Math.exp(-step / (idle ? 900 : 400)));
 			gl.uniform2f(u.res, width, height);
 			gl.uniform2f(u.lamp, x, y);
 			gl.uniform1f(u.glow, glow);
 			gl.uniform1f(u.time, still ? 40 : time / 1000);
 			gl.uniform1f(u.px, scale);
-			gl.uniform1f(u.tall, height > width ? 1 : 0);
+			gl.uniform1f(u.level, level());
 			gl.drawArrays(gl.TRIANGLES, 0, 3);
 			setShown(true);
 		};
 
 		let frame = 0;
 		let last = 0;
-		let visible = false;
 		const loop = (time: number) => {
 			frame = 0;
-			if (lost || still || !visible || document.hidden) return;
-			if (time - last >= 32) {
+			if (lost || still || document.hidden) return;
+			// While the lamp is lit: 30 frames a second. Once it is out only the slow drift is
+			// left, and five a second is plenty for that.
+			const every = time - moved > REST && glow < 0.03 ? 200 : 32;
+			if (time - last >= every) {
 				draw(time, Math.min(100, time - last));
 				last = time;
 			}
@@ -222,6 +248,9 @@ export function Marble() {
 		size();
 		tones();
 		redraw();
+		redrawRef.current = redraw;
+		const onScroll = () => still && redraw();
+		addEventListener('scroll', onScroll, { passive: true });
 
 		const resized = new ResizeObserver(() => {
 			size();
@@ -233,11 +262,6 @@ export function Marble() {
 			redraw();
 		});
 		themed.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-		const seen = new IntersectionObserver(([entry]) => {
-			visible = entry.isIntersecting;
-			if (visible) wake();
-		});
-		seen.observe(host);
 		const onLost = (event: Event) => {
 			event.preventDefault();
 			lost = true;
@@ -245,28 +269,31 @@ export function Marble() {
 		};
 		canvas.addEventListener('webglcontextlost', onLost);
 		addEventListener('pointermove', onMove, { passive: true });
+		addEventListener('pointerdown', onMove, { passive: true });
 		document.addEventListener('visibilitychange', wake);
 
 		return () => {
 			cancelAnimationFrame(frame);
 			resized.disconnect();
 			themed.disconnect();
-			seen.disconnect();
 			canvas.removeEventListener('webglcontextlost', onLost);
 			removeEventListener('pointermove', onMove);
+			removeEventListener('pointerdown', onMove);
+			removeEventListener('scroll', onScroll);
+			redrawRef.current = () => {};
 			document.removeEventListener('visibilitychange', wake);
 			probe.remove();
 		};
 	}, []);
 
+	// A new page changes the strength; with reduced motion nothing else would redraw it.
+	useEffect(() => {
+		pathRef.current = pathname;
+		redrawRef.current();
+	}, [pathname]);
+
 	return (
-		// Laid against the page, not the content column: with no positioned ancestor, inset-x-0 is
-		// the page's own width, so it never causes sideways scrolling.
-		<div
-			ref={hostRef}
-			className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(52rem,115svh)]"
-			aria-hidden="true"
-		>
+		<div ref={hostRef} className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
 			<canvas
 				ref={canvasRef}
 				className={`size-full transition-opacity duration-1000 ${shown ? 'opacity-100' : 'opacity-0'}`}

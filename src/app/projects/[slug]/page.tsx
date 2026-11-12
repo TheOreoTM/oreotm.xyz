@@ -4,9 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { MdxContent } from '@/components/mdx-content';
-import { Badge } from '@/components/ui/badge';
 import { getProject, getProjects } from '@/lib/content';
-import { cn } from '@/lib/utils';
 
 export async function generateStaticParams() {
 	const projects = await getProjects();
@@ -39,9 +37,9 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 		<>
 			<Link
 				href="/projects"
-				className="inline-flex items-center gap-2 font-mono text-sm text-muted-foreground hover:text-foreground"
+				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
 			>
-				<ArrowLeft className="size-4" aria-hidden="true" /> all projects
+				<ArrowLeft className="size-4" aria-hidden="true" /> All projects
 			</Link>
 
 			<header className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center">
@@ -50,12 +48,13 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 					alt={meta.imageAlt}
 					width={96}
 					height={96}
-					className="size-20 rounded-xl border bg-card object-cover sm:size-24"
+					className="size-20 rounded-[10px] border bg-card object-cover sm:size-24"
 				/>
 				<div>
-					<p className="font-mono text-sm text-muted-foreground">{meta.year}</p>
-					<h1 className="mt-1 text-4xl font-semibold tracking-tight sm:text-5xl">{meta.name}</h1>
-					<p className="mt-2 text-lg text-muted-foreground">{meta.tagline}</p>
+					<h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.03em] sm:text-5xl">
+						{meta.name}
+					</h1>
+					<p className="mt-2 text-xl text-muted-foreground">{meta.tagline}</p>
 				</div>
 			</header>
 
@@ -65,43 +64,28 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 				</article>
 
 				<aside className="self-start lg:sticky lg:top-24">
-					<h2 className="font-mono text-sm text-muted-foreground">at a glance</h2>
-					<dl className="mt-4 space-y-5 border-t pt-4">
-						<div>
-							<dt className="font-mono text-xs text-muted-foreground">year</dt>
-							<dd className="mt-1">{meta.year}</dd>
+					<h2 className="text-lg font-semibold tracking-tight">At a glance</h2>
+					<dl className="mt-3 border-t">
+						<div className="border-b py-3">
+							<dt className="text-sm text-muted-foreground">Year</dt>
+							<dd className="mt-1 tabular-nums">{meta.year}</dd>
 						</div>
 						{meta.stack.length > 0 && (
-							<div>
-								<dt className="font-mono text-xs text-muted-foreground">built with</dt>
-								<dd className="mt-2">
-									<ul className="flex flex-wrap gap-1.5">
-										{meta.stack.map((tech) => (
-											<li key={tech}>
-												<Badge variant="outline" className="bg-card font-mono">
-													{tech}
-												</Badge>
-											</li>
-										))}
-									</ul>
-								</dd>
+							<div className="border-b py-3">
+								<dt className="text-sm text-muted-foreground">Built with</dt>
+								<dd className="mt-1 font-mono text-sm leading-relaxed">{meta.stack.join(', ')}</dd>
 							</div>
 						)}
 					</dl>
 					{meta.links.length > 0 && (
 						<ul className="mt-6 space-y-2">
-							{meta.links.map((link, i) => (
+							{meta.links.map((link) => (
 								<li key={link.href}>
 									<a
 										href={link.href}
 										target="_blank"
 										rel="noopener noreferrer"
-										className={cn(
-											'flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-											i === 0
-												? 'bg-primary text-primary-foreground hover:bg-primary/85'
-												: 'border bg-card hover:border-primary'
-										)}
+										className="flex items-center justify-between gap-2 rounded-md border bg-card px-3 py-2 text-sm font-medium transition-colors hover:border-primary"
 									>
 										{link.label}
 										<ArrowUpRight className="size-4 shrink-0" aria-hidden="true" />
@@ -116,14 +100,14 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 			{next.slug !== slug && (
 				<Link
 					href={`/projects/${next.slug}`}
-					className="group mt-20 flex items-center justify-between gap-4 rounded-xl border bg-card p-6 transition-colors hover:border-primary"
+					className="group mt-20 flex items-baseline justify-between gap-4 border-y px-1 py-6 transition-colors hover:bg-foreground/[0.03] sm:px-3"
 				>
 					<span>
-						<span className="block font-mono text-xs text-muted-foreground">next project</span>
-						<span className="mt-1 block text-xl font-semibold tracking-tight">{next.name}</span>
+						<span className="block text-sm text-muted-foreground">Next project</span>
+						<span className="mt-1 block text-2xl font-semibold tracking-tight">{next.name}</span>
 					</span>
 					<ArrowRight
-						className="size-5 transition-transform group-hover:translate-x-1 group-hover:text-primary"
+						className="size-5 self-center transition-transform group-hover:translate-x-1 group-hover:text-primary"
 						aria-hidden="true"
 					/>
 				</Link>

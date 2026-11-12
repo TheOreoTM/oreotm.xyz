@@ -1,20 +1,19 @@
 import type { ReactNode } from 'react';
 
+/** A section's heading, with an optional link at the end of its line. */
 export function SectionHeading({
 	id,
-	index,
 	title,
 	action
 }: {
 	id: string;
-	index: string;
 	title: string;
 	action?: ReactNode;
 }) {
 	return (
-		<div className="mb-6 flex items-baseline justify-between gap-4 border-b pb-3">
-			<h2 id={id} className="font-mono text-sm text-muted-foreground">
-				<span className="text-primary">{index}</span> <span aria-hidden="true">—</span> {title}
+		<div className="mb-6 flex items-baseline justify-between gap-4">
+			<h2 id={id} className="text-2xl font-semibold tracking-[-0.02em]">
+				{title}
 			</h2>
 			{action}
 		</div>

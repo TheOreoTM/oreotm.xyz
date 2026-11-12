@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default function NotFound() {
 	return (
 		<div className="mx-auto max-w-2xl py-12">
-			<div className="overflow-hidden rounded-xl border bg-card font-mono text-sm">
-				<div className="border-b px-4 py-2.5 text-center text-xs text-faint">
+			<div className="overflow-hidden rounded-[10px] border bg-card font-mono text-sm">
+				<div className="border-b px-4 py-2.5 text-center text-xs text-muted-foreground">
 					oreotm@maldives: ~
 				</div>
 				<div className="space-y-1 p-5 leading-relaxed">
@@ -43,7 +43,7 @@ export default function NotFound() {
 					<li key={href}>
 						<Link
 							href={href}
-							className="inline-block rounded-lg border bg-card px-3 py-2 hover:border-primary"
+							className="inline-block rounded-md border bg-card px-3 py-2 hover:border-primary"
 						>
 							{label}
 						</Link>

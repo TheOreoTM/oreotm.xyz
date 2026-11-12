@@ -1,0 +1,646 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-12T20:15:11.027Z",
+  "title": "Design System: oreotm.xyz",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Ground (light theme)",
+        "canonical": "oklch(97.0% 0.005 95)",
+        "tonalRamp": [
+          "oklch(15% 0.002 95)",
+          "oklch(26% 0.004 95)",
+          "oklch(37% 0.005 95)",
+          "oklch(48% 0.005 95)",
+          "oklch(59% 0.005 95)",
+          "oklch(70% 0.005 95)",
+          "oklch(82% 0.004 95)",
+          "oklch(95% 0.002 95)"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Ink (light theme)",
+        "canonical": "oklch(21.0% 0.006 286)",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(26% 0.004 286)",
+          "oklch(37% 0.006 286)",
+          "oklch(48% 0.006 286)",
+          "oklch(59% 0.006 286)",
+          "oklch(70% 0.006 286)",
+          "oklch(82% 0.004 286)",
+          "oklch(95% 0.003 286)"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Frame (light theme)",
+        "canonical": "oklch(100.0% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(26% 0.000 0)",
+          "oklch(37% 0.000 0)",
+          "oklch(48% 0.000 0)",
+          "oklch(59% 0.000 0)",
+          "oklch(70% 0.000 0)",
+          "oklch(82% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Lime (light theme)",
+        "canonical": "oklch(53.2% 0.141 132)",
+        "tonalRamp": [
+          "oklch(15% 0.063 132)",
+          "oklch(26% 0.105 132)",
+          "oklch(37% 0.141 132)",
+          "oklch(48% 0.141 132)",
+          "oklch(59% 0.141 132)",
+          "oklch(70% 0.141 132)",
+          "oklch(82% 0.105 132)",
+          "oklch(95% 0.063 132)"
+        ]
+      },
+      "primary-foreground": {
+        "role": "neutral",
+        "displayName": "On Lime (light theme)",
+        "canonical": "oklch(100.0% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(26% 0.000 0)",
+          "oklch(37% 0.000 0)",
+          "oklch(48% 0.000 0)",
+          "oklch(59% 0.000 0)",
+          "oklch(70% 0.000 0)",
+          "oklch(82% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted (light theme)",
+        "canonical": "oklch(94.3% 0.008 91)",
+        "tonalRamp": [
+          "oklch(15% 0.004 91)",
+          "oklch(26% 0.006 91)",
+          "oklch(37% 0.008 91)",
+          "oklch(48% 0.008 91)",
+          "oklch(59% 0.008 91)",
+          "oklch(70% 0.008 91)",
+          "oklch(82% 0.006 91)",
+          "oklch(95% 0.004 91)"
+        ]
+      },
+      "muted-foreground": {
+        "role": "neutral",
+        "displayName": "Quiet Ink (light theme)",
+        "canonical": "oklch(45.2% 0.011 100)",
+        "tonalRamp": [
+          "oklch(15% 0.005 100)",
+          "oklch(26% 0.008 100)",
+          "oklch(37% 0.011 100)",
+          "oklch(48% 0.011 100)",
+          "oklch(59% 0.011 100)",
+          "oklch(70% 0.011 100)",
+          "oklch(82% 0.008 100)",
+          "oklch(95% 0.005 100)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline (light theme)",
+        "canonical": "oklch(21.0% 0.006 286 / 0.14)",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(26% 0.004 286)",
+          "oklch(37% 0.006 286)",
+          "oklch(48% 0.006 286)",
+          "oklch(59% 0.006 286)",
+          "oklch(70% 0.006 286)",
+          "oklch(82% 0.004 286)",
+          "oklch(95% 0.003 286)"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Faint (light theme)",
+        "canonical": "oklch(62.4% 0.012 90)",
+        "tonalRamp": [
+          "oklch(15% 0.006 90)",
+          "oklch(26% 0.009 90)",
+          "oklch(37% 0.012 90)",
+          "oklch(48% 0.012 90)",
+          "oklch(59% 0.012 90)",
+          "oklch(70% 0.012 90)",
+          "oklch(82% 0.009 90)",
+          "oklch(95% 0.006 90)"
+        ]
+      },
+      "destructive": {
+        "role": "error",
+        "displayName": "Error (light theme)",
+        "canonical": "oklch(50.5% 0.190 28)",
+        "tonalRamp": [
+          "oklch(15% 0.086 28)",
+          "oklch(26% 0.143 28)",
+          "oklch(37% 0.190 28)",
+          "oklch(48% 0.190 28)",
+          "oklch(59% 0.190 28)",
+          "oklch(70% 0.190 28)",
+          "oklch(82% 0.143 28)",
+          "oklch(95% 0.086 28)"
+        ]
+      },
+      "background-dark": {
+        "role": "neutral",
+        "displayName": "Ground (dark theme)",
+        "canonical": "oklch(15.5% 0.002 286)",
+        "tonalRamp": [
+          "oklch(15% 0.001 286)",
+          "oklch(26% 0.002 286)",
+          "oklch(37% 0.002 286)",
+          "oklch(48% 0.002 286)",
+          "oklch(59% 0.002 286)",
+          "oklch(70% 0.002 286)",
+          "oklch(82% 0.002 286)",
+          "oklch(95% 0.001 286)"
+        ]
+      },
+      "foreground-dark": {
+        "role": "neutral",
+        "displayName": "Ink (dark theme)",
+        "canonical": "oklch(94.3% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(26% 0.000 0)",
+          "oklch(37% 0.000 0)",
+          "oklch(48% 0.000 0)",
+          "oklch(59% 0.000 0)",
+          "oklch(70% 0.000 0)",
+          "oklch(82% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      },
+      "card-dark": {
+        "role": "neutral",
+        "displayName": "Frame (dark theme)",
+        "canonical": "oklch(19.2% 0.004 286)",
+        "tonalRamp": [
+          "oklch(15% 0.002 286)",
+          "oklch(26% 0.003 286)",
+          "oklch(37% 0.004 286)",
+          "oklch(48% 0.004 286)",
+          "oklch(59% 0.004 286)",
+          "oklch(70% 0.004 286)",
+          "oklch(82% 0.003 286)",
+          "oklch(95% 0.002 286)"
+        ]
+      },
+      "primary-dark": {
+        "role": "primary",
+        "displayName": "Lime (dark theme)",
+        "canonical": "oklch(84.9% 0.207 129)",
+        "tonalRamp": [
+          "oklch(15% 0.093 129)",
+          "oklch(26% 0.156 129)",
+          "oklch(37% 0.207 129)",
+          "oklch(48% 0.207 129)",
+          "oklch(59% 0.207 129)",
+          "oklch(70% 0.207 129)",
+          "oklch(82% 0.156 129)",
+          "oklch(95% 0.093 129)"
+        ]
+      },
+      "primary-foreground-dark": {
+        "role": "neutral",
+        "displayName": "On Lime (dark theme)",
+        "canonical": "oklch(15.5% 0.002 286)",
+        "tonalRamp": [
+          "oklch(15% 0.001 286)",
+          "oklch(26% 0.002 286)",
+          "oklch(37% 0.002 286)",
+          "oklch(48% 0.002 286)",
+          "oklch(59% 0.002 286)",
+          "oklch(70% 0.002 286)",
+          "oklch(82% 0.002 286)",
+          "oklch(95% 0.001 286)"
+        ]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Muted (dark theme)",
+        "canonical": "oklch(22.8% 0.006 286)",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(26% 0.004 286)",
+          "oklch(37% 0.006 286)",
+          "oklch(48% 0.006 286)",
+          "oklch(59% 0.006 286)",
+          "oklch(70% 0.006 286)",
+          "oklch(82% 0.004 286)",
+          "oklch(95% 0.003 286)"
+        ]
+      },
+      "muted-foreground-dark": {
+        "role": "neutral",
+        "displayName": "Quiet Ink (dark theme)",
+        "canonical": "oklch(71.7% 0.007 286)",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(26% 0.005 286)",
+          "oklch(37% 0.007 286)",
+          "oklch(48% 0.007 286)",
+          "oklch(59% 0.007 286)",
+          "oklch(70% 0.007 286)",
+          "oklch(82% 0.005 286)",
+          "oklch(95% 0.003 286)"
+        ]
+      },
+      "border-dark": {
+        "role": "neutral",
+        "displayName": "Hairline (dark theme)",
+        "canonical": "oklch(94.3% 0.000 0 / 0.14)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(26% 0.000 0)",
+          "oklch(37% 0.000 0)",
+          "oklch(48% 0.000 0)",
+          "oklch(59% 0.000 0)",
+          "oklch(70% 0.000 0)",
+          "oklch(82% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      },
+      "faint-dark": {
+        "role": "neutral",
+        "displayName": "Faint (dark theme)",
+        "canonical": "oklch(53.0% 0.009 286)",
+        "tonalRamp": [
+          "oklch(15% 0.004 286)",
+          "oklch(26% 0.007 286)",
+          "oklch(37% 0.009 286)",
+          "oklch(48% 0.009 286)",
+          "oklch(59% 0.009 286)",
+          "oklch(70% 0.009 286)",
+          "oklch(82% 0.007 286)",
+          "oklch(95% 0.004 286)"
+        ]
+      },
+      "destructive-dark": {
+        "role": "error",
+        "displayName": "Error (dark theme)",
+        "canonical": "oklch(71.1% 0.166 22)",
+        "tonalRamp": [
+          "oklch(15% 0.075 22)",
+          "oklch(26% 0.125 22)",
+          "oklch(37% 0.166 22)",
+          "oklch(48% 0.166 22)",
+          "oklch(59% 0.166 22)",
+          "oklch(70% 0.166 22)",
+          "oklch(82% 0.125 22)",
+          "oklch(95% 0.075 22)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The page statement, one per page. 2.75rem (home) or 3rem below 40rem. The home statement wraps naturally."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Case study and post titles and the home page closing question. 2.25rem below 40rem."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings and the name in the Next project link."
+      },
+      "row-title": {
+        "displayName": "Row title",
+        "purpose": "Names on work and post rows; small side headings. Contact rows use 1.25rem."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "The sentence under a page statement, in Quiet Ink. 1.5rem on the home page from 40rem."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Taglines and general text; long-form text uses the prose scale at 68ch."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Rail links; weight 500 for the current page."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Button labels; 1rem on the 2.75rem home page actions."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "The mono wordmark, with its prompt glyph in Lime."
+      },
+      "terminal": {
+        "displayName": "Terminal",
+        "purpose": "Everything inside the terminal frame."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Post dates, tags, handles, the clock, the stack in At a glance."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Back links, the section heading link, the footer, the mobile nav, list labels. Quiet Ink."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Stack lists, years, the rail path, place and time, the search button and key caps, the key hint."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "state",
+        "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Colour, border and opacity changes on hover, focus and selection: rail links, rows, the selection marker, tags, buttons, the terminal border."
+      },
+      {
+        "name": "preview-fade",
+        "value": "200ms cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "The preview pane fades its new content in from opacity 0 when the selected work row changes."
+      },
+      {
+        "name": "dialog",
+        "value": "100ms",
+        "purpose": "The command menu and its backdrop opening and closing (stock shadcn dialog)."
+      },
+      {
+        "name": "press",
+        "value": "translateY(1px)",
+        "purpose": "Buttons move down 1px while pressed."
+      },
+      {
+        "name": "arrow-nudge",
+        "value": "translate 2px to 4px",
+        "purpose": "A trailing arrow on a linked row moves 4px right (next project) or 2px up and right (contact rows) on hover and turns lime."
+      },
+      {
+        "name": "marble-fade-in",
+        "value": "opacity 1000ms",
+        "purpose": "The marbling canvas fades in once its first frame is drawn."
+      },
+      {
+        "name": "marble-drift",
+        "value": "time * 0.035",
+        "purpose": "How fast the noise field moves, in shader time units per second."
+      },
+      {
+        "name": "marble-frame-lit",
+        "value": "32ms (about 30 frames a second)",
+        "purpose": "Frame interval while the lamp is lit."
+      },
+      {
+        "name": "marble-frame-rest",
+        "value": "200ms (5 frames a second)",
+        "purpose": "Frame interval once the lamp is out and only the drift is left. No frames in a hidden tab."
+      },
+      {
+        "name": "lamp-contours",
+        "value": "0.85 where the level is near 1, 0.3 elsewhere",
+        "purpose": "Strength of the lime contour lines around the lamp: full at the top of the home page, about a third where there is text to read. The lamp brightens the marbling only where the level is near 1 (smoothstep 0.82 to 1)."
+      },
+      {
+        "name": "lamp-follow",
+        "value": "160ms time constant",
+        "purpose": "The lamp eases after the mouse, or is placed where a finger or pen lands. It does not move on its own."
+      },
+      {
+        "name": "lamp-rise",
+        "value": "400ms time constant",
+        "purpose": "The lamp comes up when the pointer moves."
+      },
+      {
+        "name": "lamp-fall",
+        "value": "900ms time constant, after 2600ms at rest",
+        "purpose": "The lamp goes out once the pointer has rested."
+      },
+      {
+        "name": "marble-level",
+        "value": "1 at the top of the home page, 0.8 elsewhere",
+        "purpose": "Overall strength; eases from 1 to 0.8 (smoothstep) over the first 80% of a viewport height of scrolling on the home page."
+      },
+      {
+        "name": "marble-budget",
+        "value": "700000 pixels, at most 1.5 device pixels per CSS pixel",
+        "purpose": "The canvas is drawn to a pixel budget and scaled up in CSS."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "With prefers-reduced-motion every animation and transition is cut to 0.01ms, and the marbling draws one still frame (lamp at 0.6, time fixed)."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "40rem",
+        "purpose": "Gutters go from 1.25rem to 2rem; display type reaches full size; rows get 0.75rem side padding (work rows have none below this)."
+      },
+      {
+        "name": "md",
+        "value": "48rem",
+        "purpose": "The About section becomes two columns."
+      },
+      {
+        "name": "lg",
+        "value": "64rem",
+        "purpose": "The rail replaces the top bar; the preview pane and the row marker appear; gutters become 3rem; the content column becomes a flex column at least a screen tall so the footer rests at the bottom; case studies get the side column."
+      },
+      {
+        "name": "xl",
+        "value": "80rem",
+        "purpose": "The home page statement and the terminal share one row, 1.4fr to 1fr."
+      }
+    ],
+    "marble": {
+      "tones": {
+        "c1": "var(--muted)",
+        "c2": "var(--muted) stepped 12% towards var(--faint)",
+        "c3": "var(--muted) stepped 28% towards var(--faint)",
+        "ink": "var(--primary)",
+        "c2-light": "#e2e0da",
+        "c3-light": "#d2d0c9",
+        "c2-dark": "#252529",
+        "c3-dark": "#323236"
+      },
+      "thresholds": [
+        0.34,
+        0.44,
+        0.55
+      ],
+      "contoursPerUnit": 9,
+      "lampReach": "0.09 * min(1, aspect squared), in units of the canvas height squared: a share of the shorter side",
+      "lampStir": 0.22
+    }
+  },
+  "components": [
+    {
+      "name": "Work List",
+      "kind": "custom",
+      "refersTo": "work-row",
+      "description": "The signature list: rows between hairlines, one selected at a time, with a lime marker. Arrow keys or J/K move the selection in the real component.",
+      "html": "<div class=\"ds-wrap\"><ul class=\"ds-work\"><li><a href=\"#\" class=\"ds-work-row ds-is-selected\"><span class=\"ds-work-mark\" aria-hidden=\"true\">❯</span><span><span class=\"ds-work-name\">Project name</span><span class=\"ds-work-tag\">What it is, in one line.</span></span><span class=\"ds-work-year\">2025</span></a></li><li><a href=\"#\" class=\"ds-work-row\"><span class=\"ds-work-mark\" aria-hidden=\"true\">❯</span><span><span class=\"ds-work-name\">Another project</span><span class=\"ds-work-tag\">What it is, in one line.</span></span><span class=\"ds-work-year\">2024</span></a></li></ul></div>",
+      "css": ".ds-wrap{background:var(--background,#f6f5f1);color:var(--foreground,#18181b);font-family:var(--font-inter),Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;} .ds-work{list-style:none;margin:0;padding:0;border-top:1px solid var(--border,rgb(24 24 27 / 0.14));} .ds-work li{border-bottom:1px solid var(--border,rgb(24 24 27 / 0.14));} .ds-work-row{display:grid;grid-template-columns:1rem minmax(0,1fr) auto;align-items:baseline;column-gap:0.75rem;padding:1rem 0.75rem;color:inherit;text-decoration:none;transition:background-color 150ms cubic-bezier(0.4,0,0.2,1);} .ds-work-row:hover{background:color-mix(in srgb,var(--foreground,#18181b) 3%,transparent);} .ds-work-row.ds-is-selected{background:color-mix(in srgb,var(--foreground,#18181b) 4.5%,transparent);} .ds-work-row:focus-visible{outline:2px solid var(--ring,#4d7c0f);outline-offset:2px;} .ds-work-mark{font-family:var(--font-jetbrains-mono),'JetBrains Mono',ui-monospace,monospace;color:var(--primary,#4d7c0f);opacity:0;transition:opacity 150ms cubic-bezier(0.4,0,0.2,1);} .ds-is-selected .ds-work-mark{opacity:1;} .ds-work-name{display:block;font-size:1.125rem;font-weight:600;letter-spacing:-0.025em;} .ds-work-tag{display:block;color:var(--muted-foreground,#57564f);} .ds-work-year{font-family:var(--font-jetbrains-mono),'JetBrains Mono',ui-monospace,monospace;font-size:0.75rem;color:var(--muted-foreground,#57564f);font-variant-numeric:tabular-nums;}"
+    },
+    {
+      "name": "Preview Pane",
+      "kind": "card",
+      "refersTo": "preview-pane",
+      "description": "One of the two framed objects. Follows the selected work row from 64rem up. The action comes first under the image, then the summary and the stack; it is the one lime-filled action in view.",
+      "html": "<div class=\"ds-wrap\"><aside class=\"ds-pane\"><div class=\"ds-pane-img\"></div><div class=\"ds-pane-body\"><a href=\"#\" class=\"ds-pane-action\">Read the case study <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a><p class=\"ds-pane-sum\">A short summary of the selected project and what it does.</p><p class=\"ds-pane-stack\">TypeScript, PostgreSQL, Redis</p></div></aside></div>",
+      "css": ".ds-wrap{background:var(--background,#f6f5f1);color:var(--foreground,#18181b);font-family:var(--font-inter),Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;} .ds-pane{max-width:23rem;overflow:hidden;border:1px solid var(--border,rgb(24 24 27 / 0.14));border-radius:10px;background:var(--card,#ffffff);} .ds-pane-img{aspect-ratio:2/1;background:var(--muted,#eeece6);border-bottom:1px solid var(--border,rgb(24 24 27 / 0.14));} .ds-pane-body{padding:1.25rem;} .ds-pane-sum{margin:1.25rem 0 0;font-size:0.9375rem;line-height:1.625;} .ds-pane-stack{margin:1rem 0 0;font-family:var(--font-jetbrains-mono),'JetBrains Mono',ui-monospace,monospace;font-size:0.75rem;line-height:1.625;color:var(--muted-foreground,#57564f);} .ds-pane-action{display:inline-flex;align-items:center;gap:0.5rem;height:2.25rem;padding:0 0.75rem;border-radius:0.5rem;background:var(--primary,#4d7c0f);color:var(--primary-foreground,#ffffff);font-size:0.875rem;font-weight:500;text-decoration:none;transition:background-color 150ms cubic-bezier(0.4,0,0.2,1);} .ds-pane-action:hover{background:color-mix(in oklab,var(--primary,#4d7c0f) 85%,transparent);} .ds-pane-action:focus-visible{outline:2px solid var(--ring,#4d7c0f);outline-offset:2px;}"
+    },
+    {
+      "name": "Terminal",
+      "kind": "custom",
+      "refersTo": "terminal",
+      "description": "The other framed object: a working terminal. Its border turns lime while the input has focus.",
+      "html": "<div class=\"ds-wrap\"><section class=\"ds-term\" aria-label=\"Interactive terminal\"><div class=\"ds-term-bar\"><span class=\"ds-term-dots\" aria-hidden=\"true\"><i></i><i></i><i></i></span><span class=\"ds-term-title\">oreotm@maldives: ~</span></div><div class=\"ds-term-body\"><p><span class=\"ds-term-p\">❯</span> <span class=\"ds-term-f\">~</span> whoami</p><p>OreoTM, a full-stack developer based in the Maldives. <span class=\"ds-term-m\">I build Discord bots, websites, and the backends behind them.</span></p><p><span class=\"ds-term-m\">Type </span><span class=\"ds-term-p\">help</span><span class=\"ds-term-m\"> to look around.</span></p><label class=\"ds-term-line\"><span><span class=\"ds-term-p\">❯</span> <span class=\"ds-term-f\">~</span></span><input class=\"ds-term-input\" aria-label=\"Terminal command\" autocomplete=\"off\" spellcheck=\"false\"></label></div></section></div>",
+      "css": ".ds-wrap{background:var(--background,#f6f5f1);color:var(--foreground,#18181b);font-family:var(--font-inter),Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;} .ds-term{overflow:hidden;border:1px solid var(--border,rgb(24 24 27 / 0.14));border-radius:10px;background:var(--card,#ffffff);font-family:var(--font-jetbrains-mono),'JetBrains Mono',ui-monospace,monospace;font-size:0.875rem;transition:border-color 150ms cubic-bezier(0.4,0,0.2,1);} .ds-term:focus-within{border-color:var(--primary,#4d7c0f);} .ds-term-bar{display:flex;align-items:center;gap:0.5rem;padding:0.625rem 1rem;border-bottom:1px solid var(--border,rgb(24 24 27 / 0.14));} .ds-term-dots{display:flex;gap:0.375rem;} .ds-term-dots i{width:0.625rem;height:0.625rem;border-radius:9999px;background:var(--border,rgb(24 24 27 / 0.14));} .ds-term-title{margin:0 auto;padding-right:2.5rem;font-size:0.75rem;color:var(--muted-foreground,#57564f);} .ds-term-body{padding:1rem;line-height:1.625;} .ds-term-body p{margin:0 0 0.25rem;} .ds-term-p{color:var(--primary,#4d7c0f);} .ds-term-f{color:var(--faint,#8a877f);} .ds-term-m{color:var(--muted-foreground,#57564f);} .ds-term-line{display:flex;gap:0.5rem;margin-top:0.25rem;} .ds-term-input{flex:1;min-width:0;border:0;padding:0;background:transparent;color:inherit;font:inherit;caret-color:var(--primary,#4d7c0f);outline:none;}"
+    },
+    {
+      "name": "Rail Navigation",
+      "kind": "nav",
+      "refersTo": "rail-link",
+      "description": "The four destinations in the rail. The current page is Ink at weight 500 with a lime slash before it.",
+      "html": "<div class=\"ds-wrap\"><div class=\"ds-rail\"><a href=\"#\" class=\"ds-rail-mark\"><span aria-hidden=\"true\">❯</span> oreotm</a><p class=\"ds-rail-path\">~/projects</p><nav aria-label=\"Main\"><a href=\"#\" class=\"ds-rail-link\"><span aria-hidden=\"true\">/</span>home</a><a href=\"#\" class=\"ds-rail-link ds-is-current\" aria-current=\"page\"><span aria-hidden=\"true\">/</span>projects</a><a href=\"#\" class=\"ds-rail-link\"><span aria-hidden=\"true\">/</span>blog</a><a href=\"#\" class=\"ds-rail-link\"><span aria-hidden=\"true\">/</span>contact</a></nav></div></div>",
+      "css": ".ds-wrap{background:var(--background,#f6f5f1);color:var(--foreground,#18181b);font-family:var(--font-inter),Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;} .ds-rail{width:15rem;box-sizing:border-box;padding:1.5rem 1.25rem;border-right:1px solid var(--border,rgb(24 24 27 / 0.14));} .ds-rail-mark{font-family:var(--font-jetbrains-mono),'JetBrains Mono',ui-monospace,monospace;font-weight:600;letter-spacing:-0.025em;color:inherit;text-decoration:none;} .ds-rail-mark span{color:var(--primary,#4d7c0f);} .ds-rail-path{margin:0.25rem 0 0;font-family:var(--font-jetbrains-mono),'JetBrains Mono',ui-monospace,monospace;font-size:0.75rem;color:var(--muted-foreground,#57564f);} .ds-rail nav{margin:2.5rem -0.5rem 0;display:grid;gap:0.125rem;} .ds-rail-link{display:flex;align-items:center;gap:0.5rem;height:2.25rem;padding:0 0.5rem;border-radius:0.5rem;font-size:0.9375rem;color:var(--muted-foreground,#57564f);text-decoration:none;transition:background-color 150ms cubic-bezier(0.4,0,0.2,1);} .ds-rail-link span{font-family:var(--font-jetbrains-mono),'JetBrains Mono',ui-monospace,monospace;color:var(--primary,#4d7c0f);visibility:hidden;} .ds-rail-link:hover{background:var(--muted,#eeece6);} .ds-rail-link:focus-visible{outline:2px solid var(--ring,#4d7c0f);outline-offset:2px;} .ds-rail-link.ds-is-current{color:var(--foreground,#18181b);font-weight:500;} .ds-rail-link.ds-is-current span{visibility:visible;}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one lime-filled action in view, at the 2.75rem home page size (the closing action on the home page). 80% on hover.",
+      "html": "<div class=\"ds-wrap\"><a href=\"#\" class=\"ds-btn-primary\">Let's talk <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a></div>",
+      "css": ".ds-wrap{background:var(--background,#f6f5f1);color:var(--foreground,#18181b);font-family:var(--font-inter),Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;} .ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:0.375rem;height:2.75rem;padding:0 1rem;border:1px solid transparent;border-radius:0.625rem;background:var(--primary,#4d7c0f);color:var(--primary-foreground,#ffffff);font-size:1rem;font-weight:500;white-space:nowrap;text-decoration:none;transition:all 150ms cubic-bezier(0.4,0,0.2,1);} .ds-btn-primary:hover{background:color-mix(in oklab,var(--primary,#4d7c0f) 80%,transparent);} .ds-btn-primary:active{transform:translateY(1px);} .ds-btn-primary:focus-visible{outline:2px solid var(--ring,#4d7c0f);outline-offset:2px;}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "The first action under the home statement, paired with a ghost button. Hairline border on the Frame fill; Muted on hover.",
+      "html": "<div class=\"ds-wrap\"><a href=\"#\" class=\"ds-btn-outline\">See my projects <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a> <a href=\"#\" class=\"ds-btn-ghost\">Get in touch</a></div>",
+      "css": ".ds-wrap{background:var(--background,#f6f5f1);color:var(--foreground,#18181b);font-family:var(--font-inter),Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;} .ds-btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:0.375rem;height:2.75rem;padding:0 1rem;border:1px solid var(--border,rgb(24 24 27 / 0.14));border-radius:0.625rem;background:var(--card,#ffffff);color:var(--foreground,#18181b);font-size:1rem;font-weight:500;white-space:nowrap;text-decoration:none;transition:all 150ms cubic-bezier(0.4,0,0.2,1);} .ds-btn-outline:hover{background:var(--muted,#eeece6);} .ds-btn-outline:active{transform:translateY(1px);} .ds-btn-outline:focus-visible{outline:2px solid var(--ring,#4d7c0f);outline-offset:2px;} .ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;height:2.75rem;padding:0 1rem;border:1px solid transparent;border-radius:0.625rem;color:var(--foreground,#18181b);font-size:1rem;font-weight:500;white-space:nowrap;text-decoration:none;transition:all 150ms cubic-bezier(0.4,0,0.2,1);} .ds-btn-ghost:hover{background:var(--muted,#eeece6);} .ds-btn-ghost:active{transform:translateY(1px);} .ds-btn-ghost:focus-visible{outline:2px solid var(--ring,#4d7c0f);outline-offset:2px;}"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "A blog filter tag. Bordered on the Frame fill; a lime fill when selected.",
+      "html": "<div class=\"ds-wrap\"><nav class=\"ds-tags\" aria-label=\"Filter posts by tag\"><span class=\"ds-tags-label\">tags:</span><a href=\"#\" class=\"ds-tag ds-is-selected\">#discord</a><a href=\"#\" class=\"ds-tag\">#typescript</a></nav></div>",
+      "css": ".ds-wrap{background:var(--background,#f6f5f1);color:var(--foreground,#18181b);font-family:var(--font-inter),Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;} .ds-tags{display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;font-family:var(--font-jetbrains-mono),'JetBrains Mono',ui-monospace,monospace;font-size:0.875rem;} .ds-tags-label{margin-right:0.25rem;color:var(--muted-foreground,#57564f);} .ds-tag{padding:0.25rem 0.625rem;border:1px solid var(--border,rgb(24 24 27 / 0.14));border-radius:0.5rem;background:var(--card,#ffffff);color:var(--muted-foreground,#57564f);text-decoration:none;transition:color 150ms cubic-bezier(0.4,0,0.2,1),border-color 150ms cubic-bezier(0.4,0,0.2,1),background-color 150ms cubic-bezier(0.4,0,0.2,1);} .ds-tag:hover{border-color:var(--primary,#4d7c0f);color:var(--foreground,#18181b);} .ds-tag.ds-is-selected{border-color:var(--primary,#4d7c0f);background:var(--primary,#4d7c0f);color:var(--primary-foreground,#ffffff);} .ds-tag:focus-visible{outline:2px solid var(--ring,#4d7c0f);outline-offset:2px;}"
+    },
+    {
+      "name": "Hairline Rows",
+      "kind": "custom",
+      "refersTo": "section-heading",
+      "description": "What replaces cards: a section heading with an optional mono link, then label and value rows between hairlines. Labels and the link are Inter at 0.875rem.",
+      "html": "<div class=\"ds-wrap\"><div class=\"ds-head\"><h2>About</h2><a href=\"#\">All projects</a></div><dl class=\"ds-rows\"><div><dt>languages</dt><dd>TypeScript, Python</dd></div><div><dt>databases</dt><dd>PostgreSQL, Redis</dd></div></dl></div>",
+      "css": ".ds-wrap{background:var(--background,#f6f5f1);color:var(--foreground,#18181b);font-family:var(--font-inter),Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;} .ds-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;} .ds-head h2{margin:0;font-size:1.5rem;font-weight:600;letter-spacing:-0.02em;} .ds-head a{font-size:0.875rem;color:var(--muted-foreground,#57564f);text-decoration:underline;text-decoration-color:var(--border,rgb(24 24 27 / 0.14));text-underline-offset:4px;} .ds-head a:hover{color:var(--foreground,#18181b);text-decoration-color:var(--primary,#4d7c0f);} .ds-head a:focus-visible{outline:2px solid var(--ring,#4d7c0f);outline-offset:2px;} .ds-rows{margin:0;border-top:1px solid var(--border,rgb(24 24 27 / 0.14));} .ds-rows div{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:0.875rem 0;border-bottom:1px solid var(--border,rgb(24 24 27 / 0.14));} .ds-rows dt{font-size:0.875rem;line-height:1.5rem;color:var(--muted-foreground,#57564f);} .ds-rows dd{margin:0;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Workspace",
+    "overview": "The site is laid out and operated like the tools its owner builds. A rail sits fixed on the left the way an app's sidebar does, the work is a list you move through with the keyboard, and the terminal on the home page runs real commands. It is a portfolio that behaves like software, so the evidence for \"backend developer\" is the page itself.\n\nEverything sits on one continuous ground: a slow marbling drawn in WebGL, fixed behind every page and printed in three flat tones stepped from the theme's own greys. Content is placed straight onto it and separated by hairlines. There are no cards. Exactly two things have a frame: the terminal and the preview pane beside the work list. There are two themes, a warm off-white and a near-black, and both use the same tokens, the same layout and the same rules. The theme follows the system and can be toggled from the rail, the terminal or the command menu.\n\nThe mood is quiet and exact: dense enough to feel like a tool, with large tight headings and small monospace detail. Colour is nearly absent. The one accent is lime (olive-lime on the light theme, bright lime on the dark), and it marks what is live or what can be acted on, with at most one lime-filled action in view. Motion is limited to the ground drifting, the pointer's lamp, and short state changes; nothing slides or reveals itself on scroll.",
+    "keyCharacteristics": [
+      "One marbled ground behind every page, in the theme's own greys; no second background anywhere.",
+      "A fixed 15rem rail from 64rem up; a two-row bar below that.",
+      "Rows separated by hairlines in place of cards; lists open with a top rule and close each row with a bottom rule.",
+      "Two framed objects only: the terminal and the preview pane, both on the card colour with a 1px border and a 10px radius.",
+      "One accent. Lime marks the live and the actionable, fills at most one action in view, and never fills a surface.",
+      "Inter at tight display settings for everything said; JetBrains Mono only for what a machine would print.",
+      "Keyboard first: arrow keys or J/K on the work list, Ctrl/⌘ K for the command menu, a visible focus ring everywhere."
+    ],
+    "rules": [
+      {
+        "name": "The Live Lime Rule",
+        "body": "Lime marks what is live or what can be acted on: the prompt, the caret, the selection marker, the current page, focus, a link's underline. Three adaptations of the direction contract are approved by the owner, who asked to keep the current style: one filled primary action, bullets in long-form text, and the `@theoreotm` handle. Lime is never a background, a heading colour, a tint or decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Filled Action Rule",
+        "body": "At most one lime-filled action in view. On the home page's first screen that is the preview pane's \"Read the case study\", so the two buttons under the statement are outline and ghost; the filled \"Let's talk\" comes at the foot of the page.",
+        "section": "colors"
+      },
+      {
+        "name": "The Theme Greys Rule",
+        "body": "The ground, the frames, the hairlines and the marbling are all derived from the theme's neutral tokens. No extra greys, no gradients, no second accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Faint Rule",
+        "body": "Faint is for marks that decorate: a prompt's `~`, a separator, the scrollbar. Anything a reader needs, however small, is Quiet Ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Inter says things; JetBrains Mono reports them. Mono is for what a machine would print: commands, paths, keys, times, dates, stacks, tags, handles. Navigation, back links, labels, the footer and sentences are Inter; in a sentence that contains a time, only the time is mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tight Display Rule",
+        "body": "Anything 2.25rem or larger is semibold with negative tracking (-0.03em to -0.035em) and a line-height of 1.02 to 1.05. Display type is never light, never loose and never uppercase.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Column Rule",
+        "body": "Every page uses the same shell, the same 68rem column and the same gutters. No page is full-bleed and no page has its own container.",
+        "section": "layout"
+      },
+      {
+        "name": "The Rail Carries It Rule",
+        "body": "What the rail shows from 64rem up (place, time, social links) is shown in the page or footer below 64rem, never both at once.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Rule",
+        "body": "No shadows, no glows, no blurred panels. A thing is separated from the ground by a hairline or by space.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Two Frames Rule",
+        "body": "Only the terminal and the preview pane get a filled, bordered frame. Everything else that looks like it wants a card is a row between hairlines.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Square Row Rule",
+        "body": "Radius belongs to the two frames (10px) and to small controls (8px). A row, a rule or a section never gets rounded corners.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do put content straight on the marbled ground and separate it with 1px hairlines: a top rule on the list, a bottom rule on each row.",
+      "Do use the theme tokens for every colour, so both themes and the marbling stay in step.",
+      "Do keep lime for the live and the actionable: prompt, caret, selection marker, current page, focus ring, link underline, and at most one lime-filled action in view.",
+      "Do set anything a machine would print in JetBrains Mono (paths, keys, times, dates, stack names, tags, handles) and everything else in Inter.",
+      "Do make every list operable from the keyboard and keep the 2px lime focus ring visible.",
+      "Do keep state changes short: 150ms for colour, 200ms for the preview pane's fade.",
+      "Do leave the marbling at its quiet strength (0.8) under anything that is mostly reading, and keep its tones close enough that Quiet Ink clears 4.5:1 on the brightest.",
+      "Do repeat below 64rem, in the page or footer, whatever the rail carries above it.",
+      "Do respect reduced motion: one still frame of marbling and near-instant transitions."
+    ],
+    "donts": [
+      "Don't add cards, panels or tiles. The terminal and the preview pane are the only framed objects.",
+      "Don't add shadows, glows, gradients or blurred surfaces.",
+      "Don't use lime as a background tint, a heading colour or decoration, don't put two lime-filled actions in one view, and don't add a second accent.",
+      "Don't set Faint on anything a reader needs; it is about 3.3:1 on the light ground. Use Quiet Ink.",
+      "Don't give the rail a fill, or put any background between the content and the marbling.",
+      "Don't animate on load or on scroll. Only the ground drifts.",
+      "Don't round rows, rules or sections; radius is for the two frames (10px) and small controls (8px).",
+      "Don't set sentences, navigation, back links, labels or the footer in mono.",
+      "Don't give a page its own container, width or background; every page uses the same shell."
+    ]
+  }
+}

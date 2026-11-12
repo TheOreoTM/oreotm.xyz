@@ -14,6 +14,8 @@ export type ProjectMeta = {
 	featured: boolean;
 	image: string;
 	imageAlt: string;
+	/** A logo is shown whole on a plain ground; a screenshot (the default) fills its frame. */
+	imageKind?: 'logo' | 'screenshot';
 	stack: string[];
 	links: ProjectLink[];
 };

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ProjectRow } from '@/components/project-row';
+import { Work } from '@/components/work';
 import { getProjects } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -15,22 +15,17 @@ export default async function ProjectsPage() {
 	return (
 		<>
 			<header className="max-w-2xl">
-				<p className="font-mono text-sm text-muted-foreground">
-					<span className="text-primary">❯</span> ls ~/projects
-				</p>
-				<h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Projects</h1>
-				<p className="mt-4 text-lg text-muted-foreground">
+				<h1 className="text-5xl leading-[1.02] font-semibold tracking-[-0.035em] sm:text-6xl">
+					Projects
+				</h1>
+				<p className="mt-4 text-xl text-muted-foreground">
 					Things I&apos;ve built, shipped, and occasionally abandoned.
 				</p>
 			</header>
 
-			<ul className="-mx-2 mt-12 divide-y sm:-mx-4">
-				{projects.map((project) => (
-					<li key={project.slug}>
-						<ProjectRow project={project} detailed />
-					</li>
-				))}
-			</ul>
+			<div className="mt-12">
+				<Work projects={projects} />
+			</div>
 		</>
 	);
 }
