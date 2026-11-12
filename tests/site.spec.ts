@@ -6,7 +6,7 @@ const pages = [
 	'/projects/cardinal-bot',
 	'/projects/frieren-rag',
 	'/blog',
-	'/blog/first-post',
+	'/blog/two-failed-bots-before-cardinal',
 	'/contact'
 ];
 
@@ -115,7 +115,7 @@ test('blog tag filter narrows the list', async ({ page }) => {
 	await page.goto('/blog?categories=discord');
 	const posts = page.locator('main article:visible');
 	await expect(posts).toHaveCount(1);
-	await expect(posts).toContainText('How to not make a discord bot');
+	await expect(posts).toContainText('Two failed bots before Cardinal');
 });
 
 test('unknown pages return a 404 with a way back', async ({ page }) => {
