@@ -86,14 +86,14 @@ export default async function HomePage() {
 						/>
 						<div className="space-y-4 text-lg">
 							<p>
-								I&apos;m OreoTM, or{' '}
+								I go by OreoTM, or{' '}
 								<span className="font-mono text-base text-primary">@theoreotm</span> if you want to
 								be fancy. I&apos;m a full-stack developer based in the {site.location} (
 								{site.utcOffset}).
 							</p>
 							<p className="text-muted-foreground">
 								Most of what I build is backend-heavy: Discord bots that look after servers, the
-								APIs and databases behind them, and the websites that sit on top.
+								APIs and databases behind them, and the websites on top.
 							</p>
 						</div>
 					</div>
