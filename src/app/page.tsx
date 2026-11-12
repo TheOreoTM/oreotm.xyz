@@ -18,21 +18,23 @@ export default async function HomePage() {
 	return (
 		<>
 			{/* The statement and the terminal. */}
-			<section className="grid items-end gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-12">
+			<section className="grid items-end gap-10 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] xl:gap-12">
 				<div>
-					<h1 className="text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.035em] sm:text-6xl">
+					{/* Not balanced like other headings: balancing breaks it into three short lines. */}
+					<h1 className="text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.035em] text-wrap sm:text-6xl">
 						I&apos;m OreoTM, a full&#8209;stack developer.
 					</h1>
 					<p className="mt-5 max-w-[34ch] text-xl leading-snug text-muted-foreground sm:text-2xl">
 						I build Discord bots, websites, and the backends behind them.
 					</p>
 					<div className="mt-8 flex flex-wrap items-center gap-3">
-						<Button asChild className="h-11 px-4 text-base">
+						{/* Neither is filled: on this screen the lime belongs to the work below. */}
+						<Button asChild variant="outline" className="h-11 bg-card px-4 text-base">
 							<Link href="/projects">
 								See my projects <ArrowRight aria-hidden="true" />
 							</Link>
 						</Button>
-						<Button asChild variant="outline" className="h-11 bg-card px-4 text-base">
+						<Button asChild variant="ghost" className="h-11 px-4 text-base">
 							<Link href="/contact">Get in touch</Link>
 						</Button>
 					</div>
@@ -46,16 +48,16 @@ export default async function HomePage() {
 			</section>
 
 			{/* Selected work */}
-			<section className="mt-24 lg:mt-28" aria-labelledby="work">
+			<section className="mt-16 lg:mt-14" aria-labelledby="work">
 				<SectionHeading
 					id="work"
 					title="Selected work"
 					action={
 						<Link
 							href="/projects"
-							className="font-mono text-sm text-muted-foreground underline decoration-border underline-offset-4 hover:text-foreground hover:decoration-primary"
+							className="text-sm text-muted-foreground underline decoration-border underline-offset-4 hover:text-foreground hover:decoration-primary"
 						>
-							all projects
+							All projects
 						</Link>
 					}
 				/>
@@ -91,7 +93,7 @@ export default async function HomePage() {
 					<dl className="border-t">
 						{toolbox.map((group) => (
 							<div key={group.group} className="grid grid-cols-[8.5rem_1fr] gap-4 border-b py-3.5">
-								<dt className="font-mono text-sm text-muted-foreground">{group.group}</dt>
+								<dt className="text-sm leading-6 text-muted-foreground">{group.group}</dt>
 								<dd>{group.items.join(', ')}</dd>
 							</div>
 						))}

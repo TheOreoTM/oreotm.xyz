@@ -290,7 +290,7 @@ export function Terminal({ projects }: { projects: ProjectSummary[] }) {
 					<span className="size-2.5 rounded-full bg-border" />
 					<span className="size-2.5 rounded-full bg-border" />
 				</span>
-				<span className="mx-auto pr-10 text-xs text-faint">oreotm@maldives: ~</span>
+				<span className="mx-auto pr-10 text-xs text-muted-foreground">oreotm@maldives: ~</span>
 			</div>
 
 			{/* Clicking anywhere in the window focuses the input; the input is focusable on its own. */}

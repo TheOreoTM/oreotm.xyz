@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { MdxContent } from '@/components/mdx-content';
 import { getProject, getProjects } from '@/lib/content';
-import { cn } from '@/lib/utils';
 
 export async function generateStaticParams() {
 	const projects = await getProjects();
@@ -38,9 +37,9 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 		<>
 			<Link
 				href="/projects"
-				className="inline-flex items-center gap-2 font-mono text-sm text-muted-foreground hover:text-foreground"
+				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
 			>
-				<ArrowLeft className="size-4" aria-hidden="true" /> all projects
+				<ArrowLeft className="size-4" aria-hidden="true" /> All projects
 			</Link>
 
 			<header className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center">
@@ -68,30 +67,25 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
 					<h2 className="text-lg font-semibold tracking-tight">At a glance</h2>
 					<dl className="mt-3 border-t">
 						<div className="border-b py-3">
-							<dt className="font-mono text-xs text-muted-foreground">year</dt>
+							<dt className="text-sm text-muted-foreground">Year</dt>
 							<dd className="mt-1 tabular-nums">{meta.year}</dd>
 						</div>
 						{meta.stack.length > 0 && (
 							<div className="border-b py-3">
-								<dt className="font-mono text-xs text-muted-foreground">built with</dt>
+								<dt className="text-sm text-muted-foreground">Built with</dt>
 								<dd className="mt-1 font-mono text-sm leading-relaxed">{meta.stack.join(', ')}</dd>
 							</div>
 						)}
 					</dl>
 					{meta.links.length > 0 && (
 						<ul className="mt-6 space-y-2">
-							{meta.links.map((link, i) => (
+							{meta.links.map((link) => (
 								<li key={link.href}>
 									<a
 										href={link.href}
 										target="_blank"
 										rel="noopener noreferrer"
-										className={cn(
-											'flex items-center justify-between gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
-											i === 0
-												? 'bg-primary text-primary-foreground hover:bg-primary/85'
-												: 'border bg-card hover:border-primary'
-										)}
+										className="flex items-center justify-between gap-2 rounded-md border bg-card px-3 py-2 text-sm font-medium transition-colors hover:border-primary"
 									>
 										{link.label}
 										<ArrowUpRight className="size-4 shrink-0" aria-hidden="true" />

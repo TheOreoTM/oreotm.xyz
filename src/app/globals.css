@@ -58,8 +58,10 @@
 	--accent: #eeece6;
 	--accent-foreground: #18181b;
 	--destructive: #b91c1c;
-	--border: #e0ddd5;
-	--input: #e0ddd5;
+	/* Hairlines are the text colour at low strength, so they hold over any tone of the
+	   marbling behind them. */
+	--border: rgb(24 24 27 / 0.14);
+	--input: rgb(24 24 27 / 0.14);
 	--ring: #4d7c0f;
 	--faint: #8a877f;
 }
@@ -80,8 +82,8 @@
 	--accent: #1c1c1f;
 	--accent-foreground: #ececec;
 	--destructive: #f87171;
-	--border: #27272b;
-	--input: #27272b;
+	--border: rgb(236 236 236 / 0.14);
+	--input: rgb(236 236 236 / 0.14);
 	--ring: #a3e635;
 	--faint: #6b6b71;
 }
@@ -107,7 +109,7 @@
 	/* The parts the browser draws carry the palette too. */
 	* {
 		scrollbar-width: thin;
-		scrollbar-color: var(--border) transparent;
+		scrollbar-color: var(--faint) transparent;
 	}
 
 	h1,

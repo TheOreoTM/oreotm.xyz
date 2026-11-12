@@ -80,7 +80,8 @@ void main(){
 
   // Contours in the accent colour, only where the lamp is.
   float line = 1. - smoothstep(.004, .011, abs(fract(l * 9. + .5) - .5));
-  float lit = line * beam * glow * .85;
+  // Full strength at the top of the home page, a third of it where there is text to read.
+  float lit = line * beam * glow * mix(.3, .85, smoothstep(.82, 1., level));
   col = mix(col, ink, lit);
   alpha = max(alpha, lit);
 
@@ -152,13 +153,16 @@ export function Marble() {
 			const parts = getComputedStyle(probe).color.match(/[\d.]+/g) ?? ['0', '0', '0'];
 			return parts.slice(0, 3).map((part) => Number(part) / 255) as [number, number, number];
 		};
+		// Three tones stepped from the muted surface towards the faint text colour. The steps are
+		// small on purpose: muted text at body size still clears 4.5:1 on the brightest one
+		// (about 5:1 dark, 4.8:1 light), and none of them equals the hairline colour.
 		const tones = () => {
-			const border = rgb('--border');
+			const muted = rgb('--muted');
 			const faint = rgb('--faint');
-			gl.uniform3f(u.c1, ...rgb('--muted'));
-			gl.uniform3f(u.c2, ...border);
-			// The brightest tone: a step from the border colour towards the faint text colour.
-			gl.uniform3f(u.c3, ...(border.map((v, k) => v * 0.62 + faint[k] * 0.38) as typeof border));
+			const step = (t: number) => muted.map((v, k) => v * (1 - t) + faint[k] * t) as typeof muted;
+			gl.uniform3f(u.c1, ...muted);
+			gl.uniform3f(u.c2, ...step(0.12));
+			gl.uniform3f(u.c3, ...step(0.28));
 			gl.uniform3f(u.ink, ...rgb('--primary'));
 		};
 

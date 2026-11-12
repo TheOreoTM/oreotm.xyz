@@ -66,7 +66,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
 						<div className="lg:pl-60">
 							<main
 								id="main"
-								className="mx-auto max-w-[68rem] px-5 pt-10 sm:px-8 lg:px-12 lg:pt-20"
+								className="mx-auto max-w-[68rem] px-5 pt-10 sm:px-8 lg:px-12 lg:pt-14"
 							>
 								{children}
 							</main>

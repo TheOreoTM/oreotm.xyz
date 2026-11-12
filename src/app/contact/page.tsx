@@ -24,9 +24,9 @@ export default function ContactPage() {
 					Got a bot, website, or backend project in mind? Send me a message and tell me what
 					you&apos;re building.
 				</p>
-				<p className="mt-6 font-mono text-sm text-muted-foreground">
-					It&apos;s <LocalTime className="text-foreground" /> for me, in the {site.location} (
-					{site.utcOffset}).
+				<p className="mt-6 text-muted-foreground">
+					It&apos;s <LocalTime className="font-mono text-sm text-foreground" /> for me, in the{' '}
+					{site.location} ({site.utcOffset}).
 				</p>
 			</header>
 

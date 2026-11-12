@@ -69,8 +69,15 @@ export function Header() {
 			{/* The rail. */}
 			<header className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r px-5 py-6 lg:flex">
 				<Wordmark />
-				<p className="mt-1 truncate font-mono text-xs text-faint" title={`~${pathname}`}>
-					~{pathname === '/' ? '' : pathname}
+				{/* Where you are, as a path. The home page has none to show. */}
+				<p
+					className={cn(
+						'mt-1 truncate font-mono text-xs text-muted-foreground',
+						pathname === '/' && 'invisible'
+					)}
+					title={`~${pathname}`}
+				>
+					~{pathname}
 				</p>
 
 				<nav aria-label="Main" className="-mx-2 mt-10">
@@ -141,7 +148,7 @@ export function Header() {
 						<ThemeToggle />
 					</div>
 				</div>
-				<nav aria-label="Main" className="border-t px-4 font-mono text-sm">
+				<nav aria-label="Main" className="border-t px-4 text-sm">
 					<ul className="flex items-center gap-5 overflow-x-auto py-2.5">
 						{pages.map((link) => {
 							const active = isActive(pathname, link.path);
@@ -155,7 +162,10 @@ export function Header() {
 											active ? 'text-foreground' : 'text-muted-foreground'
 										)}
 									>
-										<span className={cn('text-primary', !active && 'invisible')} aria-hidden="true">
+										<span
+											className={cn('font-mono text-primary', !active && 'invisible')}
+											aria-hidden="true"
+										>
 											/
 										</span>
 										{link.label}

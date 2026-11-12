@@ -56,14 +56,14 @@ export function Work({ projects }: { projects: Project[] }) {
 									onPointerEnter={() => setSelected(index)}
 									onFocus={() => setSelected(index)}
 									className={cn(
-										'group grid grid-cols-[1rem_minmax(0,1fr)_auto] items-baseline gap-x-3 px-1 py-4 transition-colors duration-150 sm:px-3',
+										'group grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 px-1 py-4 transition-colors duration-150 sm:px-3 lg:grid-cols-[1rem_minmax(0,1fr)_auto]',
 										active ? 'lg:bg-foreground/[0.045]' : 'hover:bg-foreground/[0.03]'
 									)}
 								>
 									<span
 										className={cn(
-											'font-mono text-primary transition-opacity duration-150',
-											active ? 'lg:opacity-100' : 'lg:opacity-0'
+											'hidden font-mono text-primary transition-opacity duration-150 lg:block',
+											active ? 'opacity-100' : 'opacity-0'
 										)}
 										aria-hidden="true"
 									>
@@ -84,7 +84,10 @@ export function Work({ projects }: { projects: Project[] }) {
 						);
 					})}
 				</ul>
-				<p className="mt-3 hidden font-mono text-xs text-faint lg:block" aria-hidden="true">
+				<p
+					className="mt-3 hidden font-mono text-xs text-muted-foreground lg:block"
+					aria-hidden="true"
+				>
 					<kbd className="rounded border bg-card px-1 py-0.5">↑</kbd>{' '}
 					<kbd className="rounded border bg-card px-1 py-0.5">↓</kbd> to move,{' '}
 					<kbd className="rounded border bg-card px-1 py-0.5">Enter</kbd> to open
@@ -102,7 +105,7 @@ export function Work({ projects }: { projects: Project[] }) {
 						alt={project.imageAlt}
 						width={672}
 						height={378}
-						className="aspect-[2/1] w-full border-b bg-muted object-contain"
+						className="aspect-[5/2] w-full border-b bg-muted object-contain p-3"
 					/>
 					<div className="p-5">
 						<p className="text-[0.9375rem] leading-relaxed">{project.summary}</p>

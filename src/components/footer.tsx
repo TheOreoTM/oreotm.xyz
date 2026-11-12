@@ -12,7 +12,7 @@ export async function Footer() {
 
 	return (
 		<footer className="mx-auto mt-28 max-w-[68rem] px-5 sm:px-8 lg:px-12">
-			<div className="flex flex-col gap-4 border-t py-8 font-mono text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+			<div className="flex flex-col gap-4 border-t py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
 				<p>
 					© {year} {site.name}
 				</p>
