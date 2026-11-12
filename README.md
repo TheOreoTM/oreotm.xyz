@@ -20,14 +20,14 @@ pnpm install
 pnpm dev          # http://localhost:5173
 ```
 
-| Command         | What it does                              |
-| --------------- | ----------------------------------------- |
-| `pnpm dev`      | Start the dev server                      |
+| Command         | What it does                                  |
+| --------------- | --------------------------------------------- |
+| `pnpm dev`      | Start the dev server                          |
 | `pnpm build`    | Build for production (Node adapter, `build/`) |
-| `pnpm preview`  | Serve the production build locally        |
-| `pnpm check`    | Type-check with svelte-check              |
-| `pnpm lint`     | Check formatting with Prettier            |
-| `pnpm test:e2e` | Build, serve and run the Playwright tests |
+| `pnpm preview`  | Serve the production build locally            |
+| `pnpm check`    | Type-check with svelte-check                  |
+| `pnpm lint`     | Check formatting with Prettier                |
+| `pnpm test:e2e` | Build, serve and run the Playwright tests     |
 
 ## Writing content
 
