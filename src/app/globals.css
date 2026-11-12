@@ -94,15 +94,18 @@
 		@apply border-border outline-ring/50;
 	}
 
+	/* The page's ground is on <html>, and <body> has none of its own, so something placed
+	   behind the content (the home page's marbling, at a negative z-index) is still in front
+	   of the ground. */
 	html {
-		@apply font-sans antialiased;
+		@apply bg-background font-sans antialiased;
+		background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+		background-size: 24px 24px;
 	}
 
 	body {
-		@apply bg-background text-foreground;
+		@apply text-foreground;
 		min-height: 100dvh;
-		background-image: radial-gradient(var(--dot) 1px, transparent 1px);
-		background-size: 24px 24px;
 	}
 
 	::selection {

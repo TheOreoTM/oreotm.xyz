@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { LocalTime } from '@/components/local-time';
+import { Marble } from '@/components/marble';
 import { ProjectRow } from '@/components/project-row';
 import { SectionHeading } from '@/components/section-heading';
 import { SocialIcon } from '@/components/social-icon';
@@ -17,6 +18,8 @@ export default async function HomePage() {
 
 	return (
 		<>
+			<Marble />
+
 			{/* Hero */}
 			<section className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
 				<div>
