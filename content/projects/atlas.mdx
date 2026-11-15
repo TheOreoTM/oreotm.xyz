@@ -1,0 +1,77 @@
+---
+name: Atlas
+tagline: Fourteen apps moved off a paused hosting account onto one server I run myself.
+summary: My hosting account was paused for a month after going over the free plan's limit, and every site I run went down at once. Over a few days I moved all fourteen apps to a single VPS with push-to-deploy, HTTPS, uptime monitoring, alerts and public status pages.
+year: '2026'
+order: 3
+featured: false
+image: /atlas-preview.webp
+imageAlt: Diagram of the setup, with GitHub and DNS feeding one server that runs the apps, the proxy and the monitor
+stack:
+  - Docker
+  - Dokploy
+  - Traefik
+  - Let's Encrypt
+  - Uptime Kuma
+  - Cloudflare DNS
+  - Cloudflare R2
+  - GitHub
+  - Next.js
+  - SvelteKit
+  - Hono
+links:
+  - label: Live status page
+    href: https://ruh-status.oreotm.xyz
+---
+
+## Overview
+
+Everything I'd built ran on one free hosting account. In November 2026 that account used 4 hours 9 minutes of a 4 hour monthly compute allowance, and the host paused every project on it until the next month. A shop, a study site, a set of internal tools and my own sites all went down together.
+
+Atlas is what replaced it: one VPS that I run, where every app is a Docker container and a push to GitHub deploys it.
+
+## What runs on it
+
+Fourteen apps, across three groups:
+
+- **Ruh Labs**: the [StudyMV](/projects/studymv) study site, a shop and its staff app, the [developer tools API](/projects/ruh-devtools), the company site and its status page.
+- **A suite of six internal apps** for one organisation, plus their status page.
+- **This site.**
+
+Most are Next.js. This site was SvelteKit at the time, and the API and status pages are small Hono servers.
+
+## How a deploy works
+
+1. Each repo has a Dockerfile. I push to `main`.
+2. Dokploy, an open-source deployment panel on the server, gets the push from GitHub, builds the image and swaps the container.
+3. The proxy routes each domain to its container and gets an HTTPS certificate from Let's Encrypt.
+
+Scheduled jobs that used to be the host's cron feature became scheduled tasks on the server. Files that must survive a redeploy, like uploads and the status pages' history, live on volumes.
+
+## Knowing when something breaks
+
+I found out about the pause because a monitor I'd set up a few days earlier posted to Discord. It only covered a couple of sites then. Now it covers all of them.
+
+- **Uptime Kuma** checks every site once a minute and posts to Discord when one goes down or comes back.
+- **Two public status pages** read the monitor's data and keep their own 90-day history. On the Ruh Labs one, each service is drawn as a palm frond with a leaflet per day.
+
+## What went wrong along the way
+
+Moving off a platform shows you everything it was doing for you.
+
+- **Certificates need DNS first.** A domain added before its DNS pointed at the server never got a certificate. The fix was to remove the domain and add it again once DNS had moved.
+- **A standalone Next.js build leaves files behind.** The self-contained server doesn't include the `public` folder or static assets. They have to be copied in next to it, and in a monorepo the file tracing has to start from the repo root.
+- **Build-time surprises.** Prisma wanted a database URL just to generate its client during install. Auth.js refused sign-ins behind the proxy until it was told to trust the host header.
+- **Secrets I couldn't read back.** Values marked sensitive on the old host can be used there but never shown again, so a few keys had to be tracked down from other places.
+- **Node 26 has no Corepack.** The first build of this site failed because the Dockerfile enabled pnpm through a tool that newer Node images no longer ship.
+- **A cached stylesheet made a redesign look broken.** New HTML met an hour-old CSS file in the browser. Asset URLs now carry a content hash.
+
+## What it doesn't solve
+
+- **One server is one point of failure.** If it goes down, everything does. The difference from before is that I'll know within a minute, and I can fix it myself.
+- **It's farther away than I wanted.** The Singapore region was out of stock, so the server is in India, about 70 ms from the Maldives when I measured it.
+- **The databases haven't moved.** They're still on managed Postgres. That's next, along with proper metrics.
+
+## Built with
+
+Docker for every app, Dokploy for deploys with Traefik and Let's Encrypt underneath, Uptime Kuma for monitoring, Cloudflare for DNS and R2 for backups.
