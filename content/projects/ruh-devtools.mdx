@@ -1,0 +1,103 @@
+---
+name: Ruh Labs Devtools
+tagline: Open-source tools for Maldivian developers, on npm and as a free API.
+summary: Three small TypeScript packages for problems every Maldivian app runs into (Thaana transliteration, phone and ID card validation, atolls and island addresses), plus a free HTTP API with interactive docs that wraps the same code.
+year: '2026'
+order: 2
+featured: true
+image: /ruh-devtools-preview.webp
+imageAlt: The interactive documentation of the Ruh Labs API
+stack:
+  - TypeScript
+  - Node.js
+  - Hono
+  - Zod
+  - OpenAPI
+  - Scalar
+  - pnpm workspaces
+  - Changesets
+  - Vitest
+  - Docker
+links:
+  - label: Try the API docs
+    href: https://api.oreotm.xyz/docs
+  - label: Source on GitHub
+    href: https://github.com/ruhlabs/devtools
+  - label: '@ruhlabs/thaana on npm'
+    href: https://www.npmjs.com/package/@ruhlabs/thaana
+---
+
+## Overview
+
+Every app built for the Maldives ends up rewriting the same few things: turning Thaana into Latin letters for search, checking that a phone number is real, and filling an atoll dropdown. So I wrote them once, properly, and published them under Ruh Labs.
+
+There are two ways to use them. If you write JavaScript or TypeScript, install a package. If you don't, call the API, which runs the same code.
+
+## The packages
+
+All three have no dependencies, ship their types, and work in Node and the browser.
+
+### @ruhlabs/thaana
+
+Transliteration between Thaana and Latin script, and Thaana detection.
+
+```ts
+import { toLatin, toThaana, hasThaana } from '@ruhlabs/thaana';
+
+toLatin('ދިވެހިރާއްޖެ'); // "dhivehiraajje"
+toThaana('raajje'); // "ރާއްޖެ"
+hasThaana('hello ދިވެހި'); // true
+```
+
+Going to Latin follows the simplified Malé spelling people already type, including the fiddly parts: alifu with a sukun doubles the next consonant (ރާއްޖެ becomes `raajje`) or turns into an `h` at the end of a word. Going back to Thaana is best effort, because Latin spelling is ambiguous, and the README says so plainly: it's for search and input helpers, not official text.
+
+### @ruhlabs/validators
+
+Phone numbers and national ID card numbers.
+
+```ts
+import { parsePhone, isValidNationalId } from '@ruhlabs/validators';
+
+parsePhone('+960 777 1234');
+// {
+//   national: "7771234",
+//   e164: "+9607771234",
+//   international: "+960 777-1234",
+//   type: "mobile"
+// }
+
+isValidNationalId('A123456'); // true
+```
+
+`parsePhone` accepts the ways people really write a number (`7771234`, `777-1234`, `00960 7771234`) and returns one form to store and one to show. The ID check is format only. It can't tell you whether a card exists, and the docs point to eFaas for real identity verification.
+
+### @ruhlabs/atolls
+
+The 20 administrative atolls and 5 cities as typed data, with lookup and address helpers.
+
+```ts
+import { getAtoll, parseIslandAddress } from '@ruhlabs/atolls';
+
+getAtoll('Gaaf Dhaal')?.capital; // "Thinadhoo"
+parseIslandAddress('ބ. އޭދަފުށި');
+// { atoll: { code: "B", ... }, island: "އޭދަފުށި" }
+```
+
+Lookup takes whatever you have: a code, a code in Thaana, the everyday name, the official name or the ISO code.
+
+## The API
+
+For anything that can't use npm, the same functions are behind seven HTTP routes at `api.oreotm.xyz`. There's no API key, and requests are rate limited per IP.
+
+The routes are written once with Hono and Zod schemas. The OpenAPI document is generated from those schemas, and the interactive docs are generated from that document, so the docs can't drift from the code. You can run any request from the docs page.
+
+## How it's put together
+
+- **One repo, several packages.** A pnpm workspace holds the packages and the API. The API imports the packages directly, so a fix lands in both at once.
+- **Releases.** Changesets records what changed and versions each package, and GitHub Actions builds and tests every change before it's published to npm.
+- **Tests.** Each package has Vitest tests next to the code, and the API is tested through its routes.
+- **Hosting.** The API is bundled into a single file and runs in Docker on my own VPS. A status page that lives in the same repo shows whether it's up.
+
+## Built with
+
+TypeScript throughout. Hono with `@hono/zod-openapi` and Scalar for the API and its docs, pnpm workspaces and Changesets for the repo and releases, Vitest for tests, and Docker for hosting.
