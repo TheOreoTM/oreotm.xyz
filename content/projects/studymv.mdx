@@ -1,0 +1,68 @@
+---
+name: StudyMV
+tagline: Revision for A Level students in the Maldives, with an AI tutor that cites the textbook.
+summary: A study platform for Edexcel International A Level students in the Maldives. It has topic-by-topic practice with mastery tracking, timed mocks, study plans, a past-paper workspace, and an Islam tutor that answers from the national textbooks in English or Dhivehi and cites the page.
+year: '2026'
+order: 0
+featured: true
+image: /studymv-preview.webp
+imageAlt: The StudyMV home page, showing a unit's topics with a mastery score for each
+stack:
+  - Next.js
+  - React
+  - TypeScript
+  - Tailwind CSS
+  - shadcn/ui
+  - Prisma
+  - PostgreSQL
+  - Better Auth
+  - AI SDK
+  - Anthropic API
+  - Vitest
+  - Docker
+links:
+  - label: Visit the site
+    href: https://study.oreotm.xyz
+---
+
+## Overview
+
+StudyMV is a revision site for students in the Maldives sitting Pearson Edexcel International A Levels. It's built around one question: what should I revise next? The site still carries its first name, Study-IAL, while the rename is under way.
+
+It started as a past-papers site and grew into two things: a practice app organised by the exam specification, and a tutor for Islam, a local subject with next to no revision material online.
+
+## What's in it
+
+- **Practice by topic**: questions are tagged to specification points. Each answer updates a mastery score per topic, so the dashboard can say which topics are weak and what to do today.
+- **Mistake notebook and flashcards**: anything you lost marks on comes back, and flashcards use spaced repetition.
+- **Timed mocks**: a paper with a clock and autosave, self-marking against the mark scheme, and an indicative grade at the end.
+- **Study plans and exam countdowns**: a plan built around your exam dates, with one next step per unit.
+- **Past-paper workspace**: upload a paper, and the site splits it into questions you can attempt, mark and practise by topic.
+- **Search that never waits**: the curriculum index is downloaded once and searched in the browser, so no keystroke makes a request.
+- **A read-only progress link** for a parent or teacher.
+
+## The Islam tutor
+
+Islam is taught from the national (NIE) textbooks, which are written in Dhivehi. A general chatbot hasn't read them, so this tutor is grounded in the books themselves.
+
+1. **Getting the text out.** The textbooks are PDFs set in Thaana, which is written right to left with vowel marks (fili) above and below the letters. Text extraction often returns the marks detached or out of order. The ingestion pipeline reads one page at a time, repairs the layout, and measures how many marks are orphaned. Pages that fail the check are restored from the page image by a vision model. Those pages are labelled as restored, and the tutor paraphrases them instead of quoting.
+2. **Answering from the book.** The tutor searches the textbook pages and cites them, and each citation opens a preview of the page. Quran verses are never generated or translated by a model: they come verbatim from the Tanzil text.
+3. **Acting on the site.** The tutor has tools, so it can hand you a practice question, a past paper, a quiz or a set of flashcards as a card in the chat, not only text.
+4. **Three languages.** Replies come in English, Dhivehi, or a mixed mode that keeps the key Dhivehi and Arabic terms inline. A guard checks that a reply is in the language the student chose.
+
+Past papers for Islam come from the Department of Public Examinations. An import pipeline splits each paper into questions, pairs them with the marking scheme, translates them, and saves them as drafts that I review before publishing.
+
+## Keeping the AI honest and affordable
+
+- Every model call is logged with its token cost, and a monthly budget caps total spend. When the budget runs out, the tutor pauses and the rest of the site carries on.
+- Every AI feature has a fallback that works without AI, and each student has a quota per feature.
+- If the main provider is busy, the tutor falls back to the same model through a second provider.
+- AI marking of Islam answers is only a suggestion. The student confirms it before anything is saved.
+
+## Copyright
+
+Exam papers belong to the exam board, so they are never public. Files live in private storage and are served only to the signed-in student who uploaded them. The public past-papers page lists sittings, with no paper content, and the indexer stays out of the board's restricted window.
+
+## Built with
+
+Next.js App Router with React and TypeScript, Tailwind CSS with shadcn/ui, Prisma on PostgreSQL, and Better Auth for sign-in. The AI features use the AI SDK with the Anthropic API for the tutor and translations. The feature logic (mastery, spaced repetition, readiness, search ranking) is written as pure functions with Vitest tests next to the code. It runs in Docker on my own VPS.
