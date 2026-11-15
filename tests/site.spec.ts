@@ -4,6 +4,7 @@ const pages = [
 	'/',
 	'/projects',
 	'/projects/studymv',
+	'/projects/ruh-devtools',
 	'/projects/cardinal-bot',
 	'/projects/frieren-rag',
 	'/blog',
@@ -90,11 +91,11 @@ test('work list moves with the keyboard and previews the selected project', asyn
 	await page.keyboard.press('ArrowDown');
 	await expect(rows.nth(1)).toBeFocused();
 	await expect(page.getByRole('complementary', { name: /^Preview of / })).toHaveAccessibleName(
-		'Preview of Frieren TCG Wiki'
+		'Preview of Ruh Labs Devtools'
 	);
 	await page.keyboard.press('j');
 	await page.keyboard.press('Enter');
-	await expect(page).toHaveURL('/projects/cardinal-bot');
+	await expect(page).toHaveURL('/projects/frieren-tcg-wiki');
 });
 
 test('command menu opens with the shortcut and navigates', async ({ page }) => {
