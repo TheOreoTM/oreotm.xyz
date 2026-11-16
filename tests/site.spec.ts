@@ -5,6 +5,7 @@ const pages = [
 	'/projects',
 	'/projects/studymv',
 	'/projects/ruh-devtools',
+	'/projects/atlas',
 	'/projects/cardinal-bot',
 	'/projects/frieren-rag',
 	'/blog',
@@ -95,7 +96,7 @@ test('work list moves with the keyboard and previews the selected project', asyn
 	);
 	await page.keyboard.press('j');
 	await page.keyboard.press('Enter');
-	await expect(page).toHaveURL('/projects/frieren-tcg-wiki');
+	await expect(page).toHaveURL('/projects/atlas');
 });
 
 test('command menu opens with the shortcut and navigates', async ({ page }) => {

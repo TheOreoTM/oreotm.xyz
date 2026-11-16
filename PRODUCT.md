@@ -30,7 +30,7 @@ The work is backend-heavy: bots that look after servers, the APIs, databases and
 ## Capabilities and Constraints
 
 - Pages: home, projects index, project case studies, blog index with tag filter, blog posts, contact, 404.
-- Content is MDX in `content/projects` and `content/posts`, with frontmatter described in `src/lib/types.ts`. Six projects (StudyMV, Ruh Labs Devtools, Frieren TCG Wiki, Cardinal Bot, Frieren RAG, Gir Bot) and one post exist.
+- Content is MDX in `content/projects` and `content/posts`, with frontmatter described in `src/lib/types.ts`. Seven projects (StudyMV, Ruh Labs Devtools, Atlas, Frieren TCG Wiki, Cardinal Bot, Frieren RAG, Gir Bot) and one post exist.
 - A terminal on the home page runs real commands (navigation, project lookup, theme, tab completion). A command menu opens with Ctrl/⌘ K from any page.
 - Light and dark themes, following the system by default, with a toggle.
 - RSS feed, sitemap, per-page Open Graph images.
@@ -45,7 +45,7 @@ The work is backend-heavy: bots that look after servers, the APIs, databases and
 
 ## Evidence on Hand
 
-- Real: the six case studies and their stacks and links, one blog post, the avatar (`public/discord-pfp.png`), project images in `public/`, social links in `src/lib/site.ts`.
+- Real: the seven case studies and their stacks and links, one blog post, the avatar (`public/discord-pfp.png`), project images in `public/`, social links in `src/lib/site.ts`.
 - Absent, and not to be invented: testimonials, client names, user or server counts, uptime or performance figures, pricing, availability status.
 
 ## Product Principles
