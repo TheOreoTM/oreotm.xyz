@@ -21,6 +21,11 @@ COPY --from=build --chown=node:node /app/.next/standalone ./
 # The standalone output leaves out static assets and public files, so add them.
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
 COPY --from=build --chown=node:node /app/public ./public
+# tini runs first and reaps finished child processes. Without it, Node is PID 1 and never does,
+# so health-check runs that time out pile up as zombie processes on the host.
+ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static /tini
+RUN chmod +x /tini
+ENTRYPOINT ["/tini", "--"]
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
